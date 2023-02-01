@@ -1,2 +1,0 @@
-# EnglishLearningApplication
-Graduation Project
