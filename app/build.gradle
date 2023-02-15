@@ -17,7 +17,7 @@ android {
         // 指定App的应用版本号
         versionCode 1
         // 指定App的应用版本名称
-        versionName "1.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,6 +44,21 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // OkHttp3客户端库
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    // LitePal库，用于数据库相关处理
+    implementation 'org.litepal.guolindev:core:3.2.3'
+    implementation 'com.google.code.gson:gson:2.10'
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    //窗口动画
+    implementation 'io.github.razerdp:BasePopup:3.2.1'
+    //透明状态栏
+    implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
+
     // 指定单元测试编译用的junit版本号
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

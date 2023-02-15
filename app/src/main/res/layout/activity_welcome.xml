@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/img_welcome_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/aPictureADay"
+        android:scaleType="centerCrop" />
+
+    <!--    app:cardBackgroundColor：设置CardView的背景色，那为什么不是平时用的background属性呢？其实是因为background在cardView已经被其他功能占用了，比如阴影。-->
+    <!--    app:cardCornerRadius：表示设置cardView的圆角半径，如果宽高一致，设置半径值越高cardView越趋近圆形-->
+    <!--    app:cardElevation：表示设置阴影大小，注意这个阴影处理的好能有立体效果，也就是z轴-->
+    <!--    app:contentPadding：表示设置cardView的内部padding-->
+    <!--    app:cardUseCompatPadding：安卓5.0以上系统使用（PS：现在很少有低于7.0的系统了吧），默认为false，true则添加额外的padding绘制阴影-->
+    <!--    app:cardPreventCornerOverlap：同样是5.0系统以上用，表示添加额外的padding，防止cardView内部嵌套的内容和圆角重叠-->
+    <!--    app:cardMaxElevation：表示设置z轴的最大高度值-->
+    <!--    app:contentPaddingLeft：表示单独设置内容的左padding-->
+    <!--    app:contentPaddingTop：表示单独设置内容的上padding-->
+    <!--    app:contentPaddingRight：表示单独设置内容的右padding-->
+    <!--    app:contentPaddingBottom：表示单独设置内容的底padding-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="40sp"
+        app:cardCornerRadius="15sp"
+        app:cardElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15sp">
+
+            <TextView
+                android:id="@+id/text_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">词星骑士</string>
+    <string name="aPictureADay">每日一图</string>
+    <string name="icon_tips">一个起提示作用的图标</string>
+    <string name="welcome_introduction">
+        \t\t\t为更好地提升用户的使用体验，本软件会根据您使用的具体需要，收集必要的用户信息，如设备信息、存储等必要权限。\n
+        \t\t\t保护用户隐私是软件最基本的原则，本软件承诺不会泄露你的个人信息。衷心希望此款软件，可以成为您最好的学习伙伴。
+    </string>
+    <string name="welcome_introduction_agree">同 意</string>
+    <string name="welcome_introduction_disagree">不同意</string>
+    <string name="month">MAR</string>
+    <string name="day">23</string>
+    <string name="pennant">显示日期小旗子</string>
+    <string name="hi_word_knight">Hi, word knight!</string>
+    <string name="motto">War is a tragic life, and life is a slow-paced war</string>
+    <string name="english_dictionary">English dictionary</string>
+    <string name="numbers_of_words_each_day">numbers of words</string>
+    <string name="day_tips">每日小贴士</string>
 </resources>
