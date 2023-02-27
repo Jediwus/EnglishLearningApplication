@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@color/md_theme_light_primary"
+    android:background="@color/colorPrimary"
     android:layout_marginStart="30sp"
     android:layout_marginEnd="30sp"
     app:cardCornerRadius="20sp"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@color/md_theme_light_secondaryContainer"
+        android:background="@color/colorSecondaryContainer"
         android:paddingStart="30sp"
         android:paddingTop="20sp"
         android:paddingEnd="30sp"
@@ -27,12 +27,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:contentDescription="@string/icon_tips"
-            android:src="@drawable/icon_tips" />
+            android:src="@drawable/icon_information" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
+            android:textColor="@color/colorSecondary"
             android:text="@string/welcome_introduction" />
 
         <androidx.cardview.widget.CardView
@@ -42,7 +43,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15sp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
+            app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -53,13 +54,14 @@
                 android:paddingStart="50sp"
                 android:paddingTop="10sp"
                 android:paddingEnd="50sp"
-                android:background="@color/md_theme_light_tertiaryContainer"
+                android:background="@color/colorTertiaryContainer"
                 android:paddingBottom="10sp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textColor="@color/colorTertiary"
                     android:text="@string/welcome_introduction_agree"
                     android:textSize="15sp" />
 
@@ -73,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:textColor="@color/colorSecondary"
             android:text="@string/welcome_introduction_disagree" />
 
     </LinearLayout>

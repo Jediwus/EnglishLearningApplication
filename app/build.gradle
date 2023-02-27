@@ -54,10 +54,12 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
-    //窗口动画
+    // 窗口动画
     implementation 'io.github.razerdp:BasePopup:3.2.1'
-    //透明状态栏
+    // 透明状态栏
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
+    // 用于在 TextView 中自动调整字体大小以适应其容器的大小
+    implementation 'me.grantland:autofittextview:0.2.1'
 
     // 指定单元测试编译用的junit版本号
     testImplementation 'junit:junit:4.13.2'

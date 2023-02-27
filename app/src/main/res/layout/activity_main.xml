@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
+        app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@color/selector_bottom"
         app:itemTextColor="@color/selector_bottom"
-        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

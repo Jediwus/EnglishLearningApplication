@@ -117,23 +117,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     .showPopupWindow();
         } else {
             new Handler().postDelayed(() -> imgBackground.startAnimation(animation), 500);
-/*
-            // 设置学习提醒
-            if (ConfigData.getIsAlarm()) {
-                int hour = Integer.parseInt(ConfigData.getAlarmTime().split("-")[0]);
-                int minute = Integer.parseInt(ConfigData.getAlarmTime().split("-")[1]);
-                AlarmActivity.startAlarm(hour, minute, false, false);
-            }
 
-            // 设置通知栏单词
-            if (ConfigData.getIsNotifyLearn()) {
-                if (!BaseActivity.isServiceExisted(MyApplication.getContext(), NotifyLearnService.class.getName())) {
-                    // 检查当前是否数据有效
-                    LearningNotifyActivity.checkIsAvailable();
-                    LearningNotifyActivity.startService(ConfigData.getNotifyLearnMode());
-                }
-            }
-            */
+            // 学习提醒的开启
+
+            // 通知栏权限获取
         }
         MainActivity.lastFragment = 0;
         MainActivity.needRefresh = true;
@@ -160,27 +147,11 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             // 设置动画结束后事件
             @Override
             public void onAnimationEnd(Animation animation) {
-                // 动画结束，进入首页，并且选择词书
-//                if (ConfigData.getIsLogged()) {
-//                    List<UserConfig> userConfigs = LitePal.where("userId = ?", ConfigData.getQQNumLogged() + "").find(UserConfig.class);
-//                    if (userConfigs.get(0).getCurrentBookId() == -1) {
-//                        Intent intent = new Intent(WelcomeActivity.this, ChooseWordDBActivity.class);
-//                        startActivity(intent);
-//                    } else if (userConfigs.get(0).getCurrentBookId() != -1 && userConfigs.get(0).getWordNeedReciteNum() == 0) {
-//                        Intent intent = new Intent(WelcomeActivity.this, ChangePlanActivity.class);
-//                        startActivity(intent);
-//                    } else {
-                // 后台更新登录时间
-                //new Thread(() -> updateServerData()).start();
+                // 动画结束后进入首页
+
                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 startActivity(intent);
-//                    }
-//                }
-//                // 未登录，进入登录页面
-//                else {
-//                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                }
+
             }
 
             @Override

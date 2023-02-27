@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("精灵的挽留")
-                .setMessage("\n       作为词星骑士的你，难道今天就到此为止了吗？")
+                .setMessage("\t\t作为词星骑士的你，难道今天就到此为止了吗？")
                 .setPositiveButton("该休息啦", (dialog, which) -> {
                     needRefresh = true;
                     ActivityCollector.finishAll();

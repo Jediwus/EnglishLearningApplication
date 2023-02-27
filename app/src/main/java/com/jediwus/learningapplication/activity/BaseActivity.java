@@ -2,11 +2,14 @@ package com.jediwus.learningapplication.activity;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -43,9 +46,19 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, getClass().getSimpleName());
-        // 沉浸式状态栏
-        ImmersionBar.with(this)
+        // 根据昼夜模式改变状态栏颜色
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            // 沉浸式状态栏，黑夜模式设置成浅色
+            ImmersionBar.with(this)
+                    .statusBarDarkFont(false)
                     .init();
+        } else {
+            // 沉浸式状态栏，白昼模式设置成深色
+            ImmersionBar.with(this)
+                    .statusBarDarkFont(true)
+                    .init();
+        }
         ActivityCollector.addActivity(this);
         // 防止输入法将布局顶上去
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -104,7 +117,7 @@ public class BaseActivity extends AppCompatActivity {
                         }
                     }
                     if (deniedPermissions.isEmpty()) {
-                        // 说明都授权了
+                        // 表示已经全部授权
                         mListener.onGranted();
                     } else {
                         mListener.onDenied(deniedPermissions);
