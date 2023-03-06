@@ -1,5 +1,5 @@
-# JediwusLearningAPP
-This is my graduation project, named English Learning Application. I'm doing it while I'm learning, aims to create a suitable application for college students to recite English words, App temporarily named JediwusLearningAPP.
+# EnglishLearningApplication
+This is my graduation project, named English Learning Application. I'm doing it while I'm learning, aims to create a suitable application for college students to recite English words, App temporarily named Word Knight.
 
 我的毕业小设计。目前正在边学边做，旨在制作一个适合大学生背单词的应用软件，App暂时命名为JediwusLearningAPP。
 
