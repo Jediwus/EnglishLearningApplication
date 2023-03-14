@@ -35,6 +35,9 @@ android {
 }
 // 指定App编译的依赖信息
 dependencies {
+    // 微信API
+    api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.20'
+
     // 指定编译Android的高版本支持库。如AppCompatActivity必须指定编译appcompat库
     // appcompat库各版本见 https://mvnrepository.com/artifact/androidx.appcompat/appcompat
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -47,19 +50,21 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     // OkHttp3客户端库
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
     // LitePal库，用于数据库相关处理
     implementation 'org.litepal.guolindev:core:3.2.3'
-    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
     // 窗口动画
     implementation 'io.github.razerdp:BasePopup:3.2.1'
     // 透明状态栏
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
     // 用于在 TextView 中自动调整字体大小以适应其容器的大小
     implementation 'me.grantland:autofittextview:0.2.1'
+    // 提供支持图像缩放、平移和缩放的 ImageView 实现
+    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
 
     // 指定单元测试编译用的junit版本号
     testImplementation 'junit:junit:4.13.2'

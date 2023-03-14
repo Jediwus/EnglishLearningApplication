@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    图标颜色的夜间模式选择-->
+    <color name="colorCardWordDetail">#23261C</color>
     <color name="colorPrimary">@color/md_theme_dark_primary</color>
     <color name="colorOnPrimary">@color/md_theme_dark_onPrimary</color>
     <color name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</color>

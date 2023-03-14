@@ -3,6 +3,9 @@ package com.jediwus.learningapplication.database;
 import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
+/**
+ * 我的日期类.
+ */
 public class MyDate extends LitePalSupport {
 
     @Column(unique = true)
@@ -17,13 +20,13 @@ public class MyDate extends LitePalSupport {
     // 日
     private int date;
 
-    // 在这一天新学多少单词
+    // 此日新学单词数量
     private int wordLearnNumber;
 
-    // 在这一天复习多少单词
+    // 此日复习单词数量
     private int wordReviewNumber;
 
-    // 在这一天的心情感悟
+    // 学习心得与感受
     private String remark;
 
     // 归属用户

@@ -7,7 +7,31 @@
     <!-- 管理数据库中的表，一个类对应的一个表，暂时为空，后面增加表需要添加对应的类进来   -->
     <list>
         <mapping class="com.jediwus.learningapplication.database.DailyData" />
-        <mapping class="com.jediwus.learningapplication.database.UserConfig" />
+
+        <mapping class="com.jediwus.learningapplication.database.MyDate" />
+
+        <mapping class="com.jediwus.learningapplication.database.User" />
+
+        <mapping class="com.jediwus.learningapplication.database.UserPreference" />
+
         <mapping class="com.jediwus.learningapplication.database.Word" />
+
+        <mapping class="com.jediwus.learningapplication.database.Translation" />
+
+        <mapping class="com.jediwus.learningapplication.database.Phrase" />
+
+        <mapping class="com.jediwus.learningapplication.database.Sentence" />
+
+        <mapping class="com.jediwus.learningapplication.database.Conjugation" />
+        <mapping class="com.jediwus.learningapplication.database.ConjugationItems" />
+
+        <mapping class="com.jediwus.learningapplication.database.Synonym" />
+        <mapping class="com.jediwus.learningapplication.database.SynonymItems" />
+
+        <mapping class="com.jediwus.learningapplication.database.Favorites" />
+        <mapping class="com.jediwus.learningapplication.database.FavoritesLinkWord" />
+
     </list>
+
+
 </litepal>

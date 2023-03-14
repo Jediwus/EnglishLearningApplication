@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:transitionName="imgSearch"
+            android:transitionName="fab_transition"
             app:cardBackgroundColor="@color/colorSecondaryContainer"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp">

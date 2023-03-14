@@ -9,10 +9,6 @@ public class DailyData extends LitePalSupport {
 
     private int id;
 
-    // private byte[] picVertical;
-
-    // private byte[] picHorizontal;
-
     public String getPicVertical() {
         return picVertical;
     }
@@ -48,22 +44,6 @@ public class DailyData extends LitePalSupport {
     public void setId(int id) {
         this.id = id;
     }
-
-//    public byte[] getPicVertical() {
-//        return picVertical;
-//    }
-//
-//    public void setPicVertical(byte[] picVertical) {
-//        this.picVertical = picVertical;
-//    }
-//
-//    public byte[] getPicHorizontal() {
-//        return picHorizontal;
-//    }
-//
-//    public void setPicHorizontal(byte[] picHorizontal) {
-//        this.picHorizontal = picHorizontal;
-//    }
 
     public String getDailyChs() {
         return dailyChs;

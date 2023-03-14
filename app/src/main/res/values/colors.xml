@@ -63,6 +63,7 @@
     <color name="md_theme_dark_scrim">#000000</color>
 
     <!--    图标颜色的日间模式选择-->
+    <color name="colorCardWordDetail">#F5F4E9</color>#23261C
     <color name="colorPrimary">@color/md_theme_light_primary</color>
     <color name="colorOnPrimary">@color/md_theme_light_onPrimary</color>
     <color name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</color>

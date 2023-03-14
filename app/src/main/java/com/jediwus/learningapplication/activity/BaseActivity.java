@@ -3,13 +3,11 @@ package com.jediwus.learningapplication.activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -19,18 +17,17 @@ import androidx.core.content.ContextCompat;
 
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
+import com.jediwus.learningapplication.config.ExternalData;
 import com.jediwus.learningapplication.database.DailyData;
-import com.jediwus.learningapplication.config.PersistentData;
-import com.jediwus.learningapplication.gson.BingPic;
-import com.jediwus.learningapplication.gson.DailyQuot;
+import com.jediwus.learningapplication.gson.JsonBingPic;
+import com.jediwus.learningapplication.gson.JsonDailyQuot;
 import com.jediwus.learningapplication.model.PermissionListener;
-import com.jediwus.learningapplication.util.ActivityCollector;
-import com.jediwus.learningapplication.util.HttpHelper;
-import com.jediwus.learningapplication.util.TimeController;
+import com.jediwus.learningapplication.myUtil.ActivityCollector;
+import com.jediwus.learningapplication.myUtil.HttpHelper;
+import com.jediwus.learningapplication.myUtil.TimeController;
 
 import org.litepal.LitePal;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,11 +156,11 @@ public class BaseActivity extends AppCompatActivity {
         // 重置LitePal数据
         LitePal.deleteAll(DailyData.class);
         DailyData dailyData = new DailyData();
-        json = HttpHelper.requestResult(PersistentData.IMG_API);
+        json = HttpHelper.requestResult(ExternalData.IMG_API);
         Log.d(TAG, "每日一图数据" + json);
         Gson gsonPic = new Gson();
-        BingPic bingPic = gsonPic.fromJson(json, BingPic.class);
-        picUrl = PersistentData.IMG_API_BEFORE + bingPic.getImages().get(0).getUrl();
+        JsonBingPic bingPic = gsonPic.fromJson(json, JsonBingPic.class);
+        picUrl = ExternalData.IMG_API_BEFORE + bingPic.getImages().get(0).getUrl();
         Log.d(TAG, "获取水平图片url: " + picUrl);
         if (picUrl.contains("1920x1080")) {
             result = picUrl.replace("1920x1080", "1080x1920");
@@ -171,9 +168,9 @@ public class BaseActivity extends AppCompatActivity {
             result = picUrl;
         }
         Log.d(TAG, "获取垂直图片url: " + result);
-        json = HttpHelper.requestResult(PersistentData.DAILY_SENTENCE_API);
+        json = HttpHelper.requestResult(ExternalData.DAILY_SENTENCE_API);
         Gson gsonQuot = new Gson();
-        DailyQuot dailyQuot = gsonQuot.fromJson(json, DailyQuot.class);
+        JsonDailyQuot dailyQuot = gsonQuot.fromJson(json, JsonDailyQuot.class);
         dailyCh = dailyQuot.getNote();
         dailyEn = dailyQuot.getContent();
         dailyData.setPicHorizontal(picUrl);
@@ -190,13 +187,6 @@ public class BaseActivity extends AppCompatActivity {
         getWindow().setExitTransition(new Fade().setDuration(500));
         getWindow().setReenterTransition(new Fade().setDuration(500));
         getWindow().setReturnTransition(new Fade().setDuration(500));
-    }
-
-    public void windowSlide(int position) {
-        getWindow().setEnterTransition(new Slide(position).setDuration(300));
-        getWindow().setExitTransition(new Slide(position).setDuration(300));
-        getWindow().setReenterTransition(new Slide(position).setDuration(300));
-        getWindow().setReturnTransition(new Slide(position).setDuration(300));
     }
 
     public void windowExplode() {

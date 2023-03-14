@@ -15,12 +15,12 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
@@ -28,26 +28,33 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.BaseActivity;
-import com.jediwus.learningapplication.activity.DaySentenceActivity;
+import com.jediwus.learningapplication.activity.DailyMottoActivity;
 import com.jediwus.learningapplication.activity.MainActivity;
 import com.jediwus.learningapplication.activity.SearchActivity;
 import com.jediwus.learningapplication.activity.WordDetailActivity;
-import com.jediwus.learningapplication.activity.WordFolderActivity;
-import com.jediwus.learningapplication.config.ConfigData;
+import com.jediwus.learningapplication.activity.WordFavoritesActivity;
+import com.jediwus.learningapplication.config.DataConfig;
+import com.jediwus.learningapplication.config.ExternalData;
 import com.jediwus.learningapplication.database.MyDate;
+import com.jediwus.learningapplication.database.Translation;
+import com.jediwus.learningapplication.database.UserPreference;
 import com.jediwus.learningapplication.database.Word;
+import com.jediwus.learningapplication.myUtil.NumberController;
 
 import org.litepal.LitePal;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 public class FragmentWord extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "FragmentWord";
 
+    private boolean isOnClick = true;
+
     public static int prepareData = 0;
+
+    private int currentBookId;
 
     private int currentRandomId;
 
@@ -55,13 +62,11 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
 
     private Button btn_start;
 
-    private CardView cardStart, cardSearch;
+    private CardView cardSearch;
 
     private ImageView img_refresh, img_flag;
 
-    private View trans_flagView, trans_folderView;
-
-    private TextView text_start;
+    private View trans_flagView;
 
     private RelativeLayout layout_files;
 
@@ -70,8 +75,6 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
     private TextView text_day, text_month;
     // 声明一个视图对象
     protected View mView;
-    // 声明一个上下文对象
-    protected Context mContext;
 
     // 创建碎片视图，创建Fragment的布局视图时调用，该方法返回一个View对象，用于构建Fragment的UI界面。
     @SuppressLint("ClickableViewAccessibility")
@@ -80,6 +83,8 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_word, container, false);
         fab_search = mView.findViewById(R.id.fab);
+        CardView cardView_today_word = mView.findViewById(R.id.card_today_word);
+        CardView cardView_word_folder = mView.findViewById(R.id.card_word_folder);
         // 创建动画效果
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(500);
@@ -90,6 +95,13 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
             // 缩放 FloatingActionButton 控件
             fab_search.setScaleX(progress);
             fab_search.setScaleY(progress);
+
+            cardView_today_word.setScaleX(progress);
+            cardView_today_word.setScaleY(progress);
+
+            cardView_word_folder.setScaleX(progress);
+            cardView_word_folder.setScaleY(progress);
+
         });
         // 开始动画效果
         animator.start();
@@ -122,11 +134,12 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                         return true;
                     case MotionEvent.ACTION_UP:
                         if ((motionEvent.getRawX() - initialTouchX) == 0 || (motionEvent.getRawY() - initialTouchY) == 0) {
+
                             Intent intentSearch = new Intent(getActivity(), SearchActivity.class);
                             intentSearch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intentSearch);
-                            // 处理点击事件
-                            //handleClickEvent();
+                            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                    requireActivity(), fab_search, "fab_transition");
+                            startActivity(intentSearch, options.toBundle());
                         }
 
                         return true;
@@ -171,7 +184,6 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         btn_start = view.findViewById(R.id.btn_start);
         btn_start.setOnClickListener(this);
 
-        trans_folderView = view.findViewById(R.id.view_folder_transition);
 
         trans_flagView = view.findViewById(R.id.view_flag_transition);
 
@@ -191,35 +203,15 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         outState.putInt("fabY", (int) fab_search.getY());
     }
 
-//    private void handleClickEvent() {
-//        /*// 创建 PopupMenu
-//        PopupMenu popupMenu = new PopupMenu(FragmentWord.this.getContext(), fab_search);
-//        popupMenu.getMenuInflater().inflate(R.menu.bottom_nav_menu, popupMenu.getMenu());
-//        // 设置菜单项的点击事件
-//        popupMenu.setOnMenuItemClickListener(item -> {
-//            // 处理菜单项的点击事件
-//            // ...
-//            return true;
-//        });
-//
-//        // 显示 PopupMenu
-//        popupMenu.show();*/
-//        Intent intentSearch = new Intent(getActivity(), SearchActivity.class);
-//        intentSearch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        ActivityOptionsCompat activityOptionsCompat2 = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
-//                trans_searchView, "fab_transition");
-//        startActivity(intentSearch, activityOptionsCompat2.toBundle());
-//    }
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_top_flag:
-                Intent mIntent = new Intent(getActivity(), DaySentenceActivity.class);
+                Intent mIntent = new Intent(getActivity(), DailyMottoActivity.class);
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
-                        trans_flagView, "view_flag_transition");
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        requireActivity(), trans_flagView, "view_flag_transition");
                 startActivity(mIntent, activityOptionsCompat.toBundle());
                 break;
 
@@ -249,16 +241,19 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
             case R.id.text_main_word_meaning:
                 WordDetailActivity.wordId = currentRandomId;
                 Intent intent = new Intent(getActivity(), WordDetailActivity.class);
-                intent.putExtra(WordDetailActivity.TYPE_NAME, WordDetailActivity.TYPE_GENERAL);
-                startActivity(intent);
-                Log.d(TAG, "onClick: 点击跳转至单词释义的页面");
+                intent.putExtra(WordDetailActivity.TYPE_NAME, WordDetailActivity.TYPE_CHECK);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(
+                        view, 0, 0, view.getWidth(), view.getHeight());
+
+                startActivity(intent,options.toBundle());
+                Log.d(TAG, "onClick: 跳转至单词释义的页面");
                 break;
 
             case R.id.layout_main_word_file:
-                Intent intentWordFolder = new Intent(getContext(), WordFolderActivity.class);
-                startActivity(intentWordFolder);
-//                startActivity(intentWordFolder, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                Log.d(TAG, "onClick: 点击收藏的relativelayout");
+                Intent intentWordFolder = new Intent(getContext(), WordFavoritesActivity.class);
+                startActivity(intentWordFolder, ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle());
+                Log.d(TAG, "onClick: 跳转至单词夹页面");
                 break;
 
             case R.id.index_start:
@@ -279,19 +274,79 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         Log.d(TAG, "onStart: ");
         Calendar calendar = Calendar.getInstance();
         text_day.setText(calendar.get(Calendar.DATE) + "");
-        text_month.setText(DaySentenceActivity.getMonthName(calendar));
+        text_month.setText(DailyMottoActivity.getMonthName(calendar));
 
-
-
-
-
+        List<Word> wordList = LitePal.where("deepMasterTimes <> ?", 3 + "").select("wordId").find(Word.class);
+        List<MyDate> myDateList = LitePal.where("year = ? and month = ? and date = ? and userId = ?",
+                calendar.get(Calendar.YEAR) + "",
+                (calendar.get(Calendar.MONTH) + 1) + "",
+                calendar.get(Calendar.DATE) + "",
+                DataConfig.getWeChatNumLogged() + "").find(MyDate.class);
+        if (!wordList.isEmpty()) {
+            if (myDateList.isEmpty()) { // 计划为待完成状态
+                btn_start.setText("点击此处开启今日任务");
+                isOnClick = true;
+            } else {
+                if ((myDateList.get(0).getWordLearnNumber() + myDateList.get(0).getWordReviewNumber()) > 0) { // 完成计划
+                    btn_start.setBackgroundColor(requireActivity().getColor(R.color.colorSurfaceVariant));
+                    btn_start.setTextColor(requireActivity().getColor(R.color.colorOnSurfaceVariant));
+                    btn_start.setText("今日任务已完成!");
+                    btn_start.setClickable(false);
+                    isOnClick = false;
+                } else { // 未完成计划
+                    btn_start.setText("点击此处开启今日任务");
+                    isOnClick = true;
+                }
+            }
+        } else {
+            btn_start.setBackgroundColor(requireActivity().getColor(R.color.colorSurfaceVariant));
+            btn_start.setTextColor(requireActivity().getColor(R.color.colorOnSurfaceVariant));
+            btn_start.setText("您对此书的试炼已完成！");
+            btn_start.setClickable(false);
+            isOnClick = false;
+        }
+        // 设置界面数据
+        List<UserPreference> userPreferenceList = LitePal.where("userId = ?",
+                DataConfig.getWeChatNumLogged() + "").find(UserPreference.class);
+        currentBookId = userPreferenceList.get(0).getCurrentBookId();
+        text_wordNum.setText("每日任务：" + userPreferenceList.get(0).getWordNeedReciteNum() + "词");
+        text_book.setText(ExternalData.getBookNameById(currentBookId));
+        if (prepareData == 0) {
+            // 设置随机数据
+            setRandomWord();
+        }
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
 
     /**
      * 设置一个随机单词
      */
     private void setRandomWord() {
+        ++prepareData;
+        Log.d(TAG, "setRandomWord: " + ExternalData.getWordsTotalNumbersById(currentBookId));
 
+        int randomId = NumberController.getRandomNumber(1, ExternalData.getWordsTotalNumbersById(currentBookId));
+        currentRandomId = randomId;
+        Log.d(TAG, "setRandomWord: 当前randomId-" + randomId + " ,要传入的currentRandomId-" + currentRandomId);
+
+        Word word = LitePal.where("wordId = ?", randomId + "").select("wordId", "word").find(Word.class).get(0);
+        text_word.setText(word.getWord());
+
+        List<Translation> translations = LitePal.where("wordId = ?", word.getWordId() + "").find(Translation.class);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < translations.size(); ++i) {
+            stringBuilder.append(translations.get(i).getWordType())
+                    .append(". ")
+                    .append(translations.get(i).getCnMeaning());
+            if (i != translations.size() - 1) {
+                stringBuilder.append("\n");
+            }
+        }
+        text_meaning.setText(stringBuilder.toString());
     }
 }

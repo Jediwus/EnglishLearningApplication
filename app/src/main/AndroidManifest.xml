@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".util.MyApplication"
+        android:name=".myUtil.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -26,7 +26,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="32">
         <activity
-            android:name=".activity.DaySentenceActivity"
+            android:name=".activity.ModifyDataActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.CustomPictureActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.LearningActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.DailyMottoActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -40,7 +61,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.WordFolderActivity"
+            android:name=".activity.WordFavoritesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -75,14 +96,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.ChangePlanActivity"
+            android:name=".activity.LearningPlanActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.ChooseWordDBActivity"
+            android:name=".activity.ChooseWordBookActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

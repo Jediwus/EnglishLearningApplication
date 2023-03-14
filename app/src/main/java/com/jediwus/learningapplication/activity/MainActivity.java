@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,15 +15,9 @@ import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.fragment.FragmentMe;
 import com.jediwus.learningapplication.activity.fragment.FragmentReview;
 import com.jediwus.learningapplication.activity.fragment.FragmentWord;
-import com.jediwus.learningapplication.util.ActivityCollector;
+import com.jediwus.learningapplication.myUtil.ActivityCollector;
 
 public class MainActivity extends BaseActivity {
-
-    private BottomNavigationView bottomNavigationView;
-
-    private LinearLayout linearLayout;
-
-    private Fragment fragWord, fragReview, fragMe;
 
     private Fragment[] fragments;
 
@@ -42,8 +35,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "onCreate: 进入主页面");
-        bottomNavigationView = findViewById(R.id.bottom_nav);
-        linearLayout = findViewById(R.id.linear_frag_container);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+
         // 导航栏上升动画
         if (needRefresh) {
             TranslateAnimation animation = new TranslateAnimation(
@@ -53,10 +46,12 @@ public class MainActivity extends BaseActivity {
             animation.setDuration(1000);
             bottomNavigationView.startAnimation(animation);
         }
-        fragWord = new FragmentWord();
-        fragReview = new FragmentReview();
-        fragMe = new FragmentMe();
+
+        Fragment fragWord = new FragmentWord();
+        Fragment fragReview = new FragmentReview();
+        Fragment fragMe = new FragmentMe();
         fragments = new Fragment[]{fragWord, fragReview, fragMe};
+
         switch (lastFragment) {
             case 0:
                 getSupportFragmentManager().beginTransaction().replace(R.id.linear_frag_container,

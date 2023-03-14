@@ -4,7 +4,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jediwus.learningapplication.entity.ItemWordMeanChoice;
+import com.jediwus.learningapplication.pojo.ItemWordMeanChoice;
 
 public interface OnItemClickListener {
 

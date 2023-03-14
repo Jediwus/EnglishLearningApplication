@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/img_word_detail_item_sentence_voice"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_word_detail_item_sen_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/access_to_the_papers_is_restricted_to_senior_management"
+            android:textColor="@color/colorOutline"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_word_detail_item_sen_cn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/access_to_the_papers_is_restricted_to_senior_management_cn"
+            android:textColor="@color/colorOutline"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginStart="3dp"
+        android:id="@+id/img_word_detail_item_sentence_voice"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:padding="3dp"
+        android:layout_alignParentEnd="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/icon_volume"
+        android:contentDescription="@string/icon_sound" />
+
+</RelativeLayout>
