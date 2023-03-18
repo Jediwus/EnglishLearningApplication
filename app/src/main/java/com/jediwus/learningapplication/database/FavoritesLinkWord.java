@@ -6,8 +6,7 @@ public class FavoritesLinkWord extends LitePalSupport {
 
     private int wordId;
 
-    private int folderId;
-
+    private int favoritesId;
 
     public int getWordId() {
         return wordId;
@@ -17,11 +16,11 @@ public class FavoritesLinkWord extends LitePalSupport {
         this.wordId = wordId;
     }
 
-    public int getFolderId() {
-        return folderId;
+    public int getFavoritesId() {
+        return favoritesId;
     }
 
-    public void setFolderId(int folderId) {
-        this.folderId = folderId;
+    public void setFavoritesId(int favoritesId) {
+        this.favoritesId = favoritesId;
     }
 }

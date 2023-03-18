@@ -1,7 +1,5 @@
 package com.jediwus.learningapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.jediwus.learningapplication.R;

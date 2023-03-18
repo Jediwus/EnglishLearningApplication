@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity {
                     Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f,
                     Animation.RELATIVE_TO_PARENT, 1.0f, Animation.RELATIVE_TO_PARENT, 0.0f
             );
-            animation.setDuration(1000);
+            animation.setDuration(1300);
             bottomNavigationView.startAnimation(animation);
         }
 

@@ -191,31 +191,39 @@ public class FileUtil {
 
 
     /**
-     * 压缩.
+     * 压缩图片.
      *
      * @param bitmap the bitmap
      * @param size   the size
      * @return the byte [ ]
      */
     public static byte[] bitmapCompress(Bitmap bitmap, int size) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        // 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到 byteArrayOutputStream 中
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        int quality = 100;
-        // 循环判断如果压缩后图片是否大于 100kb，大于继续压缩，这里的要求数值可根据需求设置
-        while (byteArrayOutputStream.toByteArray().length / 1024 > size) {
-            // 清空 byteArrayOutputStream
-            byteArrayOutputStream.reset();
-            // 这里压缩 quality%，把压缩后的数据存放到 byteArrayOutputStream 中
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
-            if (quality - 10 <= 0) {
-                break;
-            } else { // 每次都减少10
-                quality -= 10;
+        byte[] bytes = new byte[0];
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            // 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到 byteArrayOutputStream 中
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            int quality = 100;
+            // 循环判断如果压缩后图片是否大于 100kb，大于继续压缩，这里的要求数值可根据需求设置
+            while (byteArrayOutputStream.toByteArray().length / 1024 > size) {
+                // 清空 byteArrayOutputStream
+                byteArrayOutputStream.reset();
+                // 这里压缩 quality%，把压缩后的数据存放到 byteArrayOutputStream 中
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
+                if (quality - 10 <= 0) {
+                    break;
+                } else { // 每次都减少10
+                    quality -= 10;
+                    Log.d(TAG, "bitmapCompress: 压缩quality-10");
+                }
             }
+            //转为字节数组返回
+            bytes = byteArrayOutputStream.toByteArray();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        //转为字节数组返回
-        return byteArrayOutputStream.toByteArray();
+        return bytes;
+
     }
 
 

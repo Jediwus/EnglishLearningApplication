@@ -85,8 +85,8 @@ public class LearningPlanActivity extends BaseActivity {
                     );
                     break;
                 case DOWNLOADED:
-                    progressDialog.setTitle("请耐心等待");
-                    progressDialog.setMessage("词书数据包已下载完成，正在为您解压...");
+                    progressDialog.setTitle("Tips");
+                    progressDialog.setMessage("正在解压数据包并导入本地数据库，可能会占用您一些时间，请耐心等待");
                     break;
                 default:
                     break;
@@ -146,7 +146,7 @@ public class LearningPlanActivity extends BaseActivity {
                         // 开启等待框
                         progressDialog = new ProgressDialog(LearningPlanActivity.this);
                         progressDialog.setTitle("Downloading");
-                        progressDialog.setMessage("数据包正在玩命加载中...");
+                        progressDialog.setMessage("数据包正在玩命下载中...");
                         progressDialog.setCancelable(false);
                         progressDialog.show();
 
@@ -190,7 +190,7 @@ public class LearningPlanActivity extends BaseActivity {
 
                             thread.start();
 
-                        }, 500);
+                        }, 1000);
 
                     } else {
                         if (userPreferences.get(0).getWordNeedReciteNum() != Integer.parseInt(edit_text.getText().toString().trim())) {

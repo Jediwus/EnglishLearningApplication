@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/access_to_the_papers_is_restricted_to_senior_management"
-            android:textColor="@color/colorOutline"
             android:textSize="14sp" />
 
         <TextView
@@ -25,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/access_to_the_papers_is_restricted_to_senior_management_cn"
-            android:textColor="@color/colorOutline"
             android:textSize="13sp" />
 
     </LinearLayout>

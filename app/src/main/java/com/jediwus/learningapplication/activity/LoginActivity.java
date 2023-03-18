@@ -6,14 +6,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.animation.AlphaAnimation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
-import com.bumptech.glide.Glide;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.database.User;
@@ -25,8 +23,6 @@ import org.litepal.LitePal;
 import java.util.List;
 
 public class LoginActivity extends BaseActivity {
-
-    private static final String TAG = "LoginActivity";
 
     private final int SUCCESS = 1;
     private final int FAILED = 2;
@@ -52,16 +48,16 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ImageView imgPortrait = findViewById(R.id.img_portrait);
+        LinearLayout layout = findViewById(R.id.linear_login);
+//        ImageView imgPortrait = findViewById(R.id.img_portrait);
         CardView cardLogin = findViewById(R.id.card_login_2);
-        LinearLayout linearLayout = findViewById(R.id.linear_login);
 
-        Glide.with(this).load(R.drawable.gif_hikari).into(imgPortrait);
+//        Glide.with(this).load(R.drawable.icon_helmet).into(imgPortrait);
 
         // 渐变动画
         AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
-        animation.setDuration(3000);
-        imgPortrait.startAnimation(animation);
+        animation.setDuration(2000);
+        layout.startAnimation(animation);
 
         cardLogin.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
@@ -104,9 +100,7 @@ public class LoginActivity extends BaseActivity {
         message.what = SUCCESS;
         handler.sendMessage(message);
 
-
     }
-
 
     @Override
     public void onBackPressed() {

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import androidx.annotation.LayoutRes;
+
 import com.jediwus.learningapplication.R;
 
 import razerdp.basepopup.BasePopupWindow;
@@ -14,7 +16,6 @@ public class MyPopupWindow extends BasePopupWindow {
 
     public MyPopupWindow(Context context) {
         super(context);
-        setContentView(R.layout.item_welcome_introduction);
         setShowAnimation(createShowAnimation());
         setDismissAnimation(createDismissAnimation());
     }

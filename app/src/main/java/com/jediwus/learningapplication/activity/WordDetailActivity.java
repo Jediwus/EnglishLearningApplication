@@ -4,13 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,7 +31,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
+import com.jediwus.learningapplication.activity.fragment.BottomSheetDialogFragmentCustom;
 import com.jediwus.learningapplication.adapter.PhraseAdapter;
 import com.jediwus.learningapplication.adapter.SentenceAdapter;
 import com.jediwus.learningapplication.database.Conjugation;
@@ -39,7 +47,9 @@ import com.jediwus.learningapplication.database.SynonymItems;
 import com.jediwus.learningapplication.database.Translation;
 import com.jediwus.learningapplication.database.Word;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
+import com.jediwus.learningapplication.myUtil.FileUtil;
 import com.jediwus.learningapplication.myUtil.MediaHelper;
+import com.jediwus.learningapplication.myUtil.MyPopupWindow;
 import com.jediwus.learningapplication.pojo.ItemPhrase;
 import com.jediwus.learningapplication.pojo.ItemSentence;
 
@@ -49,17 +59,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.grantland.widget.AutofitTextView;
+import uk.co.senab.photoview.PhotoView;
 
 public class WordDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "WordDetailActivity";
 
-    // 操作栏
-    private RelativeLayout layoutContinue, layoutVoice, layoutDelete;
-    private RelativeLayout layoutStar, layoutMore, layoutPicCustom, layoutFolder;
-    private ImageView imgStar, imgDelete, imgPicCustom;
+    private ImageView imgStar;
+    private ImageView imgDelete;
     private CardView cardPicCustom;
-    private TextView textContinue;
 
     // 单词
     private AutofitTextView textWordName;
@@ -77,7 +85,6 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
     // 例句
     private CardView cardSentence;
-    private RecyclerView recyclerSentence;
     private SentenceAdapter sentenceAdapter;
     private final List<ItemSentence> itemSentenceList = new ArrayList<>();
 
@@ -87,7 +94,6 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
     // 词组
     private CardView cardPhrase;
-    private RecyclerView recyclerPhrase;
     private PhraseAdapter phraseAdapter;
     private final List<ItemPhrase> itemPhraseList = new ArrayList<>();
 
@@ -108,27 +114,24 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
     private CardView cardRemark;
     private TextView textRemark;
 
-    // 单词
+    // 单词List
     List<Word> words;
 
-    // 传入的单词ID
+    // 当前单词ID
     public static int wordId;
-    private Word currentWord;
+    public static Word currentWord;
+
+    // 自定义图片数据
+    private byte[] imgByte;
+    private Bitmap bitmap;
+
+    private int currentType;
+
+    private ProgressDialog progressDialog;
 
     public static final String TYPE_NAME = "typeName";
     public static final int TYPE_LEARNING = 1;
     public static final int TYPE_CHECK = 2;
-
-    private int currentType;
-
-    private final String[] modificationItem = {"更替释义", "更替例句", "修改备注", "修改自定义图片"};
-
-    private final int IMAGE_REQUEST_CODE = 1;
-
-    private ProgressDialog progressDialog;
-
-    private byte[] imgByte;
-    private Bitmap bitmap;
 
     private final int FINISH = 1;
 
@@ -143,17 +146,21 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                     word.updateAll("wordId = ?", currentWord.getWordId() + "");
                     progressDialog.dismiss();
                     cardPicCustom.setVisibility(View.VISIBLE);
+                    Toast.makeText(WordDetailActivity.this,
+                            "自定义图片设置成功！",
+                            Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
                     // 处理类型为2的消息
                     break;
                 // 可以根据实际需求添加更多的case分支
                 default:
-                    super.handleMessage(msg);
                     break;
             }
         }
     };
+
+    public static ActivityResultLauncher<Intent> launcher;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -161,8 +168,34 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_detail);
 
-//        overridePendingTransition(R.anim.slide_in_bottom, android.R.anim.fade_out);
-//        overridePendingTransition(R.anim.slide_in_bottom, android.R.anim.fade_out);
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+
+                        // 获取系统返回的照片的Uri
+                        Uri selectedImage = result.getData().getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                        // 从系统表中查询指定 Uri 对应的照片
+                        Cursor cursor = getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+
+                        // 获取照片路径
+                        String path = cursor.getString(columnIndex);
+                        cursor.close();
+                        bitmap = BitmapFactory.decodeFile(path);
+                        showProgressDialog();
+
+                        // handler处理消息
+                        imgByte = FileUtil.bitmapCompress(bitmap, 1000);
+                        Message message = new Message();
+                        message.what = FINISH;
+                        handler.sendMessage(message);
+                    }
+                });
+
 
         //------------------------------------界面初始化开始--------------------------------------
         // 单词本体
@@ -182,20 +215,19 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
         // 美式发音文本
         textPhoneUs = findViewById(R.id.text_word_pronounce_us);
 
-        layoutPicCustom = findViewById(R.id.layout_word_detail_picture);
+        RelativeLayout layoutPicCustom = findViewById(R.id.layout_word_detail_picture);
         layoutPicCustom.setOnClickListener(this);
-        imgPicCustom = findViewById(R.id.img_word_detail_picture_custom);
 
         cardPicCustom = findViewById(R.id.img_detail_picture_custom);
 
-        layoutFolder = findViewById(R.id.layout_word_detail_favorites);
+        RelativeLayout layoutFolder = findViewById(R.id.layout_word_detail_favorites);
         layoutFolder.setOnClickListener(this);
 
-        layoutStar = findViewById(R.id.layout_word_detail_star);
+        RelativeLayout layoutStar = findViewById(R.id.layout_word_detail_star);
         layoutStar.setOnClickListener(this);
         imgStar = findViewById(R.id.img_word_detail_star);
 
-        layoutMore = findViewById(R.id.layout_word_detail_more);
+        RelativeLayout layoutMore = findViewById(R.id.layout_word_detail_more);
         layoutMore.setOnClickListener(this);
 
         textTranslation = findViewById(R.id.text_word_detail_interpretation);
@@ -210,7 +242,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setSmoothScrollbarEnabled(true);
 
-        recyclerSentence = findViewById(R.id.recycler_word_detail_sentence);
+        RecyclerView recyclerSentence = findViewById(R.id.recycler_word_detail_sentence);
         recyclerSentence.setLayoutManager(linearLayoutManager);
         recyclerSentence.setHasFixedSize(false);
         recyclerSentence.setNestedScrollingEnabled(false);
@@ -219,7 +251,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
         linearLayoutManager1.setSmoothScrollbarEnabled(true);
 
-        recyclerPhrase = findViewById(R.id.recycler_word_detail_phrase);
+        RecyclerView recyclerPhrase = findViewById(R.id.recycler_word_detail_phrase);
         recyclerPhrase.setLayoutManager(linearLayoutManager1);
         recyclerPhrase.setHasFixedSize(false);
         recyclerPhrase.setNestedScrollingEnabled(false);
@@ -245,16 +277,17 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
         cardRemark = findViewById(R.id.card_word_detail_remark);
         textRemark = findViewById(R.id.text_word_detail_remark);
 
-        layoutDelete = findViewById(R.id.layout_word_detail_delete);
+        RelativeLayout layoutDelete = findViewById(R.id.layout_word_detail_delete);
         layoutDelete.setOnClickListener(this);
         imgDelete = findViewById(R.id.img_word_detail_delete);
 
-        layoutVoice = findViewById(R.id.layout_word_detail_voice);
+        RelativeLayout layoutVoice = findViewById(R.id.layout_word_detail_voice);
         layoutVoice.setOnClickListener(this);
 
-        layoutContinue = findViewById(R.id.layout_word_detail_continue);
+        // 操作栏
+        RelativeLayout layoutContinue = findViewById(R.id.layout_word_detail_continue);
         layoutContinue.setOnClickListener(this);
-        textContinue = findViewById(R.id.text_word_detail_continue);
+        TextView textContinue = findViewById(R.id.text_word_detail_continue);
 
         //------------------------------------界面初始化完毕--------------------------------------
 
@@ -496,7 +529,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "ResourceAsColor"})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -521,25 +554,25 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                     for (int i = 0; i < favoritesList.size(); ++i) {
                         favoritesNames[i] = favoritesList.get(i).getName();
                     }
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(WordDetailActivity.this);
-                    builder.setTitle("选择单词夹进行保存")
+                    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(WordDetailActivity.this);
+                    builder.setTitle("保存至单词夹")
                             .setSingleChoiceItems(favoritesNames, -1, (dialog, which) -> {
                                 // 延迟500毫秒取消对话框
                                 new Handler().postDelayed(() -> {
                                     dialog.dismiss();
                                     List<FavoritesLinkWord> favoritesLinkWordList = LitePal
-                                            .where("wordId = ? and folderId = ?",
+                                            .where("wordId = ? and favoritesId = ?",
                                                     currentWord.getWordId() + "",
                                                     favoritesList.get(which).getId() + "")
                                             .find(FavoritesLinkWord.class);
                                     if (favoritesLinkWordList.isEmpty()) {
                                         FavoritesLinkWord folderLinkWord = new FavoritesLinkWord();
-                                        folderLinkWord.setFolderId(favoritesList.get(which).getId());
+                                        folderLinkWord.setFavoritesId(favoritesList.get(which).getId());
                                         folderLinkWord.setWordId(currentWord.getWordId());
                                         folderLinkWord.save();
-                                        Toast.makeText(WordDetailActivity.this, "单词已成功保存！", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(WordDetailActivity.this, "已存入 " + favoritesNames[which], Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(WordDetailActivity.this, "该单词已经在此单词夹中了哦", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(WordDetailActivity.this, "该词已在 " + favoritesNames[which] + " 中了哦", Toast.LENGTH_SHORT).show();
                                     }
                                 }, 200);
                             }).show();
@@ -548,9 +581,23 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
             // 自定义图片按钮点击事件处理
             case R.id.layout_word_detail_picture:
-                Intent intent = new Intent(WordDetailActivity.this, CustomPictureActivity.class);
-                intent.putExtra(CustomPictureActivity.TYPE_WORD_ID, currentWord.getWordId());
-                startActivity(intent);
+                // 创建一个新的 PopupWindow
+                MyPopupWindow popupWindow = new MyPopupWindow(WordDetailActivity.this);
+                popupWindow.setContentView(R.layout.floating_layout);
+                PhotoView imageView = popupWindow.findViewById(R.id.floating_layout_imageview);
+                TextView titleView = popupWindow.findViewById(R.id.floating_layout_title_textview);
+                // 搜索图片数据
+                Word word1 = LitePal.where("wordId = ?", currentWord.getWordId() + "")
+                        .select("wordId", "word", "picCustom")
+                        .find(Word.class).get(0);
+                // 添加标题
+                titleView.setText(word1.getWord());
+                // 添加图片
+                Glide.with(WordDetailActivity.this).load(word1.getPicCustom()).into(imageView);
+
+                popupWindow.setOutSideDismiss(true)
+                        .setPopupGravity(Gravity.CENTER)
+                        .showPopupWindow();
                 break;
 
             // 收藏按钮点击事件处理
@@ -573,55 +620,13 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
             // 修改数据按钮点击事件处理
             case R.id.layout_word_detail_more:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(WordDetailActivity.this);
-                builder.setTitle("选择您要进行的操作")
-                        .setSingleChoiceItems(modificationItem, -1, (dialogInterface, i) -> {
-                            // 延迟500毫秒取消对话框
-                            new Handler().postDelayed(() -> {
-                                dialogInterface.dismiss();
-                                Intent intent1 = new Intent(WordDetailActivity.this, ModifyDataActivity.class);
-                                switch (i) {
-                                    // 更改释义
-                                    case 0:
-                                        intent1.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_MEANS);
-                                        intent1.putExtra(ModifyDataActivity.WORD_ID_NAME, currentWord.getWordId());
-                                        startActivity(intent1);
-                                        break;
-                                    // 增加例句
-                                    case 1:
-                                        intent1.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_SENTENCES);
-                                        intent1.putExtra(ModifyDataActivity.WORD_ID_NAME, currentWord.getWordId());
-                                        startActivity(intent1);
-                                        break;
-                                    // 增加备注
-                                    case 2:
-                                        intent1.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_REMARKS);
-                                        intent1.putExtra(ModifyDataActivity.WORD_ID_NAME, currentWord.getWordId());
-                                        startActivity(intent1);
-                                        break;
-                                    // 自定义图片
-                                    case 3:
-                                        AlertDialog.Builder builder2 = new AlertDialog.Builder(WordDetailActivity.this);
-                                        builder2.setTitle("警告")
-                                                .setMessage("该操作会覆盖原图片,确定要继续吗")
-                                                .setPositiveButton("是的没错！", (dialogInterface1, i1) -> {
-                                                    //在这里跳转到手机系统相册里面
-                                                    Intent intent11 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                                    startActivityForResult(intent11, IMAGE_REQUEST_CODE);
-                                                })
-                                                .setNegativeButton("算了...", null)
-                                                .show();
-                                }
 
-                            }, 200);
-                        })
-                        .setNegativeButton("取消", (dialogInterface, i) -> {
-                            // 用户点击了“取消”按钮，不执行任何操作
-                        })
-                        .show();
+                BottomSheetDialogFragmentCustom bottomSheet = new BottomSheetDialogFragmentCustom();
+                bottomSheet.show(getSupportFragmentManager(), "tag");
+
                 break;
 
-            // 修改数据按钮点击事件处理
+            // 简单词——降低重视度 按钮点击事件处理
             case R.id.layout_word_detail_delete:
                 if (currentWord.getIsEasy() == 1) {
                     Glide.with(this).load(R.drawable.icon_delete).into(imgDelete);
@@ -643,10 +648,12 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
 
+            // 发音按钮点击事件处理（默认为英式发音）
             case R.id.layout_word_detail_voice:
                 new Thread(() -> MediaHelper.play(words.get(0).getWord())).start();
                 break;
 
+            // 继续/返回按钮点击事件处理
             case R.id.layout_word_detail_continue:
                 if (currentType == TYPE_CHECK) {
                     onBackPressed();
@@ -662,9 +669,18 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(WordDetailActivity.this);
+        progressDialog.setTitle("稍候");
+        progressDialog.setMessage("图片压缩中...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
         // 设置退出的动画效果
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_bottom);
 
@@ -672,5 +688,12 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 //        LearnWordActivity.needUpdate = true;
         MediaHelper.releaseMediaPlayer();
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
 }

@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -37,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private PermissionListener mListener;
 
-    private static final int PERMISSION_REQUESTCODE = 100;
+    private static final int PERMISSION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (!permissionLists.isEmpty()) {
             ActivityCompat.requestPermissions(this,
-                    permissionLists.toArray(new String[permissionLists.size()]), PERMISSION_REQUESTCODE);
+                    permissionLists.toArray(new String[permissionLists.size()]), PERMISSION_REQUEST_CODE);
         } else {
             //表示全都授权了
             mListener.onGranted();
@@ -102,7 +101,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case PERMISSION_REQUESTCODE:
+            case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0) {
                     // 存放没授权的权限
                     List<String> deniedPermissions = new ArrayList<>();
@@ -161,13 +160,11 @@ public class BaseActivity extends AppCompatActivity {
         Gson gsonPic = new Gson();
         JsonBingPic bingPic = gsonPic.fromJson(json, JsonBingPic.class);
         picUrl = ExternalData.IMG_API_BEFORE + bingPic.getImages().get(0).getUrl();
-        Log.d(TAG, "获取水平图片url: " + picUrl);
         if (picUrl.contains("1920x1080")) {
             result = picUrl.replace("1920x1080", "1080x1920");
         } else {
             result = picUrl;
         }
-        Log.d(TAG, "获取垂直图片url: " + result);
         json = HttpHelper.requestResult(ExternalData.DAILY_SENTENCE_API);
         Gson gsonQuot = new Gson();
         JsonDailyQuot dailyQuot = gsonQuot.fromJson(json, JsonDailyQuot.class);
@@ -180,20 +177,6 @@ public class BaseActivity extends AppCompatActivity {
         dailyData.setDailySound(dailyQuot.getTts());
         dailyData.setDayTime(TimeController.getCurrentDateStamp() + "");
         dailyData.save();
-    }
-
-    public void windowFade() {
-        getWindow().setEnterTransition(new Fade().setDuration(500));
-        getWindow().setExitTransition(new Fade().setDuration(500));
-        getWindow().setReenterTransition(new Fade().setDuration(500));
-        getWindow().setReturnTransition(new Fade().setDuration(500));
-    }
-
-    public void windowExplode() {
-        getWindow().setEnterTransition(new Explode().setDuration(300));
-        getWindow().setExitTransition(new Explode().setDuration(300));
-        getWindow().setReenterTransition(new Explode().setDuration(300));
-        getWindow().setReturnTransition(new Explode().setDuration(300));
     }
 
     public static boolean isServiceExisted(Context context, String className) {

@@ -39,7 +39,6 @@ public class PhraseAdapter extends RecyclerView.Adapter<PhraseAdapter.ViewHolder
                 .from(parent.getContext())
                 .inflate(R.layout.item_word_detail_phrase, parent, false);
         return new ViewHolder(view);
-
     }
 
     @Override

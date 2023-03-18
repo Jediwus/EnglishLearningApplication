@@ -1,8 +1,8 @@
 package com.jediwus.learningapplication.activity.fragment;
 
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
@@ -29,10 +29,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.BaseActivity;
 import com.jediwus.learningapplication.activity.DailyMottoActivity;
+import com.jediwus.learningapplication.activity.FavoritesActivity;
+import com.jediwus.learningapplication.activity.LoadingActivity;
 import com.jediwus.learningapplication.activity.MainActivity;
 import com.jediwus.learningapplication.activity.SearchActivity;
 import com.jediwus.learningapplication.activity.WordDetailActivity;
-import com.jediwus.learningapplication.activity.WordFavoritesActivity;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.config.ExternalData;
 import com.jediwus.learningapplication.database.MyDate;
@@ -62,17 +63,17 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
 
     private Button btn_start;
 
-    private CardView cardSearch;
-
-    private ImageView img_refresh, img_flag;
+    private ImageView img_refresh;
 
     private View trans_flagView;
 
-    private RelativeLayout layout_files;
+    private TextView text_book;
+    private TextView text_wordNum;
+    private TextView text_word;
+    private TextView text_meaning;
 
-    private TextView text_book, text_wordNum, text_word, text_meaning;
-
-    private TextView text_day, text_month;
+    private TextView text_day;
+    private TextView text_month;
     // 声明一个视图对象
     protected View mView;
 
@@ -81,30 +82,52 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         mView = inflater.inflate(R.layout.fragment_word, container, false);
+
         fab_search = mView.findViewById(R.id.fab);
+
+        CardView cardView_english_dict = mView.findViewById(R.id.english_dict);
+        CardView cardView_num_of_dWords = mView.findViewById(R.id.num_of_dWords);
+
         CardView cardView_today_word = mView.findViewById(R.id.card_today_word);
         CardView cardView_word_folder = mView.findViewById(R.id.card_word_folder);
+
         // 创建动画效果
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(500);
+
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(cardView_today_word, "translationX", -800, 0);
+        animator1.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(cardView_word_folder, "translationY", -800, 0);
+        animator2.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        ObjectAnimator animator3 = ObjectAnimator.ofFloat(fab_search, "translationY", 800, 0);
+        animator3.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        // 设置动画持续时间
+        animator.setDuration(1000);
+        animator1.setDuration(1000);
+        animator2.setDuration(1000);
+        animator3.setDuration(1000);
+
         // 设置动画效果的监听器
         animator.addUpdateListener(animation -> {
             // 获取动画进度值
             float progress = (float) animation.getAnimatedValue();
-            // 缩放 FloatingActionButton 控件
-            fab_search.setScaleX(progress);
-            fab_search.setScaleY(progress);
-
-            cardView_today_word.setScaleX(progress);
-            cardView_today_word.setScaleY(progress);
-
-            cardView_word_folder.setScaleX(progress);
-            cardView_word_folder.setScaleY(progress);
-
+            // 透明度变化 顶部卡片1
+            cardView_english_dict.setScaleX(progress);
+            cardView_english_dict.setScaleY(progress);
+            // 透明度变化 顶部卡片2
+            cardView_num_of_dWords.setScaleX(progress);
+            cardView_num_of_dWords.setScaleY(progress);
         });
         // 开始动画效果
         animator.start();
+        animator1.start();
+        animator2.start();
+        animator3.start();
+
 
         fab_search.setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
@@ -172,22 +195,19 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         text_meaning = view.findViewById(R.id.text_main_word_meaning);
         text_meaning.setOnClickListener(this);
 
-        img_flag = view.findViewById(R.id.img_top_flag);
+        ImageView img_flag = view.findViewById(R.id.img_top_flag);
         img_flag.setOnClickListener(this);
 
         img_refresh = view.findViewById(R.id.img_refresh);
         img_refresh.setOnClickListener(this);
 
-        layout_files = view.findViewById(R.id.layout_main_word_file);
-        layout_files.setOnClickListener(this);
+        RelativeLayout layout_favorites = view.findViewById(R.id.layout_main_favorites);
+        layout_favorites.setOnClickListener(this);
 
         btn_start = view.findViewById(R.id.btn_start);
         btn_start.setOnClickListener(this);
 
-
         trans_flagView = view.findViewById(R.id.view_flag_transition);
-
-        Log.d(TAG, "onViewCreated: 单词界面的碎片已创建");
 
         if (MainActivity.needRefresh) {
             prepareData = 0;
@@ -216,7 +236,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.img_refresh:
-                // 旋转动画
+                // 刷新单词 的 旋转小动画
                 RotateAnimation animation = new RotateAnimation(0.0f, -360.0f,
                         Animation.RELATIVE_TO_SELF, 0.5f,
                         Animation.RELATIVE_TO_SELF, 0.5f);
@@ -242,28 +262,33 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                 WordDetailActivity.wordId = currentRandomId;
                 Intent intent = new Intent(getActivity(), WordDetailActivity.class);
                 intent.putExtra(WordDetailActivity.TYPE_NAME, WordDetailActivity.TYPE_CHECK);
-
+                // 过渡动画
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(
                         view, 0, 0, view.getWidth(), view.getHeight());
-
-                startActivity(intent,options.toBundle());
+                startActivity(intent, options.toBundle());
                 Log.d(TAG, "onClick: 跳转至单词释义的页面");
                 break;
 
-            case R.id.layout_main_word_file:
-                Intent intentWordFolder = new Intent(getContext(), WordFavoritesActivity.class);
-                startActivity(intentWordFolder, ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle());
+            case R.id.layout_main_favorites:
+                Intent intentWordFolder = new Intent(getContext(), FavoritesActivity.class);
+                startActivity(intentWordFolder, ActivityOptionsCompat.makeScaleUpAnimation(
+                        view, 0, 0, view.getWidth(), view.getHeight()).toBundle());
                 Log.d(TAG, "onClick: 跳转至单词夹页面");
                 break;
 
-            case R.id.index_start:
-
-
+            case R.id.btn_start:
+                if (isOnClick) {
+                    Intent IntentLoading = new Intent(getActivity(), LoadingActivity.class);
+                    IntentLoading.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(IntentLoading, ActivityOptionsCompat.makeScaleUpAnimation(
+                            view, 0, 0, view.getWidth(), view.getHeight()).toBundle());
+                    isOnClick = false;
+                }
+                Log.d(TAG, "onClick: 开启今日任务");
                 break;
 
             default:
                 break;
-
         }
     }
 

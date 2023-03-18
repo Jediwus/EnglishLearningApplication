@@ -1,7 +1,5 @@
 package com.jediwus.learningapplication.database;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.litepal.crud.LitePalSupport;
 
 public class SynonymItems extends LitePalSupport {

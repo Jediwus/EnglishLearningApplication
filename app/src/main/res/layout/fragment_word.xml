@@ -6,52 +6,57 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/frag_word_calendar"
         android:layout_width="60dp"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="53dp">
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="10dp">
 
         <View
             android:id="@+id/view_flag_transition"
             android:layout_width="2dp"
-            android:layout_height="2dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
             android:transitionName="view_flag_transition" />
 
         <ImageView
             android:id="@+id/img_top_flag"
-            android:layout_width="50dp"
-            android:layout_height="65dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerInParent="true"
             android:contentDescription="@string/pennant"
-            android:src="@drawable/icon_flag"
+            android:src="@drawable/icon_calendar"
             android:transitionName="image_transition" />
 
         <LinearLayout
-            android:layout_width="60dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="14dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:paddingTop="4dp">
 
             <TextView
                 android:id="@+id/text_main_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/day"
+                android:textColor="@color/colorPrimary"
+                android:paddingEnd="3dp"
                 android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/text_main_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/month"
+                android:textColor="@color/colorPrimary"
                 android:textAllCaps="true"
-                android:textSize="7sp"
+                android:textSize="9sp"
                 tools:ignore="SmallSp" />
 
         </LinearLayout>
@@ -62,17 +67,18 @@
         android:id="@+id/layout_main_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:layout_toStartOf="@id/frag_word_calendar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="60dp"
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
             <TextView
+                android:id="@+id/top_greeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -81,6 +87,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/top_saying"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -97,6 +104,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/english_dict"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -119,6 +127,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/num_of_dWords"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -279,7 +288,7 @@
                     app:cardElevation="2dp">
 
                     <RelativeLayout
-                        android:id="@+id/layout_main_word_file"
+                        android:id="@+id/layout_main_favorites"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground">
@@ -296,8 +305,8 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:contentDescription="@string/the_icon_of_favorites_words"
-                                android:padding="4dp"
-                                android:src="@drawable/icon_star" />
+                                android:padding="2dp"
+                                android:src="@drawable/icon_favorites" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -358,8 +367,7 @@
         android:layout_marginBottom="85dp"
         android:contentDescription="@string/some_little_functions"
         android:src="@drawable/icon_fab"
-        android:transitionName="fab_transition"
-        tools:ignore="RelativeOverlap" />
+        android:transitionName="fab_transition" />
 
 
 </RelativeLayout>

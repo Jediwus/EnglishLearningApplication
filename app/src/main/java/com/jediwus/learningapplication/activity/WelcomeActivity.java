@@ -76,6 +76,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         // 设置权限弹出框
         welcomeWindow = new MyPopupWindow(this);
+        welcomeWindow.setContentView(R.layout.item_welcome_introduction);
 
         setContentView(R.layout.activity_welcome);
         // 防止重复
