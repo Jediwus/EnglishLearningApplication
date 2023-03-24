@@ -12,8 +12,6 @@ import java.util.List;
 
 public class NotifyLearnService extends Service {
 
-    public static int currentIndex = 0;
-
     public static final int ALL_MODE = 0;
 
     public static final int STAR_MODE = 1;
@@ -24,7 +22,7 @@ public class NotifyLearnService extends Service {
 
     public static int currentMode = -1;
 
-    private static final String TAG = "NotifyLearnService";
+    public static int currentIndex = 0;
 
     public static List<Word> needWords;
 

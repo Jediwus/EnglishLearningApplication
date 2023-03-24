@@ -1,7 +1,6 @@
 package com.jediwus.learningapplication.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +12,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.config.ExternalData;
@@ -54,9 +57,11 @@ public class LearningPlanActivity extends BaseActivity {
 
     private List<UserPreference> userPreferences;
 
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
 
     private Thread thread;
+
+    private AlertDialog dialog;
 
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -64,7 +69,8 @@ public class LearningPlanActivity extends BaseActivity {
             switch (msg.what) {
                 case FINISH:
                     // 等待加载框消失
-                    progressDialog.dismiss();
+//                    progressDialog.dismiss();
+                    dialog.dismiss();
                     // 重置上次学习时间
                     UserPreference userPreference = new UserPreference();
                     userPreference.setLastStartTime(0);
@@ -85,8 +91,10 @@ public class LearningPlanActivity extends BaseActivity {
                     );
                     break;
                 case DOWNLOADED:
-                    progressDialog.setTitle("Tips");
-                    progressDialog.setMessage("正在解压数据包并导入本地数据库，可能会占用您一些时间，请耐心等待");
+//                    progressDialog.setTitle("Tips");
+//                    progressDialog.setMessage("正在解压数据包并导入本地数据库，可能会占用您一些时间，请耐心等待");
+                    dialog.setTitle("Tips");
+                    dialog.setMessage("正在解压数据包并导入本地数据库，可能会占用您一些时间，请耐心等待");
                     break;
                 default:
                     break;
@@ -118,6 +126,8 @@ public class LearningPlanActivity extends BaseActivity {
                 ActivityCollector.startOtherActivity(LearningPlanActivity.this, ChooseWordBookActivity.class);
             }
         });
+        ImageView img_character = findViewById(R.id.img_plan_character);
+        Glide.with(this).load(R.drawable.gif_link).into(img_character);
 
         // 检查是否已经设置每日单词数量
         userPreferences = LitePal.where("userId = ?",
@@ -144,11 +154,19 @@ public class LearningPlanActivity extends BaseActivity {
                     // 初次设置词书和单词数
                     if (DataConfig.notUpdate == intent.getIntExtra(DataConfig.UPDATE_NAME, 0)) {
                         // 开启等待框
-                        progressDialog = new ProgressDialog(LearningPlanActivity.this);
-                        progressDialog.setTitle("Downloading");
-                        progressDialog.setMessage("数据包正在玩命下载中...");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(LearningPlanActivity.this);
+                        builder.setTitle("Downloading");
+                        builder.setMessage("数据包正在玩命下载中...");
+                        ProgressBar progressBar = new ProgressBar(LearningPlanActivity.this);
+                        builder.setView(progressBar);
+                        builder.setCancelable(false);
+                        dialog = builder.create();
+                        dialog.show();
+//                        progressDialog = new ProgressDialog(LearningPlanActivity.this);
+//                        progressDialog.setTitle("Downloading");
+//                        progressDialog.setMessage("数据包正在玩命下载中...");
+//                        progressDialog.setCancelable(false);
+//                        progressDialog.show();
 
                         // 延迟两秒再运行，防止等待框不显示
                         new Handler().postDelayed(() -> {

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.fragment.FragmentMe;
 import com.jediwus.learningapplication.activity.fragment.FragmentReview;
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
         builder.setTitle("精灵的挽留")
                 .setMessage("\t\t作为词星骑士的你，难道今天就到此为止了吗？")
                 .setPositiveButton("该休息啦", (dialog, which) -> {

@@ -1,4 +1,4 @@
-package com.jediwus.learningapplication.model;
+package com.jediwus.learningapplication.myInterface;
 
 import java.util.List;
 
@@ -9,6 +9,5 @@ public interface PermissionListener {
 
     //未授权
     void onDenied(List<String> deniedPermission);
-
 
 }

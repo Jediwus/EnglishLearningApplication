@@ -23,36 +23,24 @@
                 android:id="@+id/favorites_img_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="10dp"
+                android:padding="3dp"
                 android:contentDescription="@string/the_back_icon"
                 android:src="@drawable/icon_back" />
 
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/favorites_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                tools:ignore="RelativeOverlap,UseCompoundDrawables">
+                android:padding="3dp"
+                android:spinnerMode="dialog"
+                android:text="@string/title_word_folder"
+                android:textColor="@color/colorOnBackground"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:contentDescription="@string/the_icon_of_favorites_words"
-                    android:padding="2dp"
-                    android:src="@drawable/icon_favorites" />
-
-                <TextView
-                    android:id="@+id/favorites_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:spinnerMode="dialog"
-                    android:text="@string/title_word_folder"
-                    android:textColor="@color/colorOnTertiaryContainer"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    tools:ignore="RelativeOverlap" />
-
-            </LinearLayout>
 
         </RelativeLayout>
 
@@ -63,8 +51,8 @@
             android:layout_below="@id/layout_word_favorites_title"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:paddingBottom="30dp"
-            android:overScrollMode="never" />
+            android:overScrollMode="ifContentScrolls"
+            android:paddingBottom="30dp" />
 
     </RelativeLayout>
 
@@ -75,8 +63,8 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="90dp"
         android:contentDescription="@string/some_little_functions"
+        android:src="@drawable/icon_plus"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/icon_plus"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

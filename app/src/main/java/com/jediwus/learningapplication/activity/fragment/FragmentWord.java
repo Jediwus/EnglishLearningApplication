@@ -102,7 +102,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(cardView_word_folder, "translationY", -800, 0);
         animator2.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        ObjectAnimator animator3 = ObjectAnimator.ofFloat(fab_search, "translationY", 800, 0);
+        ObjectAnimator animator3 = ObjectAnimator.ofFloat(fab_search, "translationX", 800, 0);
         animator3.setInterpolator(new AccelerateDecelerateInterpolator());
 
         // 设置动画持续时间
@@ -115,10 +115,10 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         animator.addUpdateListener(animation -> {
             // 获取动画进度值
             float progress = (float) animation.getAnimatedValue();
-            // 透明度变化 顶部卡片1
+            // 缩放变化 顶部卡片1
             cardView_english_dict.setScaleX(progress);
             cardView_english_dict.setScaleY(progress);
-            // 透明度变化 顶部卡片2
+            // 缩放变化 顶部卡片2
             cardView_num_of_dWords.setScaleX(progress);
             cardView_num_of_dWords.setScaleY(progress);
         });
@@ -127,6 +127,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         animator1.start();
         animator2.start();
         animator3.start();
+
 
 
         fab_search.setOnTouchListener(new View.OnTouchListener() {
@@ -236,7 +237,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.img_refresh:
-                // 刷新单词 的 旋转小动画
+                // 刷新单词的旋转小动画
                 RotateAnimation animation = new RotateAnimation(0.0f, -360.0f,
                         Animation.RELATIVE_TO_SELF, 0.5f,
                         Animation.RELATIVE_TO_SELF, 0.5f);
@@ -261,7 +262,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
             case R.id.text_main_word_meaning:
                 WordDetailActivity.wordId = currentRandomId;
                 Intent intent = new Intent(getActivity(), WordDetailActivity.class);
-                intent.putExtra(WordDetailActivity.TYPE_NAME, WordDetailActivity.TYPE_CHECK);
+                intent.putExtra(WordDetailActivity.TYPE, WordDetailActivity.TYPE_CHECK);
                 // 过渡动画
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(
                         view, 0, 0, view.getWidth(), view.getHeight());
@@ -271,8 +272,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
 
             case R.id.layout_main_favorites:
                 Intent intentWordFolder = new Intent(getContext(), FavoritesActivity.class);
-                startActivity(intentWordFolder, ActivityOptionsCompat.makeScaleUpAnimation(
-                        view, 0, 0, view.getWidth(), view.getHeight()).toBundle());
+                startActivity(intentWordFolder);
                 Log.d(TAG, "onClick: 跳转至单词夹页面");
                 break;
 
@@ -280,8 +280,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                 if (isOnClick) {
                     Intent IntentLoading = new Intent(getActivity(), LoadingActivity.class);
                     IntentLoading.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(IntentLoading, ActivityOptionsCompat.makeScaleUpAnimation(
-                            view, 0, 0, view.getWidth(), view.getHeight()).toBundle());
+                    startActivity(IntentLoading);
                     isOnClick = false;
                 }
                 Log.d(TAG, "onClick: 开启今日任务");
@@ -309,7 +308,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                 DataConfig.getWeChatNumLogged() + "").find(MyDate.class);
         if (!wordList.isEmpty()) {
             if (myDateList.isEmpty()) { // 计划为待完成状态
-                btn_start.setText("点击此处开启今日任务");
+                btn_start.setText("开启今日任务");
                 isOnClick = true;
             } else {
                 if ((myDateList.get(0).getWordLearnNumber() + myDateList.get(0).getWordReviewNumber()) > 0) { // 完成计划
@@ -319,14 +318,14 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
                     btn_start.setClickable(false);
                     isOnClick = false;
                 } else { // 未完成计划
-                    btn_start.setText("点击此处开启今日任务");
+                    btn_start.setText("开启今日任务");
                     isOnClick = true;
                 }
             }
         } else {
             btn_start.setBackgroundColor(requireActivity().getColor(R.color.colorSurfaceVariant));
             btn_start.setTextColor(requireActivity().getColor(R.color.colorOnSurfaceVariant));
-            btn_start.setText("您对此书的试炼已完成！");
+            btn_start.setText("此书的试炼已完成！");
             btn_start.setClickable(false);
             isOnClick = false;
         }

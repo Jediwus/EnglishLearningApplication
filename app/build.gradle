@@ -61,8 +61,8 @@ dependencies {
     implementation 'org.litepal.android:java:3.0.0'
     implementation 'com.google.code.gson:gson:2.10.1'
 
-    implementation 'com.github.bumptech.glide:glide:4.15.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     // 窗口动画
     implementation 'io.github.razerdp:BasePopup:3.2.1'
     // 透明状态栏

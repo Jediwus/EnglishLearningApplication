@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_card_word_meaning_picker"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="5dp"
+    app:cardBackgroundColor="@color/colorError"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/item_text_word_meaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/item_img_word_pick_status"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/abandon_meaning"
+            android:textColor="@color/colorOnError" />
+
+        <ImageView
+            android:id="@+id/item_img_word_pick_status"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/icon_error" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

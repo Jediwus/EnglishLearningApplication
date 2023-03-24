@@ -53,7 +53,7 @@ public class DailyMottoActivity extends BaseActivity {
                     Calendar calendar = Calendar.getInstance();
                     textDate.setText(calendar.get(Calendar.DATE) + "");
                     textYear.setText(calendar.get(Calendar.YEAR) + "");
-                    textMonth.setText(getMonthName(calendar));
+                    textMonth.setText(getMonthFullName(calendar));
 
                     textSentenceEn.setText(dailyData.getDailyEn());
                     textSentenceCh.setText(dailyData.getDailyChs());
@@ -174,6 +174,55 @@ public class DailyMottoActivity extends BaseActivity {
                 break;
             case 11:
                 s = "Dec";
+                break;
+        }
+        return s;
+    }
+
+    /**
+     * 设置获得月份缩写
+     *
+     * @param calendar Calendar
+     * @return String
+     */
+    public static String getMonthFullName(Calendar calendar) {
+        String s = "";
+        switch (calendar.get(Calendar.MONTH)) {
+            case 0:
+                s = "January";
+                break;
+            case 1:
+                s = "February";
+                break;
+            case 2:
+                s = "March";
+                break;
+            case 3:
+                s = "April";
+                break;
+            case 4:
+                s = "May";
+                break;
+            case 5:
+                s = "June";
+                break;
+            case 6:
+                s = "July";
+                break;
+            case 7:
+                s = "August";
+                break;
+            case 8:
+                s = "September";
+                break;
+            case 9:
+                s = "October";
+                break;
+            case 10:
+                s = "November";
+                break;
+            case 11:
+                s = "December";
                 break;
         }
         return s;

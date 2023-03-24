@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -18,42 +19,89 @@
         android:id="@+id/text_view_favorites_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/text_view_favorites_title"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_text_favorites_title"
+        app:layout_constraintBottom_toTopOf="@id/layout_add_favorites_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/drag_handle" />
 
-    <EditText
-        android:id="@+id/edit_text_favorites_title"
+    <!--    <EditText-->
+    <!--        android:id="@+id/edit_text_favorites_title"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="10dp"-->
+    <!--        android:autofillHints="no"-->
+    <!--        android:hint="@string/edit_text_favorites_title"-->
+    <!--        android:inputType="text"-->
+    <!--        android:textSize="18sp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/edit_text_favorites_memo"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/text_view_favorites_title" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_add_favorites_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:autofillHints="no"
         android:hint="@string/edit_text_favorites_title"
-        android:inputType="text"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_text_favorites_memo"
+        app:layout_constraintBottom_toTopOf="@id/layout_add_favorites_memo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_favorites_title" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_favorites_title"
+        tools:ignore="MissingConstraints">
 
-    <EditText
-        android:id="@+id/edit_text_favorites_memo"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_favorites_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="18sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_add_favorites_memo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:autofillHints="no"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:hint="@string/edit_text_favorites_memo"
-        android:inputType="text"
-        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/btn_save_favorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_favorites_title" />
+        app:layout_constraintTop_toBottomOf="@id/layout_add_favorites_title"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_favorites_memo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="18sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/edit_text_favorites_memo"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="10dp"-->
+    <!--        android:layout_marginEnd="10dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:autofillHints="no"-->
+    <!--        android:hint="@string/edit_text_favorites_memo"-->
+    <!--        android:inputType="text"-->
+    <!--        android:textSize="18sp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/btn_save_favorites"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/layout_add_favorites_title" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save_favorites"
@@ -68,7 +116,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_favorites_memo" />
+        app:layout_constraintTop_toBottomOf="@id/layout_add_favorites_memo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

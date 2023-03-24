@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <litepal>
+
     <!--数据库的名称    -->
     <dbname value="LearningApplication_db" />
+
     <!-- 数据的版本，后续升级需要改动版本号   -->
     <version value="1" />
+
     <!-- 管理数据库中的表，一个类对应的一个表，暂时为空，后面增加表需要添加对应的类进来   -->
     <list>
         <mapping class="com.jediwus.learningapplication.database.DailyData" />
@@ -31,7 +34,8 @@
         <mapping class="com.jediwus.learningapplication.database.Favorites" />
         <mapping class="com.jediwus.learningapplication.database.FavoritesLinkWord" />
 
-    </list>
+        <mapping class="com.jediwus.learningapplication.database.StudyTimeData" />
 
+    </list>
 
 </litepal>

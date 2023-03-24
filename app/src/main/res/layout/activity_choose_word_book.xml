@@ -16,7 +16,7 @@
             android:id="@+id/img_chooseWord_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
+            android:padding="3dp"
             android:contentDescription="@string/the_back_icon"
             android:src="@drawable/icon_back"
             android:visibility="gone"/>

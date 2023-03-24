@@ -79,10 +79,9 @@ public class BottomSheetDialogFragmentAddF extends BottomSheetDialogFragment {
                     favorites.setRemark(editMemo.getText().toString().trim());
                 favorites.save();
                 this.dismiss();
-
-                Toast.makeText(MyApplication.getContext(), "新单词夹创建成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.getContext(), "已为你创建" + favorites.getName(), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(MyApplication.getContext(), "请完善单词夹信息", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.getContext(), "请务必按要求填写", Toast.LENGTH_SHORT).show();
             }
         });
 

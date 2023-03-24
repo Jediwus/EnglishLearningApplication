@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.MissionCompleteActivity">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="454dp"
+        android:alpha="0.5"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/pic_hikari_night"
+        android:contentDescription="@string/todo" />
+
+
+    <LinearLayout
+        android:id="@+id/layout_mission_complete_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/mission_complete"
+            android:textColor="@color/colorOnPrimaryContainer"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/icon_coins"
+                android:contentDescription="@string/todo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/coins_add_10"
+                android:textColor="#FFA645"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp">
+
+            <ImageView
+                android:id="@+id/img_mission_complete_done"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/icon_done"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/todo" />
+
+            <LinearLayout
+                android:id="@+id/layout_mission_complete_done"
+                android:layout_toEndOf="@id/img_mission_complete_done"
+                android:layout_marginStart="10dp"
+                android:padding="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/today_learned"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/text_fi_word_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/_323"
+                    android:textColor="@color/colorOnPrimaryContainer"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/how_many_words"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_mission_complete_day"
+                android:layout_toEndOf="@id/img_mission_complete_done"
+                android:layout_below="@id/layout_mission_complete_done"
+                android:layout_marginStart="10dp"
+                android:padding="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/have_insisted"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/text_fi_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/day"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnPrimaryContainer"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/how_many_days"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_mission_complete_ok"
+        android:layout_below="@+id/layout_mission_complete_top"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="60dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_mission_complete_feelings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="感悟"
+            app:helperTextEnabled="true"
+            app:helperText="写写你的心得吧">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_mission_complete_feelings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:minLines="5"
+                android:textSize="18sp"
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_mission_complete_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ok"
+        android:textColor="@color/colorOnPrimary"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.transition.Explode;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -20,7 +19,7 @@ import com.jediwus.learningapplication.config.ExternalData;
 import com.jediwus.learningapplication.database.DailyData;
 import com.jediwus.learningapplication.gson.JsonBingPic;
 import com.jediwus.learningapplication.gson.JsonDailyQuot;
-import com.jediwus.learningapplication.model.PermissionListener;
+import com.jediwus.learningapplication.myInterface.PermissionListener;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
 import com.jediwus.learningapplication.myUtil.HttpHelper;
 import com.jediwus.learningapplication.myUtil.TimeController;
@@ -182,6 +181,13 @@ public class BaseActivity extends AppCompatActivity {
     public static boolean isServiceExisted(Context context, String className) {
 
         return true;
+    }
+
+    public void windowExplode() {
+        getWindow().setEnterTransition(new Explode().setDuration(300));
+        getWindow().setExitTransition(new Explode().setDuration(300));
+        getWindow().setReenterTransition(new Explode().setDuration(300));
+        getWindow().setReturnTransition(new Explode().setDuration(300));
     }
 
 }

@@ -36,7 +36,8 @@
             android:layout_marginTop="14dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="4dp">
+            android:paddingTop="3dp"
+            android:paddingBottom="1dp">
 
             <TextView
                 android:id="@+id/text_main_day"
@@ -44,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/day"
                 android:textColor="@color/colorPrimary"
-                android:paddingEnd="3dp"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
@@ -57,6 +57,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textAllCaps="true"
                 android:textSize="9sp"
+                android:textStyle="bold"
                 tools:ignore="SmallSp" />
 
         </LinearLayout>
@@ -82,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
+                android:textColor="@color/colorPrimary"
                 android:text="@string/welcome"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -108,18 +110,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="5dp">
+                    app:cardElevation="3dp">
 
                     <TextView
                         android:id="@+id/text_main_book_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="12dp"
+                        android:paddingStart="8dp"
                         android:paddingTop="7dp"
-                        android:paddingEnd="12dp"
+                        android:paddingEnd="8dp"
                         android:paddingBottom="7dp"
                         android:text="@string/english_dictionary"
                         android:textSize="12sp" />
@@ -130,20 +132,20 @@
                     android:id="@+id/num_of_dWords"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="6dp"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="5dp">
+                    app:cardElevation="3dp">
 
                     <TextView
                         android:id="@+id/text_main_word_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="12dp"
+                        android:paddingStart="8dp"
                         android:paddingTop="7dp"
-                        android:paddingEnd="12dp"
+                        android:paddingEnd="8dp"
                         android:paddingBottom="7dp"
                         android:text="@string/numbers_of_words_each_day"
                         android:textSize="12sp" />
@@ -185,10 +187,10 @@
                     android:id="@+id/card_today_word"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="4dp"
+                    android:layout_margin="6dp"
                     app:cardBackgroundColor="@color/colorSecondaryContainer"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="2dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -253,6 +255,7 @@
                                     android:id="@+id/text_main_word_meaning"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:textColor="@color/colorOnSecondaryContainer"
                                     android:background="?android:attr/selectableItemBackground"
                                     android:ellipsize="end"
                                     android:padding="20dp"
@@ -282,10 +285,10 @@
                     android:id="@+id/card_word_folder"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="4dp"
+                    android:layout_margin="6dp"
                     app:cardBackgroundColor="@color/colorTertiaryContainer"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="2dp">
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="3dp">
 
                     <RelativeLayout
                         android:id="@+id/layout_main_favorites"

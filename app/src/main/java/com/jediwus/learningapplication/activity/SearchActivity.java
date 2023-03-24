@@ -99,7 +99,7 @@ public class SearchActivity extends BaseActivity {
         itemSearchList.clear();
         List<Word> wordList = LitePal.where("word like ?", str + "%")
                 .select("wordId", "word", "ukPhone")
-                .limit(15)
+                .limit(10)
                 .find(Word.class);
         if (!wordList.isEmpty()) {
             for (Word word : wordList) {

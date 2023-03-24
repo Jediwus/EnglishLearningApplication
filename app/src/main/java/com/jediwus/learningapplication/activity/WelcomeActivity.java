@@ -22,7 +22,7 @@ import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.database.DailyData;
 import com.jediwus.learningapplication.database.UserPreference;
-import com.jediwus.learningapplication.model.PermissionListener;
+import com.jediwus.learningapplication.myInterface.PermissionListener;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
 import com.jediwus.learningapplication.myUtil.MyPopupWindow;
 import com.jediwus.learningapplication.myUtil.TimeController;

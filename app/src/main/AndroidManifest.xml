@@ -27,6 +27,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="32">
         <activity
+            android:name=".activity.MissionCompleteActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.FavoritesDetailActivity"
             android:exported="false">
             <meta-data
@@ -56,7 +63,8 @@
         </activity>
         <activity
             android:name=".activity.DailyMottoActivity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/AppFullScreen">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -10,18 +10,22 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.FavoritesDetailActivity;
 import com.jediwus.learningapplication.database.Favorites;
+import com.jediwus.learningapplication.database.FavoritesLinkWord;
 import com.jediwus.learningapplication.myUtil.MyApplication;
 import com.jediwus.learningapplication.pojo.ItemFavorites;
 
@@ -101,9 +105,29 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyVi
                 Intent intent = new Intent(MyApplication.getContext(), FavoritesDetailActivity.class);
                 FavoritesDetailActivity.currentFavoritesId = itemFavorites.getFavoritesId();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                MyApplication.getContext().startActivity(intent);
+                MyApplication.getContext().startActivity(intent, ActivityOptionsCompat.makeScaleUpAnimation(
+                        view, 0, 0, view.getWidth(), view.getHeight()).toBundle());
             } else {
                 Toast.makeText(MyApplication.getContext(), "空空如也啊~", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.imgMemo.setOnClickListener(view12 -> {
+            int position = holder.getAdapterPosition();
+            ItemFavorites itemFavorites = mItemFavoritesList.get(position);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(parent.getContext());
+            if (itemFavorites.getFavoritesRemark() == null) {
+                builder.setTitle("备注")
+                        .setMessage("无")
+                        .setNegativeButton("取消", null)
+                        .setCancelable(false)
+                        .show();
+            } else {
+                builder.setTitle("备注")
+                        .setMessage(itemFavorites.getFavoritesRemark())
+                        .setNegativeButton("取消", null)
+                        .setCancelable(false)
+                        .show();
             }
         });
 
@@ -115,7 +139,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ItemFavorites data = mItemFavoritesList.get(position);
         holder.textName.setText(data.getFavoritesName());
-        holder.textRemark.setText(data.getFavoritesRemark());
         holder.textNum.setText(data.getWordNumbers() + "");
     }
 
@@ -148,13 +171,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         View view;
-        TextView textName, textRemark, textNum;
+        ImageView imgMemo;
+        TextView textName, textNum;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             view = itemView;
             textName = itemView.findViewById(R.id.item_favorites_text_name);
-            textRemark = itemView.findViewById(R.id.item_favorites_text_remark);
+            imgMemo = itemView.findViewById(R.id.item_favorites_memo);
             textNum = itemView.findViewById(R.id.item_favorites_text_number);
         }
 
@@ -171,15 +195,16 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyVi
 
     private void showUndoSnackBar(int position) {
         View view = ((Activity) mContext).findViewById(R.id.recycler_wordFavorites);
-        Snackbar snackbar = Snackbar.make(view, R.string.item_deleted, Snackbar.LENGTH_LONG);
+        ItemFavorites itemFavorites = mRemovedItems.get(position);
+        Snackbar snackbar = Snackbar.make(view, "删除" + itemFavorites.getFavoritesName(), Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.undo, v -> undoRemove(position));
         snackbar.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
                 if (event != DISMISS_EVENT_ACTION) {
-                    ItemFavorites itemFavorites = mRemovedItems.get(position);
                     removeItem(position);
                     LitePal.deleteAll(Favorites.class, "id = ?", itemFavorites.getFavoritesId() + "");
+                    LitePal.deleteAll(FavoritesLinkWord.class,"favoritesId = ?", itemFavorites.getFavoritesId() + "");
                 }
             }
         });

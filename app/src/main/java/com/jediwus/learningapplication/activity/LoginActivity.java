@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.database.User;
@@ -49,10 +50,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
 
         LinearLayout layout = findViewById(R.id.linear_login);
-//        ImageView imgPortrait = findViewById(R.id.img_portrait);
         CardView cardLogin = findViewById(R.id.card_login_2);
-
-//        Glide.with(this).load(R.drawable.icon_helmet).into(imgPortrait);
 
         // 渐变动画
         AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
@@ -60,7 +58,7 @@ public class LoginActivity extends BaseActivity {
         layout.startAnimation(animation);
 
         cardLogin.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(LoginActivity.this);
             builder.setTitle("精灵的提醒")
                     .setMessage("本软件将收集用户ID、昵称、头像三个必要信息，仅作为标识，不会泄露您的个人隐私，请放心使用！")
                     .setPositiveButton("继续", (dialogInterface, i) -> initLoginData())
@@ -104,7 +102,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(LoginActivity.this);
         builder.setTitle("精灵的提醒")
                 .setMessage("\n您确定要退出吗?")
                 .setPositiveButton("确定", (dialogInterface, i) -> ActivityCollector.finishAll())

@@ -9,9 +9,9 @@ import java.io.IOException;
 
 public class MediaHelper {
 
-    // 英文发音
+    // 英式发音
     public static final int ENGLISH_VOICE = 1;
-    // 美国发音
+    // 美式发音
     public static final int AMERICA_VOICE = 0;
 
     // 默认

@@ -84,7 +84,7 @@ public class TimeController {
     }
 
     /**
-     * 返回两个日期之间相隔多少天
+     * 计算两日期天数之差
      *
      * @param time1 long
      * @param time2 long
@@ -152,16 +152,16 @@ public class TimeController {
     }
 
     /**
-     * 获取n天以后的日期
+     * 获取 n 天以后的日期
      *
      * @param num int
      * @return String
      */
     public static String getDayAgoOrAfterString(int num) {
-        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年MM月dd日");
-        calendar1.add(Calendar.DATE, num);
-        return sdf1.format(calendar1.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        calendar.add(Calendar.DATE, num);
+        return simpleDateFormat.format(calendar.getTime());
     }
 }

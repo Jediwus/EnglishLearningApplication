@@ -25,7 +25,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/custom_translation"
+        android:text="@string/custom_phrase"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/dialog_text_sentence"

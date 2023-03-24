@@ -50,7 +50,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             WordDetailActivity.wordId = itemSearch.getWordId();
             Intent intent = new Intent(MyApplication.getContext(), WordDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(WordDetailActivity.TYPE_NAME, WordDetailActivity.TYPE_CHECK);
+            intent.putExtra(WordDetailActivity.TYPE, WordDetailActivity.TYPE_CHECK);
             MyApplication.getContext().startActivity(intent);
         });
 

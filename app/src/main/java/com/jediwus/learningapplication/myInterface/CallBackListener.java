@@ -1,4 +1,4 @@
-package com.jediwus.learningapplication.model;
+package com.jediwus.learningapplication.myInterface;
 
 import java.io.IOException;
 

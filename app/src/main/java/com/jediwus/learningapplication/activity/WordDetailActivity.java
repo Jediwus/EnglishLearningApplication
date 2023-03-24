@@ -1,8 +1,6 @@
 package com.jediwus.learningapplication.activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -25,6 +23,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,9 +126,10 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
     private int currentType;
 
-    private ProgressDialog progressDialog;
+    private AlertDialog dialog;
+//    private ProgressDialog progressDialog;
 
-    public static final String TYPE_NAME = "typeName";
+    public static final String TYPE = "LearningOrCheck";
     public static final int TYPE_LEARNING = 1;
     public static final int TYPE_CHECK = 2;
 
@@ -144,7 +144,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                     Word word = new Word();
                     word.setPicCustom(imgByte);
                     word.updateAll("wordId = ?", currentWord.getWordId() + "");
-                    progressDialog.dismiss();
+                    dialog.dismiss();
                     cardPicCustom.setVisibility(View.VISIBLE);
                     Toast.makeText(WordDetailActivity.this,
                             "自定义图片设置成功！",
@@ -292,7 +292,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
         //------------------------------------界面初始化完毕--------------------------------------
 
 
-        currentType = getIntent().getIntExtra(TYPE_NAME, 0);
+        currentType = getIntent().getIntExtra(TYPE, 0);
         if (currentType == TYPE_CHECK) {
             textContinue.setText("返 回");
         } else {
@@ -633,13 +633,13 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                     Word word = new Word();
                     word.setToDefault("isEasy");
                     word.updateAll("wordId = ?", wordId + "");
-                    Toast.makeText(this, "已取消简单词标记", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "已取消熟知词标记", Toast.LENGTH_SHORT).show();
                 } else {
                     Glide.with(this).load(R.drawable.icon_delete_easy).into(imgDelete);
                     Word word = new Word();
                     word.setIsEasy(1);
                     word.updateAll("wordId = ?", wordId + "");
-                    Toast.makeText(this, "已标记为简单词", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "已标记为熟知词", Toast.LENGTH_SHORT).show();
                 }
                 currentWord = LitePal.where("wordId = ?", wordId + "").find(Word.class).get(0);
                 if (currentType == TYPE_LEARNING) {
@@ -655,12 +655,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
             // 继续/返回按钮点击事件处理
             case R.id.layout_word_detail_continue:
-                if (currentType == TYPE_CHECK) {
                     onBackPressed();
-                } else {
-                    LearningActivity.needUpdate = true;
-                    onBackPressed();
-                }
                 break;
 
             default:
@@ -670,11 +665,12 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void showProgressDialog() {
-        progressDialog = new ProgressDialog(WordDetailActivity.this);
-        progressDialog.setTitle("稍候");
-        progressDialog.setMessage("图片压缩中...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(WordDetailActivity.this);
+        builder.setTitle("稍候");
+        builder.setMessage("图片压缩中...");
+        builder.setCancelable(false);
+        dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -683,9 +679,16 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
         // 设置退出的动画效果
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_bottom);
-
 //        ListActivity.isUpdate = true;
-//        LearnWordActivity.needUpdate = true;
+
+        /* // 简化if语句
+        if (currentType == TYPE_CHECK) {
+            LearningActivity.flagNeedRefresh = false;
+        } else {
+            LearningActivity.flagNeedRefresh = true;
+        }*/
+        LearningActivity.flagNeedRefresh = currentType != TYPE_CHECK;
+
         MediaHelper.releaseMediaPlayer();
     }
 

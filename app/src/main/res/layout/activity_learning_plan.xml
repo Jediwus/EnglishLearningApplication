@@ -16,6 +16,7 @@
             android:id="@+id/img_plan_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:padding="3dp"
             android:layout_centerVertical="true"
             android:contentDescription="@string/the_back_icon"
             android:src="@drawable/icon_back" />
@@ -51,16 +52,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="20dp"
-                android:paddingTop="30dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="30dp">
+                android:padding="15dp">
 
                 <EditText
                     android:id="@+id/edit_word_num"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="9"
                     android:autofillHints="no"
                     android:background="@null"
@@ -73,6 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_margin="10dp"
                     android:gravity="center"
                     android:text="@string/s"
                     android:textSize="17sp" />
@@ -134,12 +133,12 @@
 
 
         <ImageView
+            android:id="@+id/img_plan_character"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:contentDescription="@string/illustration"
-            android:src="@drawable/pic_link" />
+            android:contentDescription="@string/illustration"/>
 
 
         <TextView
@@ -159,13 +158,13 @@
             android:layout_marginEnd="5dp"
             android:text="@string/advice_1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:text="@string/advice_2" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="5dp"-->
+<!--            android:text="@string/advice_2" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -180,12 +179,13 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_go"
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="50dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/go"
         android:textSize="20sp"
         android:textStyle="bold" />

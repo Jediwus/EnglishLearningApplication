@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.FavoritesDetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/layout_favorites_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/favorites_detail_img_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/the_back_icon"
+            android:padding="3dp"
+            android:src="@drawable/icon_back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            tools:ignore="RelativeOverlap,UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/favorites_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:padding="3dp"
+                android:spinnerMode="dialog"
+                android:text="@string/favorites_name"
+                android:textColor="@color/colorOnBackground"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/favorites_detail_modify"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/todo"
+                android:padding="5dp"
+                android:src="@drawable/icon_edit" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favorites_detail_img_play"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/todo"
+            android:padding="5dp"
+            android:src="@drawable/icon_play_button" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorites_detail_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_favorites_detail_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:overScrollMode="ifContentScrolls" />
+
+
+</RelativeLayout>
