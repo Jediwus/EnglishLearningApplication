@@ -11,6 +11,7 @@ import org.litepal.LitePal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -92,17 +93,18 @@ public class LearningController {
         // 从用户偏好中获取每日计划学习单词数
         int wordReciteNumInPlan = userPreferenceList.get(0).getWordNeedReciteNum();
 
-        // 查询出：需要学习的且不是刚刚学习过的，没有在指定时间去学习的单词
+        // 查询出：需要学习的且不是刚刚学习过的，没有在指定时间去学习的单词,（排除熟知词）
         List<Word> queryWordNeedToLearnList = LitePal
-                .where("isNeededToLearn = ? and justLearned = ? and dateNeededToLearn <= ?", "1", "0", TimeController.getCurrentDateStamp() + "")
+                .where("isEasy = ? and isNeededToLearn = ? and justLearned = ? and dateNeededToLearn <= ?", "0", "1", "0", TimeController.getCurrentDateStamp() + "")
                 .select("wordId")
                 .find(Word.class);
-        // 查询出：需要学习的且根本没有学习过的单词，即供分配单词的库，不需要学习的单词有可能是需要复习的单词，用haveLearned将其排除
-        List<Word> queryWordNoNeedToLearnList = LitePal.where("isNeededToLearn = ? and haveLearned = ?", "0", "0")
-                .select("wordId")
-                .find(Word.class);
+        // 查询出：需要学习的且根本没有学习过的单词，即供分配单词的库，不需要学习的单词有可能是需要复习的单词，用haveLearned将其排除,（排除熟知词）
+        List<Word> queryWordNoNeedToLearnList =
+                LitePal.where("isEasy = ? and isNeededToLearn = ? and haveLearned = ?", "0", "0", "0")
+                        .select("wordId")
+                        .find(Word.class);
 
-        Log.d(TAG, "需要学习的且根本没有学习过的单词 queryWordNoNeedToLearnList = " + queryWordNoNeedToLearnList.size());
+        Log.d(TAG, "需要学习的且根本没有学习过的单词 queryWordNoNeedToLearnList 的大小 = " + queryWordNoNeedToLearnList.size());
 
         // 点击开始任务按钮时已经是新的一天，单词需要新的分配
         if (!TimeController.isTheSameDay(lastTimeThatStartLearning, TimeController.getCurrentTimeStamp())) {
@@ -112,19 +114,23 @@ public class LearningController {
             // 若需要的单词不够计划量，需额外分配
             if (queryWordNeedToLearnList.size() < wordReciteNumInPlan) {
                 int amountDiffer = wordReciteNumInPlan - queryWordNeedToLearnList.size();
+
+                Log.d(TAG, "setWordsNeededToLearn: amountDiffer 需额外分配的单词" + amountDiffer);
+
                 int[] extraInQueryWordNoNeedToLearnList = NumberController.getRandomNumberList(0, queryWordNoNeedToLearnList.size() - 1, amountDiffer);
 
-                Log.d(TAG, "额外单词 extraInQueryWordNoNeedToLearnList = " + Arrays.toString(extraInQueryWordNoNeedToLearnList));
+                Log.d(TAG, "setWordsNeededToLearn: extraInQueryWordNoNeedToLearnList = " + Arrays.toString(extraInQueryWordNoNeedToLearnList));
 
                 // 将额外单词归并到每日任务需要学习的单词中
-                assert extraInQueryWordNoNeedToLearnList != null;
-                for (int i : extraInQueryWordNoNeedToLearnList) {
-                    wordsNeedToLearnList.add(queryWordNoNeedToLearnList.get(i).getWordId());
-                    // 将额外分配的单词数据更新
-                    Word word = new Word();
-                    word.setIsNeededToLearn(1);
-                    word.setDateNeededToLearn(TimeController.getCurrentDateStamp());
-                    word.updateAll("wordId = ?", queryWordNoNeedToLearnList.get(i).getWordId() + "");
+                if (extraInQueryWordNoNeedToLearnList != null) {
+                    for (int i : extraInQueryWordNoNeedToLearnList) {
+                        wordsNeedToLearnList.add(queryWordNoNeedToLearnList.get(i).getWordId());
+                        // 将额外分配的单词数据更新
+                        Word word = new Word();
+                        word.setIsNeededToLearn(1);
+                        word.setDateNeededToLearn(TimeController.getCurrentDateStamp());
+                        word.updateAll("wordId = ?", queryWordNoNeedToLearnList.get(i).getWordId() + "");
+                    }
                 }
                 // 合并至待学习单词列表
                 if (!queryWordNeedToLearnList.isEmpty()) {
@@ -134,7 +140,7 @@ public class LearningController {
                 }
             } else { // 若查询到的 queryWordNeedToLearnList 单词量可以匹配计划量，添加至待学习单词列表
                 int i = 0;
-                for (Word word : queryWordNoNeedToLearnList) {
+                for (Word word : queryWordNeedToLearnList) {
                     i++;
                     if (i <= wordReciteNumInPlan) {
                         wordsNeedToLearnList.add(word.getWordId());
@@ -148,7 +154,7 @@ public class LearningController {
             Log.d(TAG, "setWordsNeededToLearn: 点击开始任务按钮时,仍是同一天,无需重新分配");
             // 点击开始任务按钮时,仍是同一天,无需重新分配,直接续上回已分配的单词
             int i = 0;
-            for (Word word : queryWordNoNeedToLearnList) {
+            for (Word word : queryWordNeedToLearnList) {
                 i++;
                 if (i <= wordReciteNumInPlan) {
                     wordsNeedToLearnList.add(word.getWordId());
@@ -164,21 +170,25 @@ public class LearningController {
      * 设置需要复习的单词
      */
     public static void setWordsNeededToReview() {
+        Log.d(TAG, "setWordsNeededToReview: 开始设置需要复习的单词");
         // 先清空 List
         wordsNeedToReviewList.clear();
         wordsJustLearnedList.clear();
-        // 查询出：一轮未结束，新学且并未完成复习的单词
-        List<Word> queryJustLearnButNotReviewList = LitePal.where("justLearned = ? and haveLearned = ?", "1", "0")
-                .select("wordId")
-                .find(Word.class);
-        // 查询出：浅度复习单词，即已经学习过的并且单词掌握程度未到10的单词
-        List<Word> queryShallowReviewList = LitePal.where("haveLearned = ? and masterDegree < ?", "1", "10")
-                .select("wordId")
-                .find(Word.class);
-        // 查询出：深度复习单词，单词掌握程度达到10并且达到了单词复习的时间
-        List<Word> queryDeepReviewList = LitePal.where("masterDegree = ?", "10")
-                .select("wordId")
-                .find(Word.class);
+        // 查询出：一轮未结束，新学且并未完成复习的单词,（排除熟知词）
+        List<Word> queryJustLearnButNotReviewList =
+                LitePal.where("justLearned = ? and haveLearned = ? and isEasy = ?", "1", "0", "0")
+                        .select("wordId")
+                        .find(Word.class);
+        // 查询出：浅度复习单词，即已经学习过的并且单词掌握程度未到10的单词,（排除熟知词）
+        List<Word> queryShallowReviewList =
+                LitePal.where("isEasy = ? and haveLearned = ? and masterDegree < ?", "0", "1", "10")
+                        .select("wordId")
+                        .find(Word.class);
+        // 查询出：深度复习单词，单词掌握程度达到10并且达到了单词复习的时间,（排除熟知词）
+        List<Word> queryDeepReviewList =
+                LitePal.where("isEasy = ? and masterDegree = ?", "0", "10")
+                        .select("wordId", "deepMasterTimes", "lastMasterTime")
+                        .find(Word.class);
 
         // 【首先处理，优先级最高】：深度复习或者已经到了深度学习的阶段的单词，加入复习列表
         for (Word word : queryDeepReviewList) {
@@ -186,6 +196,7 @@ public class LearningController {
                 case 0: // 深度掌握次数为 0
                     try {
                         if (TimeController.daysInternal(word.getLastMasterTime(), TimeController.getCurrentDateStamp()) > 4) {
+                            Log.d(TAG, "setWordsNeededToReview: 时间之差为大于 4 天，未及时进行深度复习，将其单词掌握程度 -2");
                             // 时间之差为大于 4 天，未及时进行深度复习，将其单词掌握程度 -2
                             Word newWord = new Word();
                             newWord.setMasterDegree(8);
@@ -193,6 +204,7 @@ public class LearningController {
                             wordsNeedToReviewList.add(word.getWordId());
                         } else if (TimeController.daysInternal(word.getLastMasterTime(), TimeController.getCurrentDateStamp()) == 4) {
                             // 第 4 天，需进行深度复习
+                            Log.d(TAG, "setWordsNeededToReview: 第 4 天，需进行深度复习");
                             wordsNeedToReviewList.add(word.getWordId());
                         }
                     } catch (ParseException e) {
@@ -204,12 +216,14 @@ public class LearningController {
                     try {
                         if (TimeController.daysInternal(word.getLastMasterTime(), TimeController.getCurrentDateStamp()) > 3) {
                             // 时间之差为大于 3 天，未及时进行深度复习，将其单词掌握程度 -2
+                            Log.d(TAG, "setWordsNeededToReview: 时间之差为大于 3 天，未及时进行深度复习，将其单词掌握程度 -2");
                             Word newWord = new Word();
                             newWord.setMasterDegree(8);
                             newWord.updateAll("wordId = ?", word.getWordId() + "");
                             wordsNeedToReviewList.add(word.getWordId());
                         } else if (TimeController.daysInternal(word.getLastMasterTime(), TimeController.getCurrentDateStamp()) == 3) {
                             // 第 3 天，需进行深度复习
+                            Log.d(TAG, "setWordsNeededToReview: 第 3 天，需进行深度复习");
                             wordsNeedToReviewList.add(word.getWordId());
                         }
                     } catch (ParseException e) {
@@ -221,12 +235,14 @@ public class LearningController {
                     try {
                         if (TimeController.daysInternal(word.getLastMasterTime(), TimeController.getCurrentDateStamp()) > 8) {
                             // 时间之差为大于 8 天，未及时进行深度复习，将其单词掌握程度 -2
+                            Log.d(TAG, "setWordsNeededToReview: 时间之差为大于 8 天，未及时进行深度复习，将其单词掌握程度 -2");
                             Word newWord = new Word();
                             newWord.setMasterDegree(8);
                             newWord.updateAll("wordId = ?", word.getWordId() + "");
                             wordsNeedToReviewList.add(word.getWordId());
                         } else if (TimeController.daysInternal(word.getLastMasterTime(), TimeController.getCurrentDateStamp()) == 8) {
                             // 第 8 天，需进行深度复习
+                            Log.d(TAG, "setWordsNeededToReview: 第 8 天，需进行深度复习");
                             wordsNeedToReviewList.add(word.getWordId());
                         }
                     } catch (ParseException e) {
@@ -246,6 +262,11 @@ public class LearningController {
         for (Word word : queryJustLearnButNotReviewList) {
             wordsNeedToReviewList.add(word.getWordId());
         }
+
+        // 将复习列表打乱一下
+        Collections.shuffle(wordsNeedToReviewList);
+
+        Log.d(TAG, "setWordsNeededToReview: " + wordsNeedToReviewList.toString());
     }
 
 
@@ -306,7 +327,8 @@ public class LearningController {
      */
     public static void completeJustLearnedToReview(int wordId, boolean ifRight) {
         List<Word> words = LitePal.where("wordId = ?", wordId + "")
-                .select("wordId", "word", "masterDegree", "examRightNum", "deepMasterTimes")
+                .select("wordId", "word", "masterDegree", "lastMasterTime",
+                        "deepMasterTimes", "haveLearned", "lastReviewTime")
                 .find(Word.class);
         // 回答正确
         if (ifRight) {
@@ -319,14 +341,14 @@ public class LearningController {
             }
             // 更新单词库内单词掌握等属性
             Word word = new Word();
-            // 设置成已经学过
-            word.setHaveLearned(1);
-            // 回答正确，掌握程度加2点
+            // 回答正确，掌握程度加 4点
             if (words.get(0).getMasterDegree() < 10) {
                 if (words.get(0).getMasterDegree() != 8) {
-                    word.setMasterDegree(words.get(0).getMasterDegree() + 2);
+                    word.setMasterDegree(words.get(0).getMasterDegree() + 4);
                 } else {
                     word.setMasterDegree(10);
+                    // 设置上次已掌握时间
+                    word.setLastMasterTime(TimeController.getCurrentDateStamp());
                 }
                 word.updateAll("wordId = ?", wordId + "");
             } else {
@@ -335,13 +357,14 @@ public class LearningController {
                 // 设置上次已掌握时间
                 word.setLastMasterTime(TimeController.getCurrentDateStamp());
             }
+            // 设置成已经学过
+            word.setHaveLearned(1);
             // 设置上次复习时间
-            word.setLastReviewTime(TimeController.getCurrentTimeStamp());
+            word.setLastReviewTime(TimeController.getCurrentDateStamp());
             // 更新
             word.updateAll("wordId = ?", wordId + "");
         }
-        // 回答错误
-        // else { // 不增加掌握程度 }
+//        else { // 回答错误，不增加不减少掌握程度，算学过单词了  }
     }
 
     /**
@@ -366,7 +389,8 @@ public class LearningController {
      */
     public static void completeWordToReview(int wordId, boolean ifRight) {
         List<Word> words = LitePal.where("wordId = ?", wordId + "")
-                .select("wordId", "word", "masterDegree", "examRightNum", "deepMasterTimes")
+                .select("wordId", "word", "masterDegree", "examRightNum", "examNum",
+                        "deepMasterTimes", "lastMasterTime", "haveLearned", "lastReviewTime")
                 .find(Word.class);
         // 回答正确
         if (ifRight) {
@@ -377,16 +401,18 @@ public class LearningController {
                     break;
                 }
             }
-            Word word = new Word();
             // 浅度掌握的复习（掌握程度<10）
+            Word word = new Word();
             if (words.get(0).getMasterDegree() < 10) {
                 // 测试正确次数 +1
                 word.setExamRightNum(words.get(0).getExamRightNum() + 1);
-                // 掌握程度 +2
+                // 掌握程度 +4
                 if (words.get(0).getMasterDegree() != 8) {
-                    word.setMasterDegree(words.get(0).getMasterDegree() + 2);
+                    word.setMasterDegree(words.get(0).getMasterDegree() + 4);
                 } else {
                     word.setMasterDegree(10);
+                    // 设置上次已掌握时间
+                    word.setLastMasterTime(TimeController.getCurrentDateStamp());
                 }
             } else { // 深度掌握的复习（掌握程度=10）
                 // 深度掌握次数 +1
@@ -396,8 +422,11 @@ public class LearningController {
             }
             word.updateAll("wordId = ?", wordId + "");
         }
-        // 更新测试次数
         Word word = new Word();
+        // 设置成已经学过
+        word.setHaveLearned(1);
+        // 设置上次复习时间
+        word.setLastReviewTime(TimeController.getCurrentDateStamp());
         // 设置测试次数
         word.setExamNum(words.get(0).getExamNum() + 1);
         word.updateAll("wordId = ?", wordId + "");
@@ -410,24 +439,35 @@ public class LearningController {
      * @param wordId the word id
      */
     public static void removeSelectedWord(int wordId) {
+        Log.d(TAG, "removeSelectedWord: 移除指定Id的单词，id = " + wordId);
+        Log.d(TAG, "移除前");
+        Log.d(TAG, wordsNeedToLearnList.toString());
+        Log.d(TAG, wordsNeedToReviewList.toString());
+
         for (int i = 0; i < wordsNeedToLearnList.size(); i++) {
             if (wordId == wordsNeedToLearnList.get(i)) {
                 wordsNeedToLearnList.remove(i);
                 i--; // 这里要用索引遍历
             }
         }
+
         for (int i = 0; i < wordsNeedToReviewList.size(); i++) {
             if (wordId == wordsNeedToReviewList.get(i)) {
                 wordsNeedToReviewList.remove(i);
                 i--; // 这里要用索引遍历
             }
         }
+
         for (int i = 0; i < wordsJustLearnedList.size(); i++) {
             if (wordId == wordsJustLearnedList.get(i)) {
                 wordsJustLearnedList.remove(i);
                 i--; // 这里要用索引遍历
             }
         }
+
+        Log.d(TAG, "移除后");
+        Log.d(TAG, wordsNeedToLearnList.toString());
+        Log.d(TAG, wordsNeedToReviewList.toString());
     }
 
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,13 +8,12 @@
     tools:context=".activity.MissionCompleteActivity">
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="454dp"
-        android:alpha="0.5"
+        android:layout_width="200dp"
+        android:layout_height="302dp"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/pic_hikari_night"
-        android:contentDescription="@string/todo" />
-
+        android:alpha="0.5"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/pic_hikari_night" />
 
     <LinearLayout
         android:id="@+id/layout_mission_complete_top"
@@ -27,10 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:text="@string/mission_complete"
             android:textColor="@color/colorOnPrimaryContainer"
-            android:textSize="28sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -45,8 +43,8 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/icon_coins"
-                android:contentDescription="@string/todo" />
+                android:contentDescription="@string/todo"
+                android:src="@drawable/icon_coins" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,17 +67,17 @@
                 android:id="@+id/img_mission_complete_done"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/icon_done"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/todo" />
+                android:contentDescription="@string/todo"
+                android:src="@drawable/icon_done" />
 
             <LinearLayout
                 android:id="@+id/layout_mission_complete_done"
-                android:layout_toEndOf="@id/img_mission_complete_done"
-                android:layout_marginStart="10dp"
-                android:padding="3dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/img_mission_complete_done"
+                android:padding="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,12 +87,12 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/text_fi_word_num"
+                    android:id="@+id/text_mission_complete_word_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:text="@string/_323"
+                    android:text="@string/number_7"
                     android:textColor="@color/colorOnPrimaryContainer"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -110,12 +108,12 @@
 
             <LinearLayout
                 android:id="@+id/layout_mission_complete_day"
-                android:layout_toEndOf="@id/img_mission_complete_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/layout_mission_complete_done"
                 android:layout_marginStart="10dp"
-                android:padding="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_toEndOf="@id/img_mission_complete_done"
+                android:padding="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,15 +123,15 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/text_fi_days"
+                    android:id="@+id/text_mission_complete_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/day"
-                    android:textStyle="bold"
                     android:textColor="@color/colorOnPrimaryContainer"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,49 +146,50 @@
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_mission_complete_ok"
+        android:layout_above="@id/btn_mission_complete_ok"
         android:layout_below="@+id/layout_mission_complete_top"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="60dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp">
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_mission_complete_feelings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="感悟"
-            app:helperTextEnabled="true"
-            app:helperText="写写你的心得吧">
+            android:hint="@string/feelings"
+            app:counterEnabled="true"
+            app:counterMaxLength="300"
+            app:helperText="今天单词都学完啦，想写点什么吗？"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_mission_complete_feelings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:minLines="5"
-                android:textSize="18sp"
-                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:maxLines="10"
+                android:minLines="8"
+                android:textSize="18sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_mission_complete_ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/ok"
         android:textColor="@color/colorOnPrimary"
         android:textSize="17sp"

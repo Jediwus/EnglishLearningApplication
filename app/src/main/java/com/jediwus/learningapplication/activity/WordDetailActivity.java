@@ -47,6 +47,7 @@ import com.jediwus.learningapplication.database.Translation;
 import com.jediwus.learningapplication.database.Word;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
 import com.jediwus.learningapplication.myUtil.FileUtil;
+import com.jediwus.learningapplication.myUtil.LearningController;
 import com.jediwus.learningapplication.myUtil.MediaHelper;
 import com.jediwus.learningapplication.myUtil.MyPopupWindow;
 import com.jediwus.learningapplication.pojo.ItemPhrase;
@@ -643,7 +644,8 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                 }
                 currentWord = LitePal.where("wordId = ?", wordId + "").find(Word.class).get(0);
                 if (currentType == TYPE_LEARNING) {
-//                    LearningController.removeOneWord(wordId);
+                    LearningController.removeSelectedWord(wordId);
+                    LearningActivity.flagNeedRefresh = true;
                     ActivityCollector.startOtherActivity(WordDetailActivity.this, LearningActivity.class);
                 }
                 break;

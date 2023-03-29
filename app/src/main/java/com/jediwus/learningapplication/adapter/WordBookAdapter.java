@@ -61,28 +61,33 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
 
             int position = holder.getAdapterPosition();
             final ItemWordBook itemWordBook = mItemWordBookList.get(position);
-            List<UserPreference> userPreferences = LitePal.where("userId = ?",
-                    DataConfig.getWeChatNumLogged() + "").find(UserPreference.class);
+            if (!itemWordBook.isFlagEnd()) {
+                List<UserPreference> userPreferences = LitePal.where("userId = ?",
+                        DataConfig.getWeChatNumLogged() + "").find(UserPreference.class);
 
-            if (userPreferences.get(0).getCurrentBookId() == itemWordBook.getBookId() &&
-                    userPreferences.get(0).getWordNeedReciteNum() != 0) {
-                Toast.makeText(MyApplication.getContext(), "这本书已经被你选择啦！", Toast.LENGTH_SHORT).show();
-            } else {
-                // 更新用户数据
-                UserPreference userPreference = new UserPreference();
-                userPreference.setCurrentBookId(itemWordBook.getBookId());
-                userPreference.updateAll("userId = ?", DataConfig.getWeChatNumLogged() + "");
+                if (userPreferences.get(0).getCurrentBookId() == itemWordBook.getBookId() &&
+                        userPreferences.get(0).getWordNeedReciteNum() != 0) {
+                    Toast.makeText(MyApplication.getContext(), "这本书已经被你选择啦！", Toast.LENGTH_SHORT).show();
+                } else {
+                    // 更新用户数据
+                    UserPreference userPreference = new UserPreference();
+                    userPreference.setCurrentBookId(itemWordBook.getBookId());
+                    userPreference.updateAll("userId = ?", DataConfig.getWeChatNumLogged() + "");
 
-                List<UserPreference> preferences = LitePal.findAll(UserPreference.class);
-                for (UserPreference preference : preferences) {
-                    Log.d("TAG", "实际选择的书ID:"+itemWordBook.getBookId()+"，数据库中书ID："+preference.getCurrentBookId() + "，用户ID：" + preference.getUserId());
+                    List<UserPreference> preferences = LitePal.findAll(UserPreference.class);
+                    for (UserPreference preference : preferences) {
+                        Log.d("TAG", "实际选择的书ID:" + itemWordBook.getBookId() + "，数据库中书ID：" + preference.getCurrentBookId() + "，用户ID：" + preference.getUserId());
+                    }
+
+                    Intent intent = new Intent(MyApplication.getContext(), LearningPlanActivity.class);
+                    intent.putExtra(DataConfig.UPDATE_NAME, DataConfig.notUpdate);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    MyApplication.getContext().startActivity(intent);
                 }
-
-                Intent intent = new Intent(MyApplication.getContext(), LearningPlanActivity.class);
-                intent.putExtra(DataConfig.UPDATE_NAME, DataConfig.notUpdate);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                MyApplication.getContext().startActivity(intent);
+            } else {
+                Toast.makeText(MyApplication.getContext(), "芜湖~起飞！哎~飞~", Toast.LENGTH_SHORT).show();
             }
+
 
         });
 

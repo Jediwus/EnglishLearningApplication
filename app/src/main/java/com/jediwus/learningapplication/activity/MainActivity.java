@@ -1,7 +1,6 @@
 package com.jediwus.learningapplication.activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -13,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
-import com.jediwus.learningapplication.activity.fragment.FragmentMe;
+import com.jediwus.learningapplication.activity.fragment.FragmentUser;
 import com.jediwus.learningapplication.activity.fragment.FragmentReview;
 import com.jediwus.learningapplication.activity.fragment.FragmentWord;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
@@ -50,7 +49,7 @@ public class MainActivity extends BaseActivity {
 
         Fragment fragWord = new FragmentWord();
         Fragment fragReview = new FragmentReview();
-        Fragment fragMe = new FragmentMe();
+        Fragment fragMe = new FragmentUser();
         fragments = new Fragment[]{fragWord, fragReview, fragMe};
 
         switch (lastFragment) {
@@ -109,7 +108,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
         builder.setTitle("精灵的挽留")
-                .setMessage("\t\t作为词星骑士的你，难道今天就到此为止了吗？")
+                .setMessage("小骑士要走了吗？")
                 .setPositiveButton("该休息啦", (dialog, which) -> {
                     needRefresh = true;
                     ActivityCollector.finishAll();
@@ -118,9 +117,5 @@ public class MainActivity extends BaseActivity {
                 .show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
 }

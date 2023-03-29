@@ -13,9 +13,4 @@ public class LearningNotifyActivity extends BaseActivity {
         setContentView(R.layout.activity_learning_notify);
     }
 
-    public static void checkIsAvailable() {
-    }
-
-    public static void startService(int mode) {
-    }
 }

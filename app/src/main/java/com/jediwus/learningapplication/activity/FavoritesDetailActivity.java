@@ -1,7 +1,6 @@
 package com.jediwus.learningapplication.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -22,7 +21,6 @@ import com.jediwus.learningapplication.database.Favorites;
 import com.jediwus.learningapplication.database.FavoritesLinkWord;
 import com.jediwus.learningapplication.database.Translation;
 import com.jediwus.learningapplication.database.Word;
-import com.jediwus.learningapplication.myUtil.MyApplication;
 import com.jediwus.learningapplication.pojo.ItemWordList;
 
 import org.litepal.LitePal;
@@ -89,15 +87,15 @@ public class FavoritesDetailActivity extends BaseActivity {
 
         imgModify.setOnClickListener(viewModify -> {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(FavoritesDetailActivity.this);
-            builder.setTitle("重定义单词夹");
+            builder.setTitle("编辑单词夹");
             builder.setSingleChoiceItems(editOption, -1, (dialog, which) -> {
                 final int type = which;
                 // 延迟 200 毫秒取消对话框
                 new Handler().postDelayed(() -> {
                     dialog.dismiss();
-                    final View dialogView = LayoutInflater.from(FavoritesDetailActivity.this)
+                    View dialogView = LayoutInflater.from(FavoritesDetailActivity.this)
                             .inflate(R.layout.item_edit, null);
-                    final EditText editText = dialogView.findViewById(R.id.edit_text);
+                    EditText editText = dialogView.findViewById(R.id.edit_text);
                     if (type == 0) {
                         editText.setText(textTitle.getText().toString());
                     } else {

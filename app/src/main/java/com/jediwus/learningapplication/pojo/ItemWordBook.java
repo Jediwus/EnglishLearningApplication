@@ -15,13 +15,16 @@ public class ItemWordBook {
 
     // 单词书图片
     private String bookImg;
+    // 最后一个选项标志
+    private boolean flagEnd;
 
-    public ItemWordBook(int bookId, String bookName, int bookWordNum, String bookSource, String bookImg) {
+    public ItemWordBook(int bookId, String bookName, int bookWordNum, String bookSource, String bookImg,boolean flagEnd) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookWordNum = bookWordNum;
         this.bookSource = bookSource;
         this.bookImg = bookImg;
+        this.flagEnd = flagEnd;
     }
 
     public int getBookId() {
@@ -63,4 +66,13 @@ public class ItemWordBook {
     public void setBookImg(String bookImg) {
         this.bookImg = bookImg;
     }
+
+    public boolean isFlagEnd() {
+        return flagEnd;
+    }
+
+    public void setFlagEnd(boolean flagEnd) {
+        this.flagEnd = flagEnd;
+    }
+
 }

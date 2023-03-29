@@ -10,7 +10,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.config.ExternalData;
@@ -51,7 +51,7 @@ public class LearningPlanActivity extends BaseActivity {
     private final int FINISH = 1;
     private final int DOWNLOADED = 2;
 
-    private EditText edit_text;
+    private TextInputEditText edit_text;
 
     private TextView text_book, text_word_maxNum;
 

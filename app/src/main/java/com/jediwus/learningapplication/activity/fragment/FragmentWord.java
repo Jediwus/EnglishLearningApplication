@@ -129,7 +129,6 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         animator3.start();
 
 
-
         fab_search.setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
             private int initialY;
@@ -300,18 +299,24 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         text_day.setText(calendar.get(Calendar.DATE) + "");
         text_month.setText(DailyMottoActivity.getMonthName(calendar));
 
-        List<Word> wordList = LitePal.where("deepMasterTimes <> ?", 3 + "").select("wordId").find(Word.class);
-        List<MyDate> myDateList = LitePal.where("year = ? and month = ? and date = ? and userId = ?",
-                calendar.get(Calendar.YEAR) + "",
-                (calendar.get(Calendar.MONTH) + 1) + "",
-                calendar.get(Calendar.DATE) + "",
-                DataConfig.getWeChatNumLogged() + "").find(MyDate.class);
+        // 开始任务按钮处理 ,-(P 交 Q) = (-P)并（-Q）
+        List<Word> wordList = LitePal
+                .where("deepMasterTimes <> ? and isEasy <> ?", "3" , "1")
+                .select("wordId")
+                .find(Word.class);
+        List<MyDate> myDateList = LitePal
+                .where("year = ? and month = ? and date = ? and userId = ?",
+                        calendar.get(Calendar.YEAR) + "",
+                        (calendar.get(Calendar.MONTH) + 1) + "",
+                        calendar.get(Calendar.DATE) + "",
+                        DataConfig.getWeChatNumLogged() + "")
+                .find(MyDate.class);
         if (!wordList.isEmpty()) {
-            if (myDateList.isEmpty()) { // 计划为待完成状态
+            if (myDateList.isEmpty()) { // 任务为待完成状态
                 btn_start.setText("开启今日任务");
                 isOnClick = true;
             } else {
-                if ((myDateList.get(0).getWordLearnNumber() + myDateList.get(0).getWordReviewNumber()) > 0) { // 完成计划
+                if ((myDateList.get(0).getWordLearnNumber() + myDateList.get(0).getWordReviewNumber()) > 0) { // 完成任务
                     btn_start.setBackgroundColor(requireActivity().getColor(R.color.colorSurfaceVariant));
                     btn_start.setTextColor(requireActivity().getColor(R.color.colorOnSurfaceVariant));
                     btn_start.setText("今日任务已完成!");
@@ -329,11 +334,12 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
             btn_start.setClickable(false);
             isOnClick = false;
         }
+
         // 设置界面数据
         List<UserPreference> userPreferenceList = LitePal.where("userId = ?",
                 DataConfig.getWeChatNumLogged() + "").find(UserPreference.class);
         currentBookId = userPreferenceList.get(0).getCurrentBookId();
-        text_wordNum.setText("每日任务：" + userPreferenceList.get(0).getWordNeedReciteNum() + "词");
+        text_wordNum.setText("每日任务 " + userPreferenceList.get(0).getWordNeedReciteNum() + " 词");
         text_book.setText(ExternalData.getBookNameById(currentBookId));
         if (prepareData == 0) {
             // 设置随机数据
@@ -355,7 +361,6 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
 
         int randomId = NumberController.getRandomNumber(1, ExternalData.getWordsTotalNumbersById(currentBookId));
         currentRandomId = randomId;
-        Log.d(TAG, "setRandomWord: 当前randomId-" + randomId + " ,要传入的currentRandomId-" + currentRandomId);
 
         Word word = LitePal.where("wordId = ?", randomId + "").select("wordId", "word").find(Word.class).get(0);
         text_word.setText(word.getWord());

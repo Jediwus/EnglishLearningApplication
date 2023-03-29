@@ -37,10 +37,15 @@ android {
 dependencies {
 
     // Material Design 组件库
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.7.0'
 
-    // 微信API
-    api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.20'
+    // QQ API
+    implementation 'com.tencent.tauth:qqopensdk:3.52.0'
+//    implementation 'com.tencent.tauth:OpenSDK:3.5.2'
+//    implementation 'com.tencent.tauth:TencentOAuth:3.5.2'
+//    implementation 'com.tencent.tauth:TencentOpenAPI:3.5.2'
+
+//    api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.20'
 
     // 指定编译Android的高版本支持库。如AppCompatActivity必须指定编译appcompat库
     // appcompat库各版本见 https://mvnrepository.com/artifact/androidx.appcompat/appcompat
@@ -71,6 +76,8 @@ dependencies {
     implementation 'me.grantland:autofittextview:0.2.1'
     // 提供支持图像缩放、平移和缩放的 ImageView 实现
     implementation 'com.github.chrisbanes:PhotoView:1.2.6'
+    // 一个强大且简便的安卓图表库
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // 指定单元测试编译用的junit版本号
     testImplementation 'junit:junit:4.13.2'

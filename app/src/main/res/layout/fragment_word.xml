@@ -74,7 +74,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
@@ -92,7 +92,6 @@
                 android:id="@+id/top_saying"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:padding="4dp"
                 android:text="@string/motto"
                 android:textSize="12sp" />
@@ -105,7 +104,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/english_dict"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +112,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="0dp">
 
                     <TextView
                         android:id="@+id/text_main_book_name"
@@ -126,9 +125,9 @@
                         android:text="@string/english_dictionary"
                         android:textSize="12sp" />
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/num_of_dWords"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,7 +136,7 @@
                     android:layout_marginEnd="6dp"
                     android:layout_marginBottom="6dp"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="0dp">
 
                     <TextView
                         android:id="@+id/text_main_word_num"
@@ -150,7 +149,7 @@
                         android:text="@string/numbers_of_words_each_day"
                         android:textSize="12sp" />
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
@@ -163,9 +162,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_main_top"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -366,7 +365,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="27dp"
         android:layout_marginBottom="85dp"
         android:contentDescription="@string/some_little_functions"
         android:src="@drawable/icon_fab"

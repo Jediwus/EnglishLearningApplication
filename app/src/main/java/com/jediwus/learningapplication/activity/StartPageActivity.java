@@ -31,9 +31,9 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
+public class StartPageActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "WelcomeActivity";
+    private static final String TAG = "StartPageActivity";
     // 壁纸
     private ImageView imgBackground;
     // 每日一句文字
@@ -57,7 +57,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     if (!dailyDataList.isEmpty()) {
                         DailyData dailyData = dailyDataList.get(0);
                         textWelCome.setText(dailyData.getDailyEn());
-                        Glide.with(WelcomeActivity.this).load(dailyData.getPicVertical()).into(imgBackground);
+                        Glide.with(StartPageActivity.this).load(dailyData.getPicVertical()).into(imgBackground);
                     }
                 case 2:
                     // 处理类型为2的消息
@@ -78,7 +78,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         welcomeWindow = new MyPopupWindow(this);
         welcomeWindow.setContentView(R.layout.item_welcome_introduction);
 
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_start_page);
         // 防止重复
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             ActivityCollector.removeActivity(this);
@@ -153,22 +153,22 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
 
                     if (userPreferences.get(0).getCurrentBookId() == -1) {
                         // 跳转到选择词书活动 ChooseWordBookActivity
-                        Intent intent = new Intent(WelcomeActivity.this, ChooseWordBookActivity.class);
+                        Intent intent = new Intent(StartPageActivity.this, ChooseWordBookActivity.class);
                         startActivity(intent);
                     } else if (userPreferences.get(0).getCurrentBookId() != -1 &&
                             userPreferences.get(0).getWordNeedReciteNum() == 0) {
                         // 跳转到更改选择计划活动 LearningPlanActivity
-                        Intent intent = new Intent(WelcomeActivity.this, LearningPlanActivity.class);
+                        Intent intent = new Intent(StartPageActivity.this, LearningPlanActivity.class);
                         startActivity(intent);
                     } else {
-                        // 后台更新登录时间
-                        new Thread(() -> updateServerData()).start();
+//                        // 后台更新登录时间
+//                        new Thread(() -> updateServerData()).start();
                         // 跳转到 MainActivity
-                        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                        Intent intent = new Intent(StartPageActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 } else {    // 未登录，进入登录页活动 LoginActivity
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(StartPageActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
 
@@ -179,10 +179,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 // 暂不设置
             }
         });
-    }
-
-    private void updateServerData() {
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -215,7 +211,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onDenied(List<String> deniedPermission) {
                 if (!deniedPermission.isEmpty()) {
-                    Toast.makeText(WelcomeActivity.this, "访问权限被拒，为您退出应用", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StartPageActivity.this, "访问权限被拒，为您退出应用", Toast.LENGTH_SHORT).show();
                     ActivityCollector.finishAll();
                 }
             }

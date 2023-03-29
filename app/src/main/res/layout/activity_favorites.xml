@@ -23,8 +23,8 @@
                 android:id="@+id/favorites_img_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:padding="3dp"
                 android:contentDescription="@string/the_back_icon"
+                android:padding="3dp"
                 android:src="@drawable/icon_back" />
 
 
@@ -62,7 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="90dp"
+        android:clickable="true"
         android:contentDescription="@string/some_little_functions"
+        android:focusable="true"
         android:src="@drawable/icon_plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

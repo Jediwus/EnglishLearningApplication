@@ -1,13 +1,10 @@
 package com.jediwus.learningapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.jediwus.learningapplication.R;
 
 public class AlarmActivity extends BaseActivity {
-
 
 
     @Override
@@ -17,7 +14,4 @@ public class AlarmActivity extends BaseActivity {
     }
 
 
-    public static void startAlarm(int hour, int minute, boolean isRepeat, boolean isTip) {
-
-    }
 }

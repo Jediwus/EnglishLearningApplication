@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="This is review!" />
+            android:text="@string/this_is_review" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

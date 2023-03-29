@@ -49,76 +49,87 @@ public class ChooseWordBookActivity extends BaseActivity {
                 ExternalData.getBookNameById(ExternalData.CET4_CoreWord),
                 ExternalData.getWordsTotalNumbersById(ExternalData.CET4_CoreWord),
                 "来源于：有道考神团队",
-                ExternalData.getBookPicById(ExternalData.CET4_CoreWord)));
+                ExternalData.getBookPicById(ExternalData.CET4_CoreWord),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.CET4_All,
                 ExternalData.getBookNameById(ExternalData.CET4_All),
                 ExternalData.getWordsTotalNumbersById(ExternalData.CET4_All),
                 "来源于：有道词典",
-                ExternalData.getBookPicById(ExternalData.CET4_All)));
+                ExternalData.getBookPicById(ExternalData.CET4_All),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.CET6_CoreWord,
                 ExternalData.getBookNameById(ExternalData.CET6_CoreWord),
                 ExternalData.getWordsTotalNumbersById(ExternalData.CET6_CoreWord),
                 "来源于：有道考神团队",
-                ExternalData.getBookPicById(ExternalData.CET6_CoreWord)));
+                ExternalData.getBookPicById(ExternalData.CET6_CoreWord),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.CET6_All,
                 ExternalData.getBookNameById(ExternalData.CET6_All),
                 ExternalData.getWordsTotalNumbersById(ExternalData.CET6_All),
                 "来源于：有道词典",
-                ExternalData.getBookPicById(ExternalData.CET6_All)));
+                ExternalData.getBookPicById(ExternalData.CET6_All),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.KaoYan_CoreWord,
                 ExternalData.getBookNameById(ExternalData.KaoYan_CoreWord),
                 ExternalData.getWordsTotalNumbersById(ExternalData.KaoYan_CoreWord),
                 "来源于：有道考神团队",
-                ExternalData.getBookPicById(ExternalData.KaoYan_CoreWord)));
+                ExternalData.getBookPicById(ExternalData.KaoYan_CoreWord),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.kaoYan_All,
                 ExternalData.getBookNameById(ExternalData.kaoYan_All),
                 ExternalData.getWordsTotalNumbersById(ExternalData.kaoYan_All),
                 "来源于：有道词典",
-                ExternalData.getBookPicById(ExternalData.kaoYan_All)));
+                ExternalData.getBookPicById(ExternalData.kaoYan_All),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.Level4_CoreWord,
                 ExternalData.getBookNameById(ExternalData.Level4_CoreWord),
                 ExternalData.getWordsTotalNumbersById(ExternalData.Level4_CoreWord),
                 "来源于：有道考神团队",
-                ExternalData.getBookPicById(ExternalData.Level4_CoreWord)));
+                ExternalData.getBookPicById(ExternalData.Level4_CoreWord),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.Level4_All,
                 ExternalData.getBookNameById(ExternalData.Level4_All),
                 ExternalData.getWordsTotalNumbersById(ExternalData.Level4_All),
                 "来源于：有道词典",
-                ExternalData.getBookPicById(ExternalData.Level4_All)));
+                ExternalData.getBookPicById(ExternalData.Level4_All),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.Level8_CoreWord,
                 ExternalData.getBookNameById(ExternalData.Level8_CoreWord),
                 ExternalData.getWordsTotalNumbersById(ExternalData.Level8_CoreWord),
                 "来源于：有道考神团队",
-                ExternalData.getBookPicById(ExternalData.Level8_CoreWord)));
+                ExternalData.getBookPicById(ExternalData.Level8_CoreWord),
+                false));
 
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.Level8_All,
                 ExternalData.getBookNameById(ExternalData.Level8_All),
                 ExternalData.getWordsTotalNumbersById(ExternalData.Level8_All),
                 "来源于：有道词典",
-                ExternalData.getBookPicById(ExternalData.Level8_All)));
+                ExternalData.getBookPicById(ExternalData.Level8_All),
+                false));
         itemWordBookList.add(new ItemWordBook(
                 -1,
-                "作者制作中,敬请期待",
+                "作者制作中...",
                 0,
-                "无需选择,可别手痒点我",
-                ""));
+                "敬请期待...",
+                "",
+                true));
     }
 
 

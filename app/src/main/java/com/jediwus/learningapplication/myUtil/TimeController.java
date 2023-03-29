@@ -40,6 +40,7 @@ public class TimeController {
             time = Objects.requireNonNull(simpleDateFormat
                     .parse(currentYear + "-" + currentMonth + "-" + currentDate)).getTime();
         } catch (ParseException e) {
+            Log.d(TAG, "getCurrentDateStamp: 打印异常");
             e.printStackTrace();
         }
         Log.d(TAG, "getCurrentDateStamp: " + time);
@@ -96,7 +97,9 @@ public class TimeController {
         Date date2 = simpleDateFormat.parse(getStringDate(time2));
         assert date2 != null;
         assert date1 != null;
-        return (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+        int result = (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+        Log.d(TAG, "daysInternal 两时间戳天数之差: "+result);
+        return result;
     }
 
     /*---------------------------------------时间类----------------------------------------*/

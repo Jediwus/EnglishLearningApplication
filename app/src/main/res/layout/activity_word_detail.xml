@@ -30,9 +30,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="6dp"
                     app:cardBackgroundColor="@color/colorCardWordDetail"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="3dp">
@@ -71,7 +71,7 @@
                                     android:textStyle="bold"
                                     autofit:minTextSize="16sp" />
 
-                                <androidx.cardview.widget.CardView
+                                <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/img_detail_word_folder"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -81,7 +81,7 @@
                                     android:layout_toStartOf="@+id/img_detail_picture_custom"
                                     app:cardBackgroundColor="@color/colorTertiaryContainer"
                                     app:cardCornerRadius="15dp"
-                                    app:cardElevation="2dp">
+                                    app:cardElevation="0dp">
 
                                     <RelativeLayout
                                         android:id="@+id/layout_word_detail_favorites"
@@ -100,9 +100,9 @@
 
                                     </RelativeLayout>
 
-                                </androidx.cardview.widget.CardView>
+                                </com.google.android.material.card.MaterialCardView>
 
-                                <androidx.cardview.widget.CardView
+                                <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/img_detail_picture_custom"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -112,7 +112,7 @@
                                     android:layout_toStartOf="@+id/img_detail_memo"
                                     app:cardBackgroundColor="@color/colorTertiaryContainer"
                                     app:cardCornerRadius="15dp"
-                                    app:cardElevation="2dp">
+                                    app:cardElevation="0dp">
 
                                     <RelativeLayout
                                         android:id="@+id/layout_word_detail_picture"
@@ -131,9 +131,9 @@
 
                                     </RelativeLayout>
 
-                                </androidx.cardview.widget.CardView>
+                                </com.google.android.material.card.MaterialCardView>
 
-                                <androidx.cardview.widget.CardView
+                                <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/img_detail_star"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -144,7 +144,7 @@
                                     android:layout_toStartOf="@+id/img_detail_word_folder"
                                     app:cardBackgroundColor="@color/colorTertiaryContainer"
                                     app:cardCornerRadius="15dp"
-                                    app:cardElevation="2dp">
+                                    app:cardElevation="0dp">
 
                                     <RelativeLayout
                                         android:id="@+id/layout_word_detail_star"
@@ -163,9 +163,9 @@
 
                                     </RelativeLayout>
 
-                                </androidx.cardview.widget.CardView>
+                                </com.google.android.material.card.MaterialCardView>
 
-                                <androidx.cardview.widget.CardView
+                                <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/img_detail_memo"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
@@ -174,7 +174,7 @@
                                     android:layout_margin="3dp"
                                     app:cardBackgroundColor="@color/colorTertiaryContainer"
                                     app:cardCornerRadius="15dp"
-                                    app:cardElevation="2dp">
+                                    app:cardElevation="0dp">
 
                                     <RelativeLayout
                                         android:id="@+id/layout_word_detail_more"
@@ -191,7 +191,7 @@
 
                                     </RelativeLayout>
 
-                                </androidx.cardview.widget.CardView>
+                                </com.google.android.material.card.MaterialCardView>
 
                             </RelativeLayout>
 

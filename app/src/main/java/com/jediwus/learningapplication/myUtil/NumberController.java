@@ -29,7 +29,7 @@ public class NumberController {
      * @return the int [ ]
      */
     public static int[] getRandomNumberList(int min, int max, int n) {
-        // 判错，是否已经达到或超过可以输出随机数的个数
+        // 判错语句
         if (n > (max - min + 1) || max < min) {
             return null;
         }

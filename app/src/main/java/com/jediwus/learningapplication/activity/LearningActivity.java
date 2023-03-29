@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,7 +30,6 @@ import com.jediwus.learningapplication.database.Word;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
 import com.jediwus.learningapplication.myUtil.LearningController;
 import com.jediwus.learningapplication.myUtil.MediaHelper;
-import com.jediwus.learningapplication.myUtil.MyApplication;
 import com.jediwus.learningapplication.myUtil.TimeController;
 import com.jediwus.learningapplication.pojo.ItemMeaningPicker;
 
@@ -38,7 +38,6 @@ import org.litepal.LitePal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class LearningActivity extends BaseActivity implements View.OnClickListener {
 
@@ -64,7 +63,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout cardLayoutUncertain;
     private RelativeLayout cardLayoutDoNotKnow;
     private RelativeLayout layoutBottomReview;
-    private MaterialButton buttonTip;
+    private Button buttonTip;
     private RecyclerView recyclerView;
 
     private MeaningPickerAdapter meaningPickerAdapter;
@@ -177,6 +176,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                     }
                     // 设置标记为：错选
                     itemWordMeanChoice.setIfRight(ItemMeaningPicker.WRONG);
+                    // 顶部错误显示
                     flagLastWord = ItemMeaningPicker.WRONG;
                     // 更新适配器数据
                     meaningPickerAdapter.notifyDataSetChanged();
@@ -191,7 +191,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LearningActivity.this).toBundle());
                         // 页面重置，将第一次点击的标志置为真
                         MeaningPickerAdapter.isFirstClick = true;
-                    }, 250);
+                    }, 500);
                 } else {  // 选择正确
                     // 模式判断
                     switch (LearningController.currentMode) {
@@ -216,7 +216,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                         updateView();
                         // 页面重置，将第一次点击的标志置为真
                         MeaningPickerAdapter.isFirstClick = true;
-                    }, 250);
+                    }, 500);
                 }
             }
         });
@@ -227,6 +227,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart: 要刷新页面了");
         if (flagNeedRefresh) {
             updateView();
             flagNeedRefresh = false;
@@ -426,10 +427,11 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                 Word word = new Word();
                 word.setIsEasy(1);
                 word.updateAll("wordId = ?", LearningController.currentWordId + "");
-                Toast.makeText(this, "已标记为熟知词", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "已丢到垃圾桶里面", Toast.LENGTH_SHORT).show();
                 updateView();
                 break;
 
+            // 提示句子
             case R.id.layout_learning_word_tip:
                 if (!TextUtils.isEmpty(tipSentence.trim())) {
                     MediaHelper.play(tipSentence);

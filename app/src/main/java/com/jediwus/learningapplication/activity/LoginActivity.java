@@ -1,6 +1,5 @@
 package com.jediwus.learningapplication.activity;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;

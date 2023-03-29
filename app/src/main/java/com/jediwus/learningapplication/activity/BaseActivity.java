@@ -1,6 +1,5 @@
 package com.jediwus.learningapplication.activity;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -82,7 +81,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (!permissionLists.isEmpty()) {
             ActivityCompat.requestPermissions(this,
-                    permissionLists.toArray(new String[permissionLists.size()]), PERMISSION_REQUEST_CODE);
+                    permissionLists.toArray(new String[0]), PERMISSION_REQUEST_CODE);
         } else {
             //表示全都授权了
             mListener.onGranted();
@@ -176,11 +175,6 @@ public class BaseActivity extends AppCompatActivity {
         dailyData.setDailySound(dailyQuot.getTts());
         dailyData.setDayTime(TimeController.getCurrentDateStamp() + "");
         dailyData.save();
-    }
-
-    public static boolean isServiceExisted(Context context, String className) {
-
-        return true;
     }
 
     public void windowExplode() {

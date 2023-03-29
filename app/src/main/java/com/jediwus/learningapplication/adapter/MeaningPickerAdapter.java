@@ -100,7 +100,7 @@ public class MeaningPickerAdapter extends RecyclerView.Adapter<MeaningPickerAdap
             holder.cardMeaning.setCardBackgroundColor(MyApplication.getContext().getResources().getColor(R.color.colorError, MyApplication.getContext().getTheme()));
             holder.textMeaning.setTextColor(MyApplication.getContext().getResources().getColor(R.color.colorOnError, MyApplication.getContext().getTheme()));
             holder.imgPicker.setVisibility(View.VISIBLE);
-            Glide.with(MyApplication.getContext()).load(R.drawable.icon_cross).into(holder.imgPicker);
+            Glide.with(MyApplication.getContext()).load(R.drawable.icon_error).into(holder.imgPicker);
 
         } else if (itemMeaningPicker.getIfRight() == ItemMeaningPicker.RIGHT) {
             // 回答正确的处理

@@ -56,7 +56,17 @@ public class BottomSheetDialogFragmentCustom extends BottomSheetDialogFragment {
         // 自定义例句
         TextView text_sentence = view.findViewById(R.id.dialog_text_sentence);
         text_sentence.setOnClickListener(view_sentence -> {
-            intentModify.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_SENTENCES);
+            intentModify.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_SENTENCE);
+            intentModify.putExtra(ModifyDataActivity.WORD_ID, WordDetailActivity.currentWord.getWordId());
+            startActivity(intentModify);
+            this.dismiss();
+        });
+
+
+        // 自定义词组
+        TextView text_phrase = view.findViewById(R.id.dialog_text_phrase);
+        text_phrase.setOnClickListener(view_phrase -> {
+            intentModify.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_PHRASE);
             intentModify.putExtra(ModifyDataActivity.WORD_ID, WordDetailActivity.currentWord.getWordId());
             startActivity(intentModify);
             this.dismiss();
@@ -65,7 +75,7 @@ public class BottomSheetDialogFragmentCustom extends BottomSheetDialogFragment {
         // 自定义备注
         TextView text_memo = view.findViewById(R.id.dialog_text_memo);
         text_memo.setOnClickListener(view_memo -> {
-            intentModify.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_REMARKS);
+            intentModify.putExtra(ModifyDataActivity.MODE_NAME, ModifyDataActivity.MODE_MEMO);
             intentModify.putExtra(ModifyDataActivity.WORD_ID, WordDetailActivity.currentWord.getWordId());
             startActivity(intentModify);
             this.dismiss();

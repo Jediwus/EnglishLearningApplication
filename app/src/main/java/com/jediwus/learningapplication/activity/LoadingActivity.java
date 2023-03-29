@@ -4,18 +4,20 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.database.UserPreference;
 import com.jediwus.learningapplication.myUtil.LearningController;
+import com.jediwus.learningapplication.myUtil.NumberController;
 import com.jediwus.learningapplication.myUtil.TimeController;
 
 import org.litepal.LitePal;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -23,11 +25,23 @@ public class LoadingActivity extends BaseActivity {
 
     private ProgressBar progressBar;
 
+    private TextView textViewTips;
+
     private Handler mHandler;
 
     private Runnable runnable;
 
-    int progressIndicator = 0;
+    int progressStatus = 0;
+
+    private String[] messages = {
+            "做题时可别经常偷看答案哦",
+            "感觉不确定？我会给出例句和发音的",
+            "每日新学完单词都会进行趁热打铁哦",
+            "趁热打铁，既有新铁，也有老铁",
+            "冲冲冲！",
+            "记得用心去记忆",
+            "干就完了！"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +51,9 @@ public class LoadingActivity extends BaseActivity {
         windowExplode();
 
         progressBar = findViewById(R.id.progress_wait);
+
+        textViewTips = findViewById(R.id.progress_tips);
+        textViewTips.setText(messages[NumberController.getRandomNumber(0, 6)]);
 
         ImageView img_loading_1 = findViewById(R.id.img_loading_1);
         Glide.with(this)
@@ -57,6 +74,7 @@ public class LoadingActivity extends BaseActivity {
             LearningController.setWordsNeededToReview();
             LearningController.wordNeedReciteNumber = LearningController.wordsNeedToReviewList.size();
             TimeController.todayDate = TimeController.getCurrentDateStamp();
+            LearningActivity.flagNeedRefresh = true;
             LearningActivity.lastWordId = -1;
             LearningActivity.lastWord = "";
             LearningActivity.lastWordMeaning = "";
@@ -76,15 +94,20 @@ public class LoadingActivity extends BaseActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                // 每隔 20ms 循环执行 run 方法
-                mHandler.postDelayed(this, 20);
-                progressBar.setProgress(++progressIndicator);
-                if (progressIndicator == 100) {
+                progressBar.setProgress(progressStatus++);
+                if (progressStatus == 50) {
+                    textViewTips.setText(messages[NumberController.getRandomNumber(0, 6)]);
+                }
+                if (progressStatus == 100) {
                     // 停止计时
                     stopTime();
                     Intent mIntent = new Intent(LoadingActivity.this, LearningActivity.class);
                     startActivity(mIntent, ActivityOptions.makeSceneTransitionAnimation(LoadingActivity.this).toBundle());
+                    // 结束该活动
+                    finish();
                 }
+                // 每隔 20ms 循环执行 run 方法
+                mHandler.postDelayed(this, 50);
             }
 
         };
@@ -100,5 +123,17 @@ public class LoadingActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         // TODO: 啥也不做
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHandler.postDelayed(runnable, 0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(runnable);
     }
 }
