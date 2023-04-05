@@ -162,7 +162,7 @@
             android:layout_margin="10dp"
             android:hint="@string/feelings"
             app:counterEnabled="true"
-            app:counterMaxLength="300"
+            app:counterMaxLength="400"
             app:helperText="今天单词都学完啦，想写点什么吗？"
             app:helperTextEnabled="true">
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/text_word_list_name"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:maxLines="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="@string/abandon"
+        android:textColor="@color/colorOnPrimaryContainer"
+        android:textStyle="bold"
+        autofit:minTextSize="10sp" />
+
+    <TextView
+        android:id="@+id/text_word_list_translation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="12sp"
+        android:text="@string/abandon_meaning"
+        android:textColor="@color/colorOnBackground" />
+
+    <ImageView
+        android:id="@+id/img_word_list_search"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/todo"
+        android:padding="5dp"
+        android:src="@drawable/icon_fab" />
+
+</LinearLayout>

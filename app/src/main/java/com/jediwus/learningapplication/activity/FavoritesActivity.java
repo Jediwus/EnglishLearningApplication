@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.fragment.BottomSheetDialogFragmentAddF;
@@ -37,6 +38,16 @@ public class FavoritesActivity extends BaseActivity implements BottomSheetDialog
         RecyclerView recyclerView = findViewById(R.id.recycler_wordFavorites);
         ImageView imageBack = findViewById(R.id.favorites_img_back);
         imageBack.setOnClickListener(view -> onBackPressed());
+        ImageView imageHelp = findViewById(R.id.img_favorites_help);
+        imageHelp.setOnClickListener(view -> {
+            String tips = "这里是单词夹页面，您可以在这里创建单词夹以及收录整理单词。\n用法：点击悬浮的加号可进行创建，左滑拖动可实现单词夹删除，单词夹内部的单词卡片也可通过左滑删除";
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(FavoritesActivity.this);
+            builder.setTitle("Tips")
+                    .setMessage(tips)
+                    .setPositiveButton("确定", null)
+                    .show();
+        });
+
         FloatingActionButton fab_add = findViewById(R.id.favorites_fab_add);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

@@ -135,26 +135,26 @@ public class ModifyDataActivity extends BaseActivity {
             String tip = "";
             switch (currentMode) {
                 case MODE_MEANS:
-                    tip = "1. 原数据一经修改便无法恢复，三思而后行\n" +
-                            "2. 仅供丰富单词释义栏，例如添加当前词书中没有的词性、释义\n" +
-                            "3. 英文释义没有的话可以不用填\n" +
-                            "4. 卡片左滑可以删除，点击保存才会生效，不用害怕误删";
+                    tip = "1. 仅供丰富释义栏，如添加默认词书中未收录的词性、释义\n" +
+                            "2. 初次添加，英文释义没有的话可以不用填\n" +
+                            "3. 若是修改，英文释义栏不能为空，否则认定为删除\n" +
+                            "4. 点击保存才会生效";
                     break;
                 case MODE_MEMO:
-                    tip = "1. 备注内容不限，可添加对单词的理解、助记方式或者自行编制的小故事\n" +
-                            "2. 卡片左滑可以删除，点击保存才会生效，不用害怕误删";
+                    tip = "1. 备注内容不限，可添加单词的助记方式，或者自行编制的小故事等\n" +
+                            "2. 点击保存才会生效";
                     break;
                 case MODE_PHRASE:
-                    tip = "1. 原数据一经修改便无法恢复，三思而后行\n" +
-                            "2. 仅供丰富单词词组栏，例如添加当前词书中没有的常用词组\n" +
-                            "3. 中英文要么都填，要么都不填\n" +
-                            "4. 卡片左滑可以删除，点击保存才会生效，不用害怕误删";
+                    tip = "1. 仅供丰富词组栏，如添加默认词书中未收录的词组\n" +
+                            "2. 中英文要么都填，要么都不填，只填一个无法保存\n" +
+                            "3. 左滑卡片可以删除词组\n" +
+                            "4. 点击保存才会生效，不用害怕误删";
                     break;
                 case MODE_SENTENCE:
-                    tip = "1. 原数据一经修改便无法恢复，三思而后行\n" +
-                            "2. 仅供丰富单词例句栏，例如添加当前词书中没有的常用例句\n" +
-                            "3. 中英文要么都填，要么都不填\n" +
-                            "4. 卡片左滑可以删除，点击保存才会生效，不用害怕误删";
+                    tip = "1. 仅供丰富例句栏，如添加默认词书中未收录的例句\n" +
+                            "2. 中英文要么都填，要么都不填，只填一个无法保存\n" +
+                            "3. 卡片左滑可以删除例句\n" +
+                            "4. 点击保存才会生效，不用害怕误删";
                     break;
                 default:
                     break;
@@ -170,7 +170,7 @@ public class ModifyDataActivity extends BaseActivity {
         switch (currentMode) {
             // 释义视图
             case MODE_MEANS:
-                textTitle.setText("编辑释义");
+                textTitle.setText("编辑词义");
                 cardMeans.setVisibility(View.VISIBLE);
                 cardMemo.setVisibility(View.GONE);
                 recyclerPhrase.setVisibility(View.GONE);

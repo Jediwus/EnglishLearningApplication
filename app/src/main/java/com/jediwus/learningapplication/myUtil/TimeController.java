@@ -48,6 +48,27 @@ public class TimeController {
     }
 
     /**
+     * 得到指定日历的日期戳(不带时间，只有日期)
+     *
+     * @return long
+     */
+    public static long getCalendarDateStamp(Calendar cal) {
+        int currentYear = cal.get(Calendar.YEAR);
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
+        int currentDate = cal.get(Calendar.DATE);
+        long time = 0;
+        try {
+            time = Objects.requireNonNull(simpleDateFormat
+                    .parse(currentYear + "-" + currentMonth + "-" + currentDate)).getTime();
+        } catch (ParseException e) {
+            Log.d(TAG, "getCurrentDateStamp: 打印异常");
+            e.printStackTrace();
+        }
+        Log.d(TAG, "getCurrentDateStamp: " + time);
+        return time;
+    }
+
+    /**
      * 根据指定日期戳解析成日期形式（yyyy-MM-dd）
      *
      * @param timeStamp long

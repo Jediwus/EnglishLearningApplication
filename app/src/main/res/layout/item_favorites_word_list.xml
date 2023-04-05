@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/colorCardWordDetail"
-    app:cardCornerRadius="15dp">
+    app:cardBackgroundColor="@color/colorCardWordDetail">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:paddingBottom="2dp"
                 android:singleLine="true"
                 android:text="@string/word_name"
                 android:textColor="@color/colorOnSecondaryContainer"
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:paddingTop="5dp"
+                android:paddingTop="2dp"
                 android:paddingBottom="5dp"
                 android:text="@string/english_interpretation"
                 android:textSize="13sp" />
@@ -53,4 +52,4 @@
     </RelativeLayout>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

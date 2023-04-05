@@ -17,7 +17,7 @@ public class DataConfig {
     };
 
     // SharedDataName
-    public static String SharedDataName = "configData";
+    public static String SharedDataName = "dataConfig";
 
     // 是否第一次运行或者是否获得了应有的权限
     public static boolean isFirst;
@@ -100,14 +100,14 @@ public class DataConfig {
         editor.apply();
     }
 
-    // 获得SinaNumLogged值
+    // 获得WeChatNumLogged值
     public static int getWeChatNumLogged() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
         WeChatNumLogged = preferences.getInt(WeChatNumLoggedName, 0);
         return WeChatNumLogged;
     }
 
-    // 设置SinaNumLogged值
+    // 设置WeChatNumLogged值
     public static void setWeChatNumLogged(int sinaNumLogged) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
         editor.putInt(WeChatNumLoggedName, sinaNumLogged);

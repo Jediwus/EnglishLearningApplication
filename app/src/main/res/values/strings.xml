@@ -1,7 +1,8 @@
 <resources>
+    <string name="todo">TODO</string>
     <string name="app_name">词星骑士</string>
     <string name="aPictureADay">每日一图</string>
-    <string name="icon_tips">一个起提示作用的图标</string>
+    <string name="icon_tips">提示作用的图标</string>
     <string name="welcome_introduction">
         \t\t\t为更好地提升用户的使用体验，本软件会根据您使用的具体需要，收集必要的用户信息，如设备信息、存储等必要权限。\n
         \t\t\t保护用户隐私是软件最基本的原则，本软件承诺不会泄露你的个人信息。衷心希望此款软件，可以成为您最好的学习伙伴。
@@ -10,7 +11,7 @@
     <string name="welcome_introduction_disagree">不同意</string>
     <string name="month">Mar</string>
     <string name="day">23</string>
-    <string name="pennant">显示日期小旗子</string>
+    <string name="pennant">显示日期</string>
     <string name="welcome">Welcome back!\nHonorable word knight</string>
     <string name="motto">War is a tragic life, and life is a slow-paced war</string>
     <string name="english_dictionary">English dict</string>
@@ -105,8 +106,8 @@
     <string name="custom_picture">编辑联想记忆图片\n(p.s.占内存，非必要不推荐)</string>
     <string name="close">Close</string>
     <string name="undo">撤销</string>
-    <string name="icon_document">收藏夹里的文件图标</string>
-    <string name="item_favorites_text_name">单词本</string>
+    <string name="icon_document">单词夹里的文件图标</string>
+    <string name="item_favorites_text_name">单词夹名</string>
     <string name="ci">词</string>
     <string name="text_view_favorites_title">新建单词夹</string>
     <string name="edit_text_favorites_title">名称(必填)</string>
@@ -114,7 +115,6 @@
     <string name="save">Save</string>
     <string name="loading">Loading…</string>
     <string name="favorites_name">单词列表</string>
-    <string name="todo">TODO</string>
     <string name="scientists">scientists</string>
     <string name="edit_here">Edit here</string>
     <string name="need_to_learn">需新学</string>
@@ -145,12 +145,23 @@
     <string name="SDK_policy">第三方SDK清单</string>
     <string name="reminder_setting">提醒设置</string>
     <string name="aux_fun">辅助功能</string>
-    <string name="my_star">我的收藏</string>
-    <string name="trash_can">垃圾桶</string>
+    <string name="my_star">生词本</string>
+    <string name="trash_can">熟知词</string>
+    <string name="words_in_book">全部词汇</string>
     <string name="modify_data">编辑数据</string>
     <string name="input_cn">汉语释义</string>
     <string name="input_en">英语释义</string>
     <string name="memo">自定义备注</string>
     <string name="input_phrase">英文词组</string>
     <string name="input_sentence">英文例句</string>
+    <string name="daily_clock_in">每日打卡</string>
+    <string name="_2023_3_23">2023年3月23日</string>
+    <string name="_7_days_ago">7天前</string>
+    <string name="you_are_absent">这天小骑士好像没来哦…</string>
+    <string name="learn_word_num">战获单词</string>
+    <string name="I_am_mad">我要被烦死了！</string>
+    <string name="app_version">发行版本:  1.0.1</string>
+    <string name="text_about_description">19级计科毕设作品</string>
+    <string name="text_about_author_saying">据说app的名称是致敬了作者小时候最爱看的一部动画片，也算是缅怀童年了</string>
+    <string name="text_about_author">Made by Mr.Yan</string>
 </resources>

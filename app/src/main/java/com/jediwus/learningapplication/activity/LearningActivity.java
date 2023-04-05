@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.adapter.MeaningPickerAdapter;
+import com.jediwus.learningapplication.config.ExternalData;
 import com.jediwus.learningapplication.database.Sentence;
 import com.jediwus.learningapplication.database.StudyTimeData;
 import com.jediwus.learningapplication.database.Translation;
@@ -38,14 +38,12 @@ import org.litepal.LitePal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class LearningActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "LearningActivity";
 
-    private ImageView imageHome;
-    private CardView cardLastWord;
-    private RelativeLayout layoutTopBar;
     private ImageView imageCheck;
     private TextView textLastWord;
     private TextView textLastWordMean;
@@ -53,17 +51,10 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
     private TextView textReviewNumber;
     private TextView textWord;
     private TextView textWordPhone;
-    private ImageView imagePhone;
-    private CardView cardWordDelete;
-    private LinearLayout layoutWordDelete;
     private CardView cardWordTip;
     private TextView textWordTip;
     private LinearLayout layoutBottomLearn;
-    private RelativeLayout cardLayoutKnow;
-    private RelativeLayout cardLayoutUncertain;
-    private RelativeLayout cardLayoutDoNotKnow;
     private RelativeLayout layoutBottomReview;
-    private Button buttonTip;
     private RecyclerView recyclerView;
 
     private MeaningPickerAdapter meaningPickerAdapter;
@@ -72,8 +63,8 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
     private long timeOfStart = -1;
 
     public static final String STATUS_NAME = "learning_status";
-    public static final int STATUS_COMPLETE = 1;
-    public static final int STATUS_FINISHED = 2;
+    public static final int STATUS_GENERAL_LEARNING = 1;
+    public static final int STATUS_LEARNING_AT_ONCE = 2;
 
     private int currentStatus;
 
@@ -81,6 +72,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
 
     // 上一个单词的id、本体和释义
     public static int lastWordId;
+    public static int trueLastWordId;
     public static String lastWord;
     public static String lastWordMeaning;
 
@@ -100,12 +92,11 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
 
         //-------------------------------- UI初始化 --------------------------------------
         // 主页键
-        imageHome = findViewById(R.id.img_learning_home);
+        ImageView imageHome = findViewById(R.id.img_learning_home);
         imageHome.setOnClickListener(this);
 
         // 顶部卡片
-        cardLastWord = findViewById(R.id.card_learning_top_bar);
-        layoutTopBar = findViewById(R.id.layout_learning_top_bar);
+        RelativeLayout layoutTopBar = findViewById(R.id.layout_learning_top_bar);
         layoutTopBar.setOnClickListener(this);
         imageCheck = findViewById(R.id.img_learning_top_icon);
         imageCheck.setVisibility(View.GONE);
@@ -118,11 +109,10 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
         // 主要单词 和 发音
         textWord = findViewById(R.id.text_learning_main_word);
         textWordPhone = findViewById(R.id.text_learning_word_phone);
-        imagePhone = findViewById(R.id.img_learning_word_phone);
+        ImageView imagePhone = findViewById(R.id.img_learning_word_phone);
         imagePhone.setOnClickListener(this);
         // 熟知词设置
-        cardWordDelete = findViewById(R.id.card_learning_word_delete);
-        layoutWordDelete = findViewById(R.id.layout_learning_word_delete);
+        LinearLayout layoutWordDelete = findViewById(R.id.layout_learning_word_delete);
         layoutWordDelete.setOnClickListener(this);
         // 不确定时的提示卡片
         cardWordTip = findViewById(R.id.card_learning_word_tip);
@@ -133,13 +123,13 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
         // 底部学习框
         layoutBottomLearn = findViewById(R.id.layout_learning_word_distinguish);
         // 认识
-        cardLayoutKnow = findViewById(R.id.card_learning_know);
+        RelativeLayout cardLayoutKnow = findViewById(R.id.card_learning_know);
         cardLayoutKnow.setOnClickListener(this);
         // 不确定
-        cardLayoutUncertain = findViewById(R.id.card_learning_uncertainty);
+        RelativeLayout cardLayoutUncertain = findViewById(R.id.card_learning_uncertainty);
         cardLayoutUncertain.setOnClickListener(this);
         // 不认识
-        cardLayoutDoNotKnow = findViewById(R.id.card_learning_do_not_know);
+        RelativeLayout cardLayoutDoNotKnow = findViewById(R.id.card_learning_do_not_know);
         cardLayoutDoNotKnow.setOnClickListener(this);
 
         // 释义选择框
@@ -147,11 +137,11 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
         // 底部复习框
         layoutBottomReview = findViewById(R.id.layout_learning_word_detail);
         // 看答案按钮
-        buttonTip = findViewById(R.id.button_learning_check_the_answer);
+        Button buttonTip = findViewById(R.id.button_learning_check_the_answer);
         buttonTip.setOnClickListener(this);
         //-------------------------------- UI初始化结束 --------------------------------------
 
-        currentStatus = getIntent().getIntExtra(STATUS_NAME, STATUS_COMPLETE);
+        currentStatus = getIntent().getIntExtra(STATUS_NAME, STATUS_GENERAL_LEARNING);
         timeOfStart = TimeController.getCurrentTimeStamp();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -163,6 +153,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                 Log.d(TAG, "onCreate: 当前的正确答案ID为：" + LearningController.currentWordId);
                 // 选择了错误选项
                 if (itemWordMeanChoice.getId() != LearningController.currentWordId) {
+                    MediaHelper.playLocalSource(ExternalData.WRONG_TONE);
                     // 模式判断
                     switch (LearningController.currentMode) {
                         // 新学完及时复习
@@ -191,8 +182,9 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LearningActivity.this).toBundle());
                         // 页面重置，将第一次点击的标志置为真
                         MeaningPickerAdapter.isFirstClick = true;
-                    }, 500);
+                    }, 1000);
                 } else {  // 选择正确
+                    MediaHelper.playLocalSource(ExternalData.RIGHT_TONE);
                     // 模式判断
                     switch (LearningController.currentMode) {
                         // 新学完及时复习
@@ -216,7 +208,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                         updateView();
                         // 页面重置，将第一次点击的标志置为真
                         MeaningPickerAdapter.isFirstClick = true;
-                    }, 500);
+                    }, 1000);
                 }
             }
         });
@@ -266,14 +258,14 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                 break;
             case LearningController.TODAY_TASK_COMPLETE:
                 switch (currentStatus) {
-                    case STATUS_COMPLETE:
-                        Toast.makeText(this, "今日任务已完成", Toast.LENGTH_SHORT).show();
+                    case STATUS_GENERAL_LEARNING:
+//                        Toast.makeText(this, "今日任务已完成", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, MissionCompleteActivity.class);
                         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LearningActivity.this).toBundle());
                         finish();
                         break;
-                    case STATUS_FINISHED:
-                        Toast.makeText(this, "复习完毕", Toast.LENGTH_SHORT).show();
+                    case STATUS_LEARNING_AT_ONCE:
+                        Toast.makeText(this, "单词夹学习模式结束", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                         break;
                 }
@@ -286,6 +278,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
         List<Word> wordList = LitePal.where("wordId = ?", LearningController.currentWordId + "")
                 .select("wordId", "word", "ukPhone", "usPhone")
                 .find(Word.class);
+
         if (!wordList.isEmpty()) {
             Word word = wordList.get(0);
             // 填入当前单词本体
@@ -352,31 +345,36 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                 tipSentence = sentenceList.get(0).getEnSentence();
             }
 
-            // 上一个单词的本体和释义
-            textLastWord.setText(lastWord);
-            textLastWordMean.setText(lastWordMeaning);
-
-            Log.d(TAG, "updateView: 查看flagLastWord，-1代表默认未选；0代表正确；1代表错误：" + flagLastWord);
-            // 图标变化
-            if (!lastWord.isEmpty()) {
-                Log.d(TAG, "updateView: 进入图标变化判断语句。");
-                if (flagLastWord == ItemMeaningPicker.WRONG) {
-                    imageCheck.setVisibility(View.VISIBLE);
-                    Glide.with(LearningActivity.this)
-                            .load(R.drawable.icon_cross)
-                            .into(imageCheck);
-                } else if (flagLastWord == ItemMeaningPicker.RIGHT) {
-                    imageCheck.setVisibility(View.VISIBLE);
-                    Glide.with(LearningActivity.this)
-                            .load(R.drawable.icon_check)
-                            .into(imageCheck);
+            // 顶部卡片防止重复
+            if (!Objects.equals(wordList.get(0).getWord(), lastWord)) {
+                // 上一个单词的本体和释义
+                textLastWord.setText(lastWord);
+                textLastWordMean.setText(lastWordMeaning);
+                trueLastWordId = lastWordId;
+                Log.d(TAG, "updateView: 查看flagLastWord，-1代表默认未选；0代表正确；1代表错误：" + flagLastWord);
+                // 图标变化
+                if (!lastWord.isEmpty()) {
+                    Log.d(TAG, "updateView: 进入图标变化判断语句。");
+                    if (flagLastWord == ItemMeaningPicker.WRONG) {
+                        imageCheck.setVisibility(View.VISIBLE);
+                        Glide.with(LearningActivity.this)
+                                .load(R.drawable.icon_cross)
+                                .into(imageCheck);
+                    } else if (flagLastWord == ItemMeaningPicker.RIGHT) {
+                        imageCheck.setVisibility(View.VISIBLE);
+                        Glide.with(LearningActivity.this)
+                                .load(R.drawable.icon_check)
+                                .into(imageCheck);
+                    }
                 }
+                // 准备将当前单词数据设置为“上一个单词”
+                lastWordId = wordList.get(0).getWordId();
+                lastWord = wordList.get(0).getWord();
+                lastWordMeaning = stringBuilderRightChoice.toString();
+                flagLastWord = -1;
+            } else {
+                Log.d(TAG, "updateView: 保持卡片不变");
             }
-            // 准备将当前单词数据设置为“上一个单词”
-            lastWordId = wordList.get(0).getWordId();
-            lastWord = wordList.get(0).getWord();
-            lastWordMeaning = stringBuilderRightChoice.toString();
-            flagLastWord = -1;
         } else {
             Toast.makeText(this, "好像出了点问题。。。。", Toast.LENGTH_SHORT).show();
             onBackPressed();
@@ -407,8 +405,8 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
 
             // 顶部卡片点击事件
             case R.id.layout_learning_top_bar:
-                if (lastWordId != -1) {
-                    WordDetailActivity.wordId = lastWordId;
+                if (trueLastWordId != -1) {
+                    WordDetailActivity.wordId = trueLastWordId;
                     Intent intent = new Intent(LearningActivity.this, WordDetailActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(WordDetailActivity.TYPE, WordDetailActivity.TYPE_CHECK);
@@ -463,7 +461,6 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                 intent.putExtra(WordDetailActivity.TYPE, WordDetailActivity.TYPE_LEARNING);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LearningActivity.this).toBundle());
                 LearningController.completeNewWordToLearn(LearningController.currentWordId);
-
                 break;
 
             // 看答案按钮点击事件

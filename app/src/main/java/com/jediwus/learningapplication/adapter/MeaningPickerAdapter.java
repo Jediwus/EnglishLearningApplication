@@ -63,7 +63,7 @@ public class MeaningPickerAdapter extends RecyclerView.Adapter<MeaningPickerAdap
         }
     }
 
-    // 自定义 ViewHolder 的设置
+    // 自定义 MyViewHolder 的设置
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
         View view;

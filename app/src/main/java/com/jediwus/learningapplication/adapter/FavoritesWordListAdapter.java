@@ -127,36 +127,6 @@ public class FavoritesWordListAdapter extends RecyclerView.Adapter<FavoritesWord
             intent.putExtra(WordDetailActivity.TYPE, WordDetailActivity.TYPE_CHECK);
             MyApplication.getContext().startActivity(intent);
         });
-/*
-        holder.textWord.setOnClickListener(viewWord -> {
-            int position = holder.getAdapterPosition();
-            ItemWordList itemWordList = mItemWordLists.get(position);
-            MediaHelper.play(itemWordList.getWordName());
-        });
-
-        holder.textMean.setOnClickListener(viewMean -> {
-            int position = holder.getAdapterPosition();
-            ItemWordList itemWordList = mItemWordLists.get(position);
-            WordDetailActivity.wordId = itemWordList.getWordId();
-            Intent intent = new Intent(MyApplication.getContext(), WordDetailActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(WordDetailActivity.TYPE, WordDetailActivity.TYPE_CHECK);
-            MyApplication.getContext().startActivity(intent);
-        });
-
-        holder.imgDelete.setOnClickListener(viewDelete -> {
-            int position = holder.getAdapterPosition();
-            ItemWordList itemWordList = mItemWordLists.get(position);
-            if (!itemWordList.isSearch()) {
-                mItemWordLists.remove(position);
-                notifyItemRemoved(position);
-                notifyItemChanged(0, mItemWordLists.size());
-                LitePal.deleteAll(FavoritesLinkWord.class,
-                        "favoritesId = ? and wordId = ?",
-                        FavoritesDetailActivity.currentFavoritesId + "",
-                        itemWordList.getWordId() + "");
-            }
-        });*/
 
         return holder;
     }

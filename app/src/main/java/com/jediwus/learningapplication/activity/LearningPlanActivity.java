@@ -138,7 +138,7 @@ public class LearningPlanActivity extends BaseActivity {
         }
         btn_go.setOnClickListener(view -> {
 
-            if (!edit_text.getText().toString().trim().equals("")) {
+            if (!Objects.requireNonNull(edit_text.getText()).toString().trim().equals("")) {
                 if (Integer.parseInt(edit_text.getText().toString().trim()) >= 5
                         && Integer.parseInt(edit_text.getText().toString().trim()) < maxNum) {
 

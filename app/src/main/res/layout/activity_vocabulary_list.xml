@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activity.VocabularyListActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout_vocabulary_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_vocabulary_home"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/todo"
+            android:padding="3dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:id="@+id/text_vocabulary_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="3dp"
+            android:text="@string/all_word_list"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="70dp"
+            android:layout_height="105dp"
+            android:layout_margin="3dp"
+            app:cardBackgroundColor="@color/colorCardWordDetail">
+
+            <ImageView
+                android:id="@+id/img_vocabulary_book"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/word_book_display"
+                android:scaleType="fitXY" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_vocabulary_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/word_book_name"
+                android:textColor="@color/colorOnBackground"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/text_vocabulary_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/word_number"
+                android:textColor="@color/colorOnBackground"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_vocabulary_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_vocabulary_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/icon_document"
+            android:text="@string/words_in_book" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_vocabulary_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/icon_star"
+            android:text="@string/my_star" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_vocabulary_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/icon_delete"
+            android:text="@string/trash_can" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_vocabulary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/todo" />
+
+</LinearLayout>

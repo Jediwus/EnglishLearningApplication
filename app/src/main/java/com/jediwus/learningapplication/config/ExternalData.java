@@ -34,9 +34,9 @@ public class ExternalData {
     public static final String SENTENCE_API = "https://www.mxnzp.com/api/daily_word/recommend?count=10&app_id=j1njmus6ivuetemh&app_secret=TDNST0M2NUtNOXZMTmFsTHBxZXNTZz09";
 
     // 回答正确的提示音
-    public static final int RIGHT_SIGN = R.raw.answer_right;
+    public static final int RIGHT_TONE = R.raw.answer_right;
     // 回答错误的提示音
-    public static final int WRONG_SIGN = R.raw.answer_wrong;
+    public static final int WRONG_TONE = R.raw.answer_wrong;
 
     // 有道美式发音 API
     public static final String YOU_DAO_VOICE_US = "https://dict.youdao.com/dictvoice?type=0&audio=";
@@ -45,23 +45,24 @@ public class ExternalData {
 
     // 罗翔经典语录
     public static final String[] sayings = {
-            "人无完人,事无尽美",
-            "努力告别昨天,即使深陷泥潭也要努力爬出来",
-            "人生最大的失败就是知道的太多,会做的太少",
-            "唯有真理的光照,才能学会谦卑",
-            "走出自我的偏狭,自由而不放纵,独立而不狂狷,尽责而不懈怠",
-            "永远年轻,永远热泪盈眶",
+            "人无完人，事无尽美",
+            "努力告别昨天，即使深陷泥潭也要努力爬出来",
+            "人生最大的失败就是知道的太多，会做的太少",
+            "唯有真理的光照，才能学会谦卑",
+            "走出自我的偏狭，自由而不放纵，独立而不狂狷，尽责而不懈怠",
+            "永远年轻，永远热泪盈眶",
             "一定要成为懂得思考自身的人",
-            "过好每一天,演好当下的剧本",
-            "把今天当作一个礼物,去珍惜享受你现在拥有的平凡的幸福",
+            "过好每一天，演好当下的剧本",
+            "把今天当作一个礼物，去珍惜享受你现在拥有的平凡的幸福",
             "珍惜你的低谷期，你会看到很多真相",
-            "做你该做的事,并接受它的事与愿违",
-            "当我们越多地理解世界,我们也就越多地理解自己",
-            "人心隐藏着整个世界的败坏,我们每个人心中都藏着个张三",
-            "真正的朋友,并不会嘲笑你的软弱,你也无需假装强大",
-            "要爱具体的人,不要爱抽象的人;要爱生活,不要爱生活的意义",
-            "这世间,本就是各人下雪,各人有各人的隐晦与皎洁",
-            "整个一生说白了,就是北大保安说的3句话:你是谁?你去哪?你干嘛?"
+            "做你该做的事，并接受它的事与愿违",
+            "当我们越多地理解世界，我们也就越多地理解自己",
+            "人心隐藏着整个世界的败坏，我们每个人心中都藏着个张三",
+            "真正的朋友，并不会嘲笑你的软弱，你也无需假装强大",
+            "要爱具体的人，不要爱抽象的人；要爱生活，不要爱生活的意义",
+            "这世间，本就是各人下雪，各人有各人的隐晦与皎洁",
+            "整个一生说白了，就是北大保安说的3句话：你是谁?你去哪?你干嘛?",
+            "人民喊他万岁，他喊人民万岁"
     };
 
     //----------------------------------- 词书数据部分--------------------------------------

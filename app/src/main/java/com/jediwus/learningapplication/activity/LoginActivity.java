@@ -69,7 +69,7 @@ public class LoginActivity extends BaseActivity {
 
     private void initLoginData() {
         int id = 1;
-        String name = "Jediwus";
+        String name = "骑士-小光";
         String img = "";
         List<User> users = LitePal.where("userId = ?", id + "").find(User.class);
         if (users.isEmpty()) {

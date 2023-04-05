@@ -1,6 +1,7 @@
 package com.jediwus.learningapplication.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.jediwus.learningapplication.database.Favorites;
 import com.jediwus.learningapplication.database.FavoritesLinkWord;
 import com.jediwus.learningapplication.database.Translation;
 import com.jediwus.learningapplication.database.Word;
+import com.jediwus.learningapplication.myUtil.LearningController;
 import com.jediwus.learningapplication.pojo.ItemWordList;
 
 import org.litepal.LitePal;
@@ -143,28 +145,29 @@ public class FavoritesDetailActivity extends BaseActivity {
 
         // 播放按钮点击事件
         imgPlay.setOnClickListener(viewPlay -> {
-
-//            List<FavoritesLinkWord> folderLinkWords = LitePal
-//                    .where("favoritesId = ?", currentFavoritesId + "")
-//                    .find(FavoritesLinkWord.class);
-//            if (!folderLinkWords.isEmpty()) {
-//                WordController.needLearnWords.clear();
-//                for (ItemWordList itemWordList : wordLists) {
-//                    WordController.needLearnWords.add(itemWordList.getWordId());
-//                }
-//                WordController.justLearnedWords.clear();
-//                WordController.needReviewWords.clear();
-//                LearnWordActivity.lastWordMean = "";
-//                LearnWordActivity.lastWord = "";
-//                if (WordController.needLearnWords.size() != 0) {
-//                    Intent intent = new Intent(FavoritesDetailActivity.this, LearnWordActivity.class);
-//                    intent.putExtra(LearnWordActivity.MODE_NAME, LearnWordActivity.MODE_ONCE);
-//                    startActivity(intent);
-//                    Toast.makeText(FavoritesDetailActivity.this, "开始背单词", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(FavoritesDetailActivity.this, "请输入合法单词", Toast.LENGTH_SHORT).show();
-//                }
-//            }
+            List<FavoritesLinkWord> favoritesLinkWordList1 = LitePal
+                    .where("favoritesId = ?", currentFavoritesId + "")
+                    .find(FavoritesLinkWord.class);
+            if (!favoritesLinkWordList1.isEmpty()) {
+                LearningController.wordsNeedToLearnList.clear();
+                for (ItemWordList itemWordList : itemWordListList) {
+                    LearningController.wordsNeedToLearnList.add(itemWordList.getWordId());
+                }
+                LearningController.wordsJustLearnedList.clear();
+                LearningController.wordsNeedToReviewList.clear();
+                LearningActivity.flagNeedRefresh = true;
+                LearningActivity.lastWordId = -1;
+                LearningActivity.lastWord = "";
+                LearningActivity.lastWordMeaning = "";
+                if (LearningController.wordsNeedToLearnList.size() != 0) {
+                    Intent intent = new Intent(FavoritesDetailActivity.this, LearningActivity.class);
+                    intent.putExtra(LearningActivity.STATUS_NAME, LearningActivity.STATUS_LEARNING_AT_ONCE);
+                    startActivity(intent);
+                    Toast.makeText(FavoritesDetailActivity.this, "单词夹学习模式启动", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FavoritesDetailActivity.this, "单词不足，无法开启单词夹学习模式", Toast.LENGTH_SHORT).show();
+                }
+            }
 
         });
 

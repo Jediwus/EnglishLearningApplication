@@ -185,7 +185,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView_user"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
@@ -286,7 +286,7 @@
                         android:background="@color/colorOnTertiaryContainer" />
 
                     <LinearLayout
-                        android:id="@+id/layout_user_history"
+                        android:id="@+id/layout_user_calendar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -371,81 +371,81 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:id="@+id/layout_user_trash_can"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="20dp"
-                        android:paddingTop="25dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="25dp">
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/layout_user_star"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="?android:attr/selectableItemBackground"-->
+<!--                        android:clickable="true"-->
+<!--                        android:focusable="true"-->
+<!--                        android:paddingStart="20dp"-->
+<!--                        android:paddingTop="25dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:paddingBottom="25dp">-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/trash_can"
-                            android:textColor="@color/colorOnPrimaryContainer"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:text="@string/my_star"-->
+<!--                            android:textColor="@color/colorOnPrimaryContainer"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
 
-                        <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="13dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:contentDescription="@string/todo"
-                            android:src="@drawable/icon_right_arrow" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="13dp"-->
+<!--                            android:layout_height="13dp"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:contentDescription="@string/todo"-->
+<!--                            android:src="@drawable/icon_right_arrow" />-->
 
-                    </RelativeLayout>
+<!--                    </RelativeLayout>-->
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:background="@color/colorOnSecondaryContainer" />
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="0.5dp"-->
+<!--                        android:layout_marginStart="15dp"-->
+<!--                        android:layout_marginEnd="15dp"-->
+<!--                        android:background="@color/colorOnSecondaryContainer" />-->
 
-                    <RelativeLayout
-                        android:id="@+id/layout_user_star"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="20dp"
-                        android:paddingTop="25dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="25dp">
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/layout_user_trash_can"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="?android:attr/selectableItemBackground"-->
+<!--                        android:clickable="true"-->
+<!--                        android:focusable="true"-->
+<!--                        android:paddingStart="20dp"-->
+<!--                        android:paddingTop="25dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:paddingBottom="25dp">-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/my_star"
-                            android:textColor="@color/colorOnPrimaryContainer"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:text="@string/trash_can"-->
+<!--                            android:textColor="@color/colorOnPrimaryContainer"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
 
-                        <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="13dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:contentDescription="@string/todo"
-                            android:src="@drawable/icon_right_arrow" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="13dp"-->
+<!--                            android:layout_height="13dp"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:contentDescription="@string/todo"-->
+<!--                            android:src="@drawable/icon_right_arrow" />-->
 
-                    </RelativeLayout>
+<!--                    </RelativeLayout>-->
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:background="@color/colorOnSecondaryContainer" />
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="0.5dp"-->
+<!--                        android:layout_marginStart="15dp"-->
+<!--                        android:layout_marginEnd="15dp"-->
+<!--                        android:background="@color/colorOnSecondaryContainer" />-->
 
                     <RelativeLayout
                         android:id="@+id/layout_user_reminder_setting"
@@ -625,8 +625,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp">
 
                     <TextView
                         android:layout_width="match_parent"

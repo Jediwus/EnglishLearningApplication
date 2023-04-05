@@ -20,7 +20,7 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/repository/google'}
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
         maven { url 'https://maven.aliyun.com/repository/public'}
-        // PhotoView
+        // PhotoView、MaterialCalendarView and so on
         maven { url "https://jitpack.io" }
     }
 }

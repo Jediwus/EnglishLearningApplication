@@ -608,13 +608,13 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                     Word word = new Word();
                     word.setToDefault("isCollected");
                     word.updateAll("wordId = ?", wordId + "");
-                    Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "取消生词标记", Toast.LENGTH_SHORT).show();
                 } else {
                     Glide.with(this).load(R.drawable.icon_star_selected).into(imgStar);
                     Word word = new Word();
                     word.setIsCollected(1);
                     word.updateAll("wordId = ?", wordId + "");
-                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "已加入生词本", Toast.LENGTH_SHORT).show();
                 }
                 currentWord = LitePal.where("wordId = ?", wordId + "").find(Word.class).get(0);
                 break;
