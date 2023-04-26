@@ -12,9 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
-import com.jediwus.learningapplication.activity.fragment.FragmentUser;
-import com.jediwus.learningapplication.activity.fragment.FragmentReview;
-import com.jediwus.learningapplication.activity.fragment.FragmentWord;
+import com.jediwus.learningapplication.activity.menu.FragmentUser;
+import com.jediwus.learningapplication.activity.menu.FragmentReview;
+import com.jediwus.learningapplication.activity.menu.FragmentWord;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
 
 public class MainActivity extends BaseActivity {
@@ -47,23 +47,23 @@ public class MainActivity extends BaseActivity {
             bottomNavigationView.startAnimation(animation);
         }
 
-        Fragment fragWord = new FragmentWord();
-        Fragment fragReview = new FragmentReview();
-        Fragment fragMe = new FragmentUser();
-        fragments = new Fragment[]{fragWord, fragReview, fragMe};
+        Fragment fragmentWord = new FragmentWord();
+        Fragment fragmentReview = new FragmentReview();
+        Fragment fragmentUser = new FragmentUser();
+        fragments = new Fragment[]{fragmentWord, fragmentReview, fragmentUser};
 
         switch (lastFragment) {
             case 0:
                 getSupportFragmentManager().beginTransaction().replace(R.id.linear_frag_container,
-                        fragWord).show(fragWord).commit();
+                        fragmentWord).show(fragmentWord).commit();
                 break;
             case 1:
                 getSupportFragmentManager().beginTransaction().replace(R.id.linear_frag_container,
-                        fragReview).show(fragReview).commit();
+                        fragmentReview).show(fragmentReview).commit();
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction().replace(R.id.linear_frag_container,
-                        fragMe).show(fragMe).commit();
+                        fragmentUser).show(fragmentUser).commit();
                 break;
             default:
         }

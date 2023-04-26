@@ -36,7 +36,7 @@ public class FavoritesDetailActivity extends BaseActivity {
 
     private final List<ItemWordList> itemWordListList = new ArrayList<>();
 
-    private final String[] editOption = {"修改名称", "修改备注"};
+    private final String[] editOption = {"编辑名称", "编辑备注"};
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -90,11 +90,11 @@ public class FavoritesDetailActivity extends BaseActivity {
         imgModify.setOnClickListener(viewModify -> {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(FavoritesDetailActivity.this);
             builder.setTitle("编辑单词夹");
-            builder.setSingleChoiceItems(editOption, -1, (dialog, which) -> {
-                final int type = which;
-                // 延迟 200 毫秒取消对话框
+            builder.setSingleChoiceItems(editOption, -1, (dialogInterface, i) -> {
+                final int type = i;
+                // 延迟 500 毫秒取消对话框
                 new Handler().postDelayed(() -> {
-                    dialog.dismiss();
+                    dialogInterface.dismiss();
                     View dialogView = LayoutInflater.from(FavoritesDetailActivity.this)
                             .inflate(R.layout.item_edit, null);
                     EditText editText = dialogView.findViewById(R.id.edit_text);
@@ -139,7 +139,7 @@ public class FavoritesDetailActivity extends BaseActivity {
                                 }
                             })
                             .setNegativeButton("取消", null).show();
-                }, 200);
+                }, 500);
             }).show();
         });
 

@@ -85,7 +85,7 @@ public class WordBookAdapter extends RecyclerView.Adapter<WordBookAdapter.ViewHo
                     MyApplication.getContext().startActivity(intent);
                 }
             } else {
-                Toast.makeText(MyApplication.getContext(), "芜湖~起飞！哎~飞~", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.getContext(), "信春哥，不挂科", Toast.LENGTH_SHORT).show();
             }
 
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/layout_item_display_word"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_item_display_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ci"
+            android:textColor="@color/colorOnPrimaryContainer"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_item_display_mean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/synonym_pos_and_tran"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_item_display_star"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/icon_star"
+        android:contentDescription="@string/todo" />
+
+</LinearLayout>

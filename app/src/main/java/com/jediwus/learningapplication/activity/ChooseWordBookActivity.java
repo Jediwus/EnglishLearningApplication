@@ -42,8 +42,8 @@ public class ChooseWordBookActivity extends BaseActivity {
 
     }
 
+    // 词书数据初始化
     private void initWordBookData() {
-
         itemWordBookList.add(new ItemWordBook(
                 ExternalData.CET4_CoreWord,
                 ExternalData.getBookNameById(ExternalData.CET4_CoreWord),

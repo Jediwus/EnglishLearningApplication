@@ -167,7 +167,7 @@ public class CalendarActivity extends BaseActivity {
             Glide.with(CalendarActivity.this)
                     .load(R.drawable.icon_done)
                     .into(imgSign);
-            tv_sign.setText("此日之事，此日已毕！干得漂亮！");
+            tv_sign.setText("Mission complete！");
             tv_sign.setTextColor(getColor(R.color.colorPrimary));
             cardInfo.setCardBackgroundColor(getColor(R.color.colorSecondaryContainer));
             tv_wordNum.setText((myDateList.get(0).getWordLearnNumber() + myDateList.get(0).getWordReviewNumber()) + "");

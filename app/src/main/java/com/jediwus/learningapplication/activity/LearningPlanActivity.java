@@ -69,7 +69,6 @@ public class LearningPlanActivity extends BaseActivity {
             switch (msg.what) {
                 case FINISH:
                     // 等待加载框消失
-//                    progressDialog.dismiss();
                     dialog.dismiss();
                     // 重置上次学习时间
                     UserPreference userPreference = new UserPreference();
@@ -91,8 +90,6 @@ public class LearningPlanActivity extends BaseActivity {
                     );
                     break;
                 case DOWNLOADED:
-//                    progressDialog.setTitle("Tips");
-//                    progressDialog.setMessage("正在解压数据包并导入本地数据库，可能会占用您一些时间，请耐心等待");
                     dialog.setTitle("Tips");
                     dialog.setMessage("正在解压数据包并导入本地数据库，可能会占用您一些时间，请耐心等待");
                     break;
@@ -109,7 +106,7 @@ public class LearningPlanActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learning_plan);
 
-        // 从 WordBookAdapter 传来的 intent
+        // 从 WordBookAdapter / PlanActivity 传来的 intent
         Intent intent = getIntent();
 
         edit_text = findViewById(R.id.edit_word_num);
@@ -137,22 +134,20 @@ public class LearningPlanActivity extends BaseActivity {
 
         }
         btn_go.setOnClickListener(view -> {
-
             if (!Objects.requireNonNull(edit_text.getText()).toString().trim().equals("")) {
                 if (Integer.parseInt(edit_text.getText().toString().trim()) >= 5
                         && Integer.parseInt(edit_text.getText().toString().trim()) < maxNum) {
-
                     // 隐藏软键盘
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(edit_text.getWindowToken(), 0);
 
-                    // 用户偏好数据的最终确定
+                    // 用户偏好数据(每日背多少单词)的最终确定
                     UserPreference userPreference = new UserPreference();
                     userPreference.setWordNeedReciteNum(Integer.parseInt(edit_text.getText().toString().trim()));
                     userPreference.updateAll("userId = ?", DataConfig.getWeChatNumLogged() + "");
 
                     // 初次设置词书和单词数
-                    if (DataConfig.notUpdate == intent.getIntExtra(DataConfig.UPDATE_NAME, 0)) {
+                    if (intent.getIntExtra(DataConfig.UPDATE_NAME, 0) == DataConfig.notUpdate) {
                         // 开启等待框
                         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(LearningPlanActivity.this);
                         builder.setTitle("Downloading");
@@ -162,12 +157,6 @@ public class LearningPlanActivity extends BaseActivity {
                         builder.setCancelable(false);
                         dialog = builder.create();
                         dialog.show();
-//                        progressDialog = new ProgressDialog(LearningPlanActivity.this);
-//                        progressDialog.setTitle("Downloading");
-//                        progressDialog.setMessage("数据包正在玩命下载中...");
-//                        progressDialog.setCancelable(false);
-//                        progressDialog.show();
-
                         // 延迟两秒再运行，防止等待框不显示
                         new Handler().postDelayed(() -> {
                             // 开启线程分析数据
@@ -210,12 +199,12 @@ public class LearningPlanActivity extends BaseActivity {
 
                         }, 1000);
 
-                    } else {
+                    } else if (intent.getIntExtra(DataConfig.UPDATE_NAME, 0) == DataConfig.isUpdate){
                         if (userPreferences.get(0).getWordNeedReciteNum() != Integer.parseInt(edit_text.getText().toString().trim())) {
+                            UserPreference newUserPreference = new UserPreference();
                             // 重置上次学习时间
-                            UserPreference userPreference1 = new UserPreference();
-                            userPreference1.setLastStartTime(-1);
-                            userPreference1.updateAll("userId = ?", DataConfig.getWeChatNumLogged() + "");
+                            newUserPreference.setLastStartTime(-1);
+                            newUserPreference.updateAll("userId = ?", DataConfig.getWeChatNumLogged() + "");
                             Toast.makeText(LearningPlanActivity.this,
                                     "" + LitePal.where("userId = ?",
                                                     DataConfig.getWeChatNumLogged() + "")
@@ -238,9 +227,11 @@ public class LearningPlanActivity extends BaseActivity {
                         ActivityCollector.startOtherActivity(LearningPlanActivity.this, MainActivity.class);
                     }
                 } else {
-                    Toast.makeText(LearningPlanActivity.this, "请输入范围内的数字！", Toast.LENGTH_SHORT).show();
+                    // 数字输入不在规定范围内
+                    Toast.makeText(LearningPlanActivity.this, "请注意有效范围！", Toast.LENGTH_SHORT).show();
                 }
             } else {
+                // 未输入数字就确定了
                 Toast.makeText(LearningPlanActivity.this, "需要设置计划才能继续哦", Toast.LENGTH_SHORT).show();
             }
         });

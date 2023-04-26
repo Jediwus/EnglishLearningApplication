@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".activity.FavoritesActivity">
 
     <RelativeLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="MissingConstraints">
@@ -25,7 +25,7 @@
                 android:layout_height="30dp"
                 android:contentDescription="@string/the_back_icon"
                 android:padding="3dp"
-                android:src="@drawable/icon_back" />
+                android:src="@drawable/icon_home" />
 
             <TextView
                 android:id="@+id/favorites_title"

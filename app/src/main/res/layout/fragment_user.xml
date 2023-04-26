@@ -8,26 +8,26 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout_user"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="290dp"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_user"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="290dp"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                android:layout_height="290dp"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="250dp"
                     android:background="@drawable/view_radius_bottom"
                     android:fitsSystemWindows="true" />
 
@@ -70,7 +70,6 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
-                    app:cardBackgroundColor="@color/colorCardWordDetail"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="3dp"
                     app:layout_collapseMode="parallax">
@@ -192,7 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:orientation="vertical">
 
@@ -243,8 +242,8 @@
                     <RelativeLayout
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@color/colorOnTertiaryContainer" />
 
                     <LinearLayout
@@ -281,8 +280,8 @@
                     <RelativeLayout
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@color/colorOnTertiaryContainer" />
 
                     <LinearLayout
@@ -319,8 +318,8 @@
                     <RelativeLayout
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@color/colorOnTertiaryContainer" />
 
                     <LinearLayout
@@ -361,7 +360,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 app:cardBackgroundColor="@color/colorCardWordDetail"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="0dp">
@@ -371,81 +370,79 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-<!--                    <RelativeLayout-->
-<!--                        android:id="@+id/layout_user_star"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="?android:attr/selectableItemBackground"-->
-<!--                        android:clickable="true"-->
-<!--                        android:focusable="true"-->
-<!--                        android:paddingStart="20dp"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:paddingEnd="20dp"-->
-<!--                        android:paddingBottom="25dp">-->
+                    <!--                    <RelativeLayout-->
+                    <!--                        android:id="@+id/layout_user_star"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:background="?android:attr/selectableItemBackground"-->
+                    <!--                        android:clickable="true"-->
+                    <!--                        android:focusable="true"-->
+                    <!--                        android:paddingStart="20dp"-->
+                    <!--                        android:paddingTop="25dp"-->
+                    <!--                        android:paddingEnd="20dp"-->
+                    <!--                        android:paddingBottom="25dp">-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_centerVertical="true"-->
-<!--                            android:text="@string/my_star"-->
-<!--                            android:textColor="@color/colorOnPrimaryContainer"-->
-<!--                            android:textSize="15sp"-->
-<!--                            android:textStyle="bold" />-->
+                    <!--                        <TextView-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_centerVertical="true"-->
+                    <!--                            android:text="@string/my_star"-->
+                    <!--                            android:textColor="@color/colorOnPrimaryContainer"-->
+                    <!--                            android:textSize="15sp"-->
+                    <!--                            android:textStyle="bold" />-->
 
-<!--                        <ImageView-->
-<!--                            android:layout_width="13dp"-->
-<!--                            android:layout_height="13dp"-->
-<!--                            android:layout_alignParentEnd="true"-->
-<!--                            android:layout_centerVertical="true"-->
-<!--                            android:contentDescription="@string/todo"-->
-<!--                            android:src="@drawable/icon_right_arrow" />-->
+                    <!--                        <ImageView-->
+                    <!--                            android:layout_width="13dp"-->
+                    <!--                            android:layout_height="13dp"-->
+                    <!--                            android:layout_alignParentEnd="true"-->
+                    <!--                            android:layout_centerVertical="true"-->
+                    <!--                            android:src="@drawable/icon_right_arrow" />-->
 
-<!--                    </RelativeLayout>-->
+                    <!--                    </RelativeLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0.5dp"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                        android:layout_marginEnd="15dp"-->
-<!--                        android:background="@color/colorOnSecondaryContainer" />-->
+                    <!--                    <RelativeLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="0.5dp"-->
+                    <!--                        android:layout_marginStart="15dp"-->
+                    <!--                        android:layout_marginEnd="15dp"-->
+                    <!--                        android:background="@color/colorOnSecondaryContainer" />-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:id="@+id/layout_user_trash_can"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="?android:attr/selectableItemBackground"-->
-<!--                        android:clickable="true"-->
-<!--                        android:focusable="true"-->
-<!--                        android:paddingStart="20dp"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:paddingEnd="20dp"-->
-<!--                        android:paddingBottom="25dp">-->
+                    <!--                    <RelativeLayout-->
+                    <!--                        android:id="@+id/layout_user_trash_can"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:background="?android:attr/selectableItemBackground"-->
+                    <!--                        android:clickable="true"-->
+                    <!--                        android:focusable="true"-->
+                    <!--                        android:paddingStart="20dp"-->
+                    <!--                        android:paddingTop="25dp"-->
+                    <!--                        android:paddingEnd="20dp"-->
+                    <!--                        android:paddingBottom="25dp">-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_centerVertical="true"-->
-<!--                            android:text="@string/trash_can"-->
-<!--                            android:textColor="@color/colorOnPrimaryContainer"-->
-<!--                            android:textSize="15sp"-->
-<!--                            android:textStyle="bold" />-->
+                    <!--                        <TextView-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="wrap_content"-->
+                    <!--                            android:layout_centerVertical="true"-->
+                    <!--                            android:text="@string/trash_can"-->
+                    <!--                            android:textColor="@color/colorOnPrimaryContainer"-->
+                    <!--                            android:textSize="15sp"-->
+                    <!--                            android:textStyle="bold" />-->
 
-<!--                        <ImageView-->
-<!--                            android:layout_width="13dp"-->
-<!--                            android:layout_height="13dp"-->
-<!--                            android:layout_alignParentEnd="true"-->
-<!--                            android:layout_centerVertical="true"-->
-<!--                            android:contentDescription="@string/todo"-->
-<!--                            android:src="@drawable/icon_right_arrow" />-->
+                    <!--                        <ImageView-->
+                    <!--                            android:layout_width="13dp"-->
+                    <!--                            android:layout_height="13dp"-->
+                    <!--                            android:layout_alignParentEnd="true"-->
+                    <!--                            android:layout_centerVertical="true"-->
+                    <!--                            android:src="@drawable/icon_right_arrow" />-->
 
-<!--                    </RelativeLayout>-->
+                    <!--                    </RelativeLayout>-->
 
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0.5dp"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                        android:layout_marginEnd="15dp"-->
-<!--                        android:background="@color/colorOnSecondaryContainer" />-->
+                    <!--                    <RelativeLayout-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="0.5dp"-->
+                    <!--                        android:layout_marginStart="15dp"-->
+                    <!--                        android:layout_marginEnd="15dp"-->
+                    <!--                        android:background="@color/colorOnSecondaryContainer" />-->
 
                     <RelativeLayout
                         android:id="@+id/layout_user_reminder_setting"
@@ -464,7 +461,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/reminder_setting"
-                            android:textColor="@color/colorOnPrimaryContainer"
+                            android:textColor="@color/colorOnBackground"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -502,7 +499,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/aux_fun"
-                            android:textColor="@color/colorOnPrimaryContainer"
+                            android:textColor="@color/colorOnBackground"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -550,7 +547,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/SDK_policy"
-                            android:textColor="@color/colorOnPrimaryContainer"
+                            android:textColor="@color/colorOnBackground"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -588,7 +585,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="@string/about_info"
-                            android:textColor="@color/colorOnPrimaryContainer"
+                            android:textColor="@color/colorOnBackground"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -609,14 +606,14 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="15dp"
+                android:visibility="visible"
                 app:cardBackgroundColor="@color/colorErrorContainer"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                android:visibility="visible">
+                app:cardCornerRadius="25dp"
+                app:cardElevation="0dp">
 
                 <RelativeLayout
                     android:id="@+id/layout_user_exit"
@@ -635,7 +632,8 @@
                         android:gravity="center"
                         android:text="@string/log_out"
                         android:textColor="@color/colorOnErrorContainer"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 

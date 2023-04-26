@@ -58,11 +58,9 @@ public class DataConfig {
 
     // 是否为修改计划
     // 0为否，1为是
-    public static final String UPDATE_NAME = "update";
+    public static final String UPDATE_NAME = "updateLearningPlan";
     public static final int isUpdate = 1;
     public static final int notUpdate = 0;
-
-    public static boolean isReChoose = false;
 
     // 当前单词速过的数量
     public static int speedNum;
@@ -115,14 +113,14 @@ public class DataConfig {
     }
 
     // 获得QQNumLogged值
-    public static int getQQNumLogged() {
+    public static int getQNumLogged() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
         QQNumLogged = preferences.getInt(QQNumLoggedName, 0);
         return QQNumLogged;
     }
 
     // 设置QQNumLogged值
-    public static void setQQNumLogged(int QQNumLogged) {
+    public static void setQNumLogged(int QQNumLogged) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
         editor.putInt(QQNumLoggedName, QQNumLogged);
         editor.apply();
@@ -198,14 +196,14 @@ public class DataConfig {
         editor.apply();
     }
 
-    // 获得单词速过的数量
+    // 获得单词速记的数量
     public static int getSpeedNum() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        speedNum = preferences.getInt(speedNumName, 6);
+        speedNum = preferences.getInt(speedNumName, 10);
         return speedNum;
     }
 
-    // 设置单词速过的数量
+    // 设置单词速记的数量
     public static void setSpeedNum(int speedNum) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
         editor.putInt(speedNumName, speedNum);

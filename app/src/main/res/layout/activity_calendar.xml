@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="3dp"
-            android:text="@string/daily_clock_in"
+            android:text="@string/learning_history"
             android:textColor="@color/colorOnBackground"
             android:textSize="17sp"
             android:textStyle="bold"/>

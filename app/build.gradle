@@ -79,8 +79,10 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:1.2.6'
     // 一个强大且简便的安卓图表库
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
+    // 日历组件
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+    // 圆形视图
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     // 指定单元测试编译用的junit版本号
     testImplementation 'junit:junit:4.13.2'

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.MyViewHolder> {
 
-    private List<ItemWordList> mItemWordLists;
+    private final List<ItemWordList> mItemWordLists;
 
     public WordListAdapter(List<ItemWordList> mItemWordLists) {
         this.mItemWordLists = mItemWordLists;

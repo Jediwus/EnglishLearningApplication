@@ -12,7 +12,6 @@ public class StudyTimeData extends LitePalSupport {
     // 学习时长
     private String time;
 
-
     public String getDate() {
         return date;
     }

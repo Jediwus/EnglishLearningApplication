@@ -30,8 +30,8 @@ public class AboutActivity extends BaseActivity {
 
         tv_name.setText(getAppName(MyApplication.getContext()));
 
-        tv_version.setText("版本号: " + getAppVersionName(AboutActivity.this) +
-                getAppVersionCode(AboutActivity.this));
+        tv_version.setText("版本: " + getAppVersionName(AboutActivity.this) +
+                "(" + getAppVersionCode(AboutActivity.this) + ")");
 
         tv_content.setText(ExternalData.sayings[NumberController.getRandomNumber(0, ExternalData.sayings.length - 1)]);
     }

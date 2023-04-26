@@ -177,6 +177,10 @@ public class BaseActivity extends AppCompatActivity {
         dailyData.save();
     }
 
+
+    /**
+     * 界面动画
+     */
     public void windowExplode() {
         getWindow().setEnterTransition(new Explode().setDuration(300));
         getWindow().setExitTransition(new Explode().setDuration(300));

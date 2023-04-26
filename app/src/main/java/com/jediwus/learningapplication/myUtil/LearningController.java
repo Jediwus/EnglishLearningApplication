@@ -353,7 +353,11 @@ public class LearningController {
                 word.updateAll("wordId = ?", wordId + "");
             } else {
                 // 深度掌握次数 +1
-                word.setDeepMasterTimes(words.get(0).getDeepMasterTimes() + 1);
+                if (words.get(0).getDeepMasterTimes() < 3) {
+                    word.setDeepMasterTimes(words.get(0).getDeepMasterTimes() + 1);
+                } else {
+                    word.setDeepMasterTimes(3);
+                }
                 // 设置上次已掌握时间
                 word.setLastMasterTime(TimeController.getCurrentDateStamp());
             }
@@ -416,7 +420,11 @@ public class LearningController {
                 }
             } else { // 深度掌握的复习（掌握程度=10）
                 // 深度掌握次数 +1
-                word.setDeepMasterTimes(words.get(0).getDeepMasterTimes() + 1);
+                if (words.get(0).getDeepMasterTimes() < 3) {
+                    word.setDeepMasterTimes(words.get(0).getDeepMasterTimes() + 1);
+                } else {
+                    word.setDeepMasterTimes(3);
+                }
                 // 设置上次已掌握时间
                 word.setLastMasterTime(TimeController.getCurrentDateStamp());
             }

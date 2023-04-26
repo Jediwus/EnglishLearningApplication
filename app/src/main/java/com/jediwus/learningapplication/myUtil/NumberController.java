@@ -12,11 +12,14 @@ public class NumberController {
      * @return the random number
      */
     public static int getRandomNumber(int min, int max) {
-        if (min != max) {
+        if (min == 0) {
+            Random random = new Random();
+            return random.nextInt(max + 1);
+        } else if (min != max) {
             Random random = new Random();
             return random.nextInt(max) % (max - min + 1) + min;
         } else {
-            return min;
+            return max;
         }
     }
 
@@ -25,7 +28,7 @@ public class NumberController {
      *
      * @param min int
      * @param max int
-     * @param n  int
+     * @param n   int
      * @return the int [ ]
      */
     public static int[] getRandomNumberList(int min, int max, int n) {

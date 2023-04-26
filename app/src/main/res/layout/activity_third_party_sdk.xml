@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".activity.ThirdPartySDKActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout_show_plan_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_show_plan_home"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/todo"
+            android:padding="3dp"
+            android:src="@drawable/icon_home" />
+
+        <TextView
+            android:id="@+id/text_show_plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="3dp"
+            android:text="@string/SDK_policy"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +46,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="对第三方SDK的一些说明，如QQ API" />
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -558,7 +558,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(WordDetailActivity.this);
                     builder.setTitle("保存至单词夹")
                             .setSingleChoiceItems(favoritesNames, -1, (dialog, which) -> {
-                                // 延迟500毫秒取消对话框
+                                // 延迟400毫秒取消对话框
                                 new Handler().postDelayed(() -> {
                                     dialog.dismiss();
                                     List<FavoritesLinkWord> favoritesLinkWordList = LitePal
@@ -575,7 +575,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
                                     } else {
                                         Toast.makeText(WordDetailActivity.this, "该词已在 " + favoritesNames[which] + " 中了哦", Toast.LENGTH_SHORT).show();
                                     }
-                                }, 200);
+                                }, 400);
                             }).show();
                 }
                 break;
@@ -657,7 +657,7 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
 
             // 继续/返回按钮点击事件处理
             case R.id.layout_word_detail_continue:
-                    onBackPressed();
+                onBackPressed();
                 break;
 
             default:
@@ -678,27 +678,21 @@ public class WordDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         // 设置退出的动画效果
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_bottom);
-//        ListActivity.isUpdate = true;
 
-        /* // 简化if语句
+        LearningActivity.flagNeedRefresh = currentType != TYPE_CHECK;
+        /* // 下面是简化之前的 if 语句
         if (currentType == TYPE_CHECK) {
             LearningActivity.flagNeedRefresh = false;
         } else {
             LearningActivity.flagNeedRefresh = true;
         }*/
-        LearningActivity.flagNeedRefresh = currentType != TYPE_CHECK;
-
         MediaHelper.releaseMediaPlayer();
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 }
