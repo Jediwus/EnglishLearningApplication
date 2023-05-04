@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/synonym_pos_and_tran"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/colorOnBackground"
             android:textSize="13sp" />
 

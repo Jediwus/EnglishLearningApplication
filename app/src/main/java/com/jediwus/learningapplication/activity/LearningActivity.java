@@ -315,7 +315,7 @@ public class LearningActivity extends BaseActivity implements View.OnClickListen
                 List<Translation> translationWrongs =
                         LitePal.where("wordId != ?", LearningController.currentWordId + "")
                                 .find(Translation.class);
-                // 将错误解释的顺序打乱
+                // 将错误解释list的顺序打乱
                 Collections.shuffle(translationWrongs);
                 // 若选项视图可见
                 if (recyclerView.getVisibility() == View.VISIBLE) {

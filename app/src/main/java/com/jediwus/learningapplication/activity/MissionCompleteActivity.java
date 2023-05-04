@@ -33,7 +33,7 @@ public class MissionCompleteActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission_complete);
 
-        windowExplode();
+        explosionAnimation();
 
         TextView textWordNumber = findViewById(R.id.text_mission_complete_word_num);
         TextView textDay = findViewById(R.id.text_mission_complete_days);

@@ -52,7 +52,7 @@ public class MeaningPickerAdapter extends RecyclerView.Adapter<MeaningPickerAdap
     }
 
     public interface OnItemClickListener {
-        void onItemClick(RecyclerView parent, View view, int position, ItemMeaningPicker itemWordMeanChoice);
+        void onItemClick(RecyclerView parent, View view, int position, ItemMeaningPicker itemMeaningPicker);
     }
 
     @Override
@@ -83,14 +83,14 @@ public class MeaningPickerAdapter extends RecyclerView.Adapter<MeaningPickerAdap
 
     @NonNull
     @Override
-    public MeaningPickerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_word_meaning_picker, parent, false);
         view.setOnClickListener(this);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MeaningPickerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ItemMeaningPicker itemMeaningPicker = mItemMeaningPickerList.get(position);
         holder.textMeaning.setText(itemMeaningPicker.getWordMeaning());
         holder.imgPicker.setVisibility(View.GONE);

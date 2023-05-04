@@ -17,7 +17,6 @@ import com.jediwus.learningapplication.myUtil.NumberController;
 import com.jediwus.learningapplication.myUtil.TimeController;
 
 import org.litepal.LitePal;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class LoadingActivity extends BaseActivity {
 
     int progressStatus = 0;
 
-    private String[] messages = {
+    private final String[] messages = {
             "做题时可别经常偷看答案哦",
             "感觉不确定？我会给出例句和发音的",
             "每日新学完单词都会进行趁热打铁哦",
@@ -48,7 +47,7 @@ public class LoadingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        windowExplode();
+        explosionAnimation();
 
         progressBar = findViewById(R.id.progress_wait);
 

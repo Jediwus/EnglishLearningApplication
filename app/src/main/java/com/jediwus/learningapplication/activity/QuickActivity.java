@@ -1,5 +1,7 @@
 package com.jediwus.learningapplication.activity;
 
+import static com.jediwus.learningapplication.config.DataConfig.defaultQuickNumber;
+
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -36,8 +38,6 @@ import me.grantland.widget.AutofitTextView;
 public class QuickActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "QuickActivity";
-
-    private final DisplayActivity displayActivity = new DisplayActivity();
 
     private MediaPlayer mediaPlayer;
 
@@ -81,7 +81,7 @@ public class QuickActivity extends BaseActivity implements View.OnClickListener 
         tv_number.setText(pointer + " / " + wordList.size());
         tv_button = findViewById(R.id.text_quick_pause);
         // 进场动画效果
-        windowExplode();
+        explosionAnimation();
         // 卡片旋转动画
         initAnimation();
     }
@@ -136,9 +136,9 @@ public class QuickActivity extends BaseActivity implements View.OnClickListener 
             case R.id.img_quick_help:
                 String tips = "\t\t\t仿照随身听的复古设计，点击开始后，系统将每隔1.5s自动播放英语发音，点击卡片" +
                         "可进行显示和隐藏单词，Go ahead！去练习你的听力吧！\n\t\t\t请确保网络连接通畅。系统默认" +
-                        "为10个词，可在『词书计划』调整。";
+                        "一局提供" + defaultQuickNumber + "个词，可在『词书计划』调整。";
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(QuickActivity.this);
-                builder.setTitle("单词速记模式")
+                builder.setTitle("帮助")
                         .setMessage(tips)
                         .setPositiveButton("确定", null)
                         .show();
@@ -170,7 +170,7 @@ public class QuickActivity extends BaseActivity implements View.OnClickListener 
                 LitePal.where("wordId = ?", wordList.get(pointer).getWordId() + "")
                         .find(Translation.class);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < translationList.size(); ++i) {
+        for (int i = 0; i < translationList.size(); i++) {
             if (i != (translationList.size() - 1)) {
                 stringBuilder.append(translationList.get(i).getWordType())
                         .append(". ")
@@ -223,7 +223,7 @@ public class QuickActivity extends BaseActivity implements View.OnClickListener 
                         Toast.makeText(QuickActivity.this, "单词播放完啦", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(QuickActivity.this, DisplayActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra(displayActivity.DISPLAY_TYPE, displayActivity.TYPE_QUICK);
+                        intent.putExtra(DisplayActivity.DISPLAY_TYPE, DisplayActivity.TYPE_QUICK);
                         startActivity(intent);
                     }, 1500);
                 }

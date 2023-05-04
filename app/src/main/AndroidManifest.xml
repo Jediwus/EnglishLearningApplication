@@ -2,19 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jediwus.learningapplication">
-    <!-- &lt;!&ndash; 使用非官方 SDK API &ndash;&gt; -->
-    <!-- <uses-sdk tools:overrideLibrary="android.hidden_api" /> -->
     <!-- 权限声明 -->
+    <!--允许程序写入外部存储,如SD卡上写文件-->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 相机权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 前台服务权限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- 弹窗权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--访问网络连接,可能产生GPRS流量-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--获取网络信息状态,如当前的网络连接是否有效-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 读取手机状态权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!--
+    &lt;!&ndash;Android 10以上版本检测QQ文件位置&ndash;&gt;
+    <queries>
+        <package android:name="com.tencent.mobileqq" />
+        <package android:name="com.tencent.tim" />
+        <package android:name="com.tencent.minihd.qq" />
+        <package android:name="com.tencent.qqlite" />
+    </queries>
+    -->
 
     <application
         android:name=".myUtil.MyApplication"
@@ -30,12 +45,66 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="32">
+
+        <!--
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="102040151" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.jediwus.learningapplication.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        -->
+
+        <activity
+            android:name=".activity.GameOverActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppFullScreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.GameActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppFullScreen">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activity.LoadingGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppFullScreen"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppFullScreen">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

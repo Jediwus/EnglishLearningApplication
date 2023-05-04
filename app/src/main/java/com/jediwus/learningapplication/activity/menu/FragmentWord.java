@@ -368,7 +368,7 @@ public class FragmentWord extends Fragment implements View.OnClickListener {
         List<Translation> translations = LitePal.where("wordId = ?", word.getWordId() + "").find(Translation.class);
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < translations.size(); ++i) {
+        for (int i = 0; i < translations.size(); i++) {
             stringBuilder.append(translations.get(i).getWordType())
                     .append(". ")
                     .append(translations.get(i).getCnMeaning());

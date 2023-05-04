@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.GameOverActivity">
+
+    <ImageView
+        android:id="@+id/img_game_over_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/todo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pic_game_over" />
+
+    <ImageView
+        android:id="@+id/img_game_over_bgm"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/icon_cancel"
+        android:padding="2dp"
+        android:src="@drawable/icon_music" />
+
+    <ImageView
+        android:id="@+id/img_game_over_exit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/icon_cancel"
+        android:padding="2dp"
+        android:src="@drawable/icon_exit_game" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="RelativeOverlap">
+
+        <TextView
+            android:id="@+id/text_game_over_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_over"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="45sp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
+
+        <LinearLayout
+            android:id="@+id/layout_game_over_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_game_over_option1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/play_again"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                app:icon="@drawable/pic_hikari"
+                app:strokeColor="@color/md_theme_light_background"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_game_over_option2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/exit"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                app:icon="@drawable/icon_document"
+                app:iconGravity="end"
+                app:strokeColor="@color/md_theme_light_background"
+                app:strokeWidth="3dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -179,7 +179,7 @@ public class FavoritesDetailActivity extends BaseActivity {
     private String getMeans(int id) {
         List<Translation> translationList = LitePal.where("wordId = ?", id + "").find(Translation.class);
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < translationList.size(); ++i) {
+        for (int i = 0; i < translationList.size(); i++) {
             stringBuilder.append(translationList.get(i).getWordType())
                     .append(". ")
                     .append(translationList.get(i).getCnMeaning());

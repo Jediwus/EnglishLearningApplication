@@ -116,7 +116,8 @@
             android:layout_marginBottom="30dp"
             android:text="@string/_3_23"
             android:textColor="@color/colorOnBackground"
-            android:textSize="15sp" />
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 

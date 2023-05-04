@@ -18,34 +18,28 @@
         android:id="@+id/linear_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="@string/login"
             android:textColor="@color/colorOnBackground"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold" />
         <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="@string/login_saying"
             android:textColor="@color/colorOnBackground"
             android:textSize="15sp" />-->
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -55,108 +49,33 @@
         android:layout_above="@id/sayings_login"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_login_qq"
-            android:layout_width="0dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_qq"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:cardCornerRadius="18sp"
-            app:cardElevation="3dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/qq_log_in"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:icon="@drawable/icon_qq"
+            app:strokeColor="@color/colorOnBackground"
+            app:strokeWidth="1dp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    tools:ignore="UselessParent">
-
-                    <ImageView
-                        android:id="@+id/img_qq"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@string/user_portrait"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/icon_qq" />
-
-                    <TextView
-                        android:id="@+id/text_qq"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@string/qq_log_in"
-                        android:textColor="@color/colorOnPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_login_2"
-            android:layout_width="0dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_local"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:cardCornerRadius="18sp"
-            app:cardElevation="3dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    tools:ignore="UselessParent">
-
-                    <ImageView
-                        android:id="@+id/img_portrait"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@string/user_portrait"
-                        android:src="@drawable/icon_helmet"
-                        android:scaleType="centerCrop" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/log_in"
-                        android:layout_marginStart="5dp"
-                        android:textColor="@color/colorOnPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/log_in"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:icon="@drawable/icon_helmet"
+            app:strokeColor="@color/colorOnBackground"
+            app:strokeWidth="1dp" />
 
     </LinearLayout>
 
@@ -164,7 +83,6 @@
         android:id="@+id/sayings_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="vertical">
@@ -172,12 +90,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:textStyle="bold"
             android:text="@string/login_saying2"
             android:textColor="@color/colorOnBackground"
-            android:layout_marginBottom="10dp"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

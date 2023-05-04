@@ -611,29 +611,42 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="15dp"
                 android:visibility="visible"
-                app:cardBackgroundColor="@color/colorErrorContainer"
+                app:cardBackgroundColor="@color/colorSecondaryContainer"
                 app:cardCornerRadius="25dp"
                 app:cardElevation="0dp">
 
+
                 <RelativeLayout
                     android:id="@+id/layout_user_exit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp">
 
+                    <ImageView
+                        android:id="@+id/img_user_exit_qq"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf="@id/text_user_exit_qq"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/icon_qq" />
+
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/text_user_exit_qq"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="center"
-                        android:text="@string/log_out"
-                        android:textColor="@color/colorOnErrorContainer"
+                        android:text="@string/qq_log_in"
+                        android:textColor="@color/colorOnSecondaryContainer"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="RelativeOverlap" />
 
                 </RelativeLayout>
 

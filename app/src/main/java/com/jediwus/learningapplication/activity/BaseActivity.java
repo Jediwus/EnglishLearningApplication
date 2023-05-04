@@ -176,12 +176,10 @@ public class BaseActivity extends AppCompatActivity {
         dailyData.setDayTime(TimeController.getCurrentDateStamp() + "");
         dailyData.save();
     }
-
-
     /**
      * 界面动画
      */
-    public void windowExplode() {
+    public void explosionAnimation() {
         getWindow().setEnterTransition(new Explode().setDuration(300));
         getWindow().setExitTransition(new Explode().setDuration(300));
         getWindow().setReenterTransition(new Explode().setDuration(300));

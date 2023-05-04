@@ -473,7 +473,7 @@ public class ModifyDataActivity extends BaseActivity {
 
     private void setMeansInitialData() {
         translationMap.clear();
-        for (int i = 0; i < types.length; ++i) {
+        for (int i = 0; i < types.length; i++) {
             // 查询 词性 和 wordID
             List<Translation> translationList = LitePal
                     .where("wordType = ? and wordId = ?", types[i], currentWordId + "")

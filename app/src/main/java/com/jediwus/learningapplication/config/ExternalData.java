@@ -19,8 +19,8 @@ public class ExternalData {
     /**
      * 必应每日一图 API
      */
-    public static final String IMG_API = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=7&n=1";
-    //public static final String IMG_API = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=5&mkt=zh-CN";
+    //public static final String IMG_API = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=7&n=1";
+    public static final String IMG_API = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=5&mkt=zh-CN";
 
     /**
      * 必应每日一图 API 前置域名
@@ -37,6 +37,8 @@ public class ExternalData {
     public static final int RIGHT_TONE = R.raw.answer_right;
     // 回答错误的提示音
     public static final int WRONG_TONE = R.raw.answer_wrong;
+    // 消除的提示音
+    public static final int REMOVE_TONE = R.raw.remove;
 
     // 有道美式发音 API
     public static final String YOU_DAO_VOICE_US = "https://dict.youdao.com/dictvoice?type=0&audio=";

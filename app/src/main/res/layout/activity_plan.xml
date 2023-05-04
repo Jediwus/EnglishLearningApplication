@@ -69,11 +69,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:text="@string/show_learning_plan_data"
                         android:textColor="@color/colorOnPrimaryContainer"
                         android:textSize="18sp"
+                        android:layout_marginBottom="5dp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/custom_your_plan"
+                        android:textColor="@color/colorOnBackground"
+                        android:textSize="12sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -144,7 +152,7 @@
                         android:id="@+id/text_plan_predict"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
                         android:text="@string/predict"
                         android:textColor="@color/colorOnBackground"
@@ -184,7 +192,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
+                        android:layout_marginBottom="5dp"
                         android:text="@string/review_and_extension_column"
                         android:textColor="@color/colorOnPrimaryContainer"
                         android:textSize="18sp"
@@ -194,10 +202,51 @@
                         android:id="@+id/text_plan_extension_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="15dp"
                         android:text="@string/the_range_limit"
                         android:textColor="@color/colorOnBackground"
                         android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_text_input_plan_quick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:hint="@string/quick_number">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_plan_quick"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textSize="15sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_text_input_plan_match"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/xiaoxiaole_number">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_plan_match"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textSize="15sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_change_game"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"
+                        android:text="@string/save_data"
+                        android:textAllCaps="false"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 

@@ -254,18 +254,36 @@
                         android:contentDescription="@string/todo"
                         android:src="@drawable/pic_chrono_trigger" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="20dp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/chrono_trigger"
-                        android:textColor="@color/colorOnSecondaryContainer"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:ignore="RelativeOverlap" />
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/chrono_trigger"
+                            android:textColor="@color/colorOnSecondaryContainer"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/save_Marl"
+                            android:textColor="@color/colorOnBackground"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+
 
                 </RelativeLayout>
 

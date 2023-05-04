@@ -35,7 +35,8 @@ android {
 }
 // 指定App编译的依赖信息
 dependencies {
-
+    // QQ API
+    implementation fileTree(dir: 'libs', include: '*.jar')
     // Material Design 组件库
     implementation 'com.google.android.material:material:1.8.0'
 

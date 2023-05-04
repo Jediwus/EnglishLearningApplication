@@ -9,7 +9,29 @@ import com.jediwus.learningapplication.myUtil.MyApplication;
 
 public class DataConfig {
 
-    // 软件所需权限列表
+    /**
+     * 从词库中抽取的单词数目,默认50
+     */
+    public static final int EXTRACT_WORDS_NUM = 50;
+
+    /**
+     * 游戏回合时间限制：困难
+     */
+    public static final int ACTION_TIME_A = 5;
+
+    /**
+     * 游戏回合时间限制：普通
+     */
+    public static final int ACTION_TIME_B = 8;
+
+    /**
+     * 游戏回合时间限制：简单
+     */
+    public static final int ACTION_TIME_C = 10;
+
+    /**
+     * 软件所需权限列表
+     */
     public static String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -23,15 +45,27 @@ public class DataConfig {
     public static boolean isFirst;
     public static String isFirstName = "isFirst";
 
-    /*退出登录时，isLogged与SinaNumLogged都需要修改*/
+    // 是否为修改计划
+    // 0为否，1为是
+    public static final String UPDATE_NAME = "updateLearningPlan";
+    public static final int isUpdate = 1;
+    public static final int notUpdate = 0;
+
+    // 当前单词速过的数量
+    public static int quickNumber;
+    public static String tagQuickNumber = "tagQuickNumber";
+    public static final int defaultQuickNumber = 10;
+
+    // 当前单词匹配的数量
+    public static int matchingNumber;
+    public static String tagMatchingNumber = "tagMatchingNumber";
+    public static final int defaultMatchingNumber = 8;
+
+    /*退出登录时, isLogged 与 QQNumLoggedName 都需要修改*/
 
     // 是否已登录
     public static boolean isLogged;
     public static String isLoggedName = "isLogged";
-
-    // 是否为夜间模式
-    public static boolean isNight;
-    public static String isNightName = "isNight";
 
     // 是否需要学习提醒
     public static boolean isAlarm;
@@ -55,20 +89,6 @@ public class DataConfig {
 
     public static int QQNumLogged;
     public static String QQNumLoggedName = "QQNumLogged";
-
-    // 是否为修改计划
-    // 0为否，1为是
-    public static final String UPDATE_NAME = "updateLearningPlan";
-    public static final int isUpdate = 1;
-    public static final int notUpdate = 0;
-
-    // 当前单词速过的数量
-    public static int speedNum;
-    public static String speedNumName = "speedNum";
-
-    // 当前单词匹配的数量
-    public static int matchNum;
-    public static String matchNumName = "matchNum";
 
     // 获取isFirst的值
     public static boolean getIsFirst() {
@@ -126,17 +146,31 @@ public class DataConfig {
         editor.apply();
     }
 
-    // 获得当前是否为夜间模式
-    public static boolean getIsNight() {
+    // 获得单词速记的数量
+    public static int getQuickNumber() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        isNight = preferences.getBoolean(isNightName, false);
-        return isNight;
+        quickNumber = preferences.getInt(tagQuickNumber, defaultQuickNumber);
+        return quickNumber;
     }
 
-    // 设置当前是否为夜间模式
-    public static void setIsNight(boolean isNight) {
+    // 设置单词速记的数量
+    public static void setQuickNumber(int quickNumber) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
-        editor.putBoolean(isNightName, isNight);
+        editor.putInt(tagQuickNumber, quickNumber);
+        editor.apply();
+    }
+
+    // 获得单词匹配的数量
+    public static int getMatchingNumber() {
+        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
+        matchingNumber = preferences.getInt(tagMatchingNumber, defaultMatchingNumber);
+        return matchingNumber;
+    }
+
+    // 设置单词匹配的数量
+    public static void setMatchingNumber(int matchingNumber) {
+        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
+        editor.putInt(tagMatchingNumber, matchingNumber);
         editor.apply();
     }
 
@@ -196,31 +230,4 @@ public class DataConfig {
         editor.apply();
     }
 
-    // 获得单词速记的数量
-    public static int getSpeedNum() {
-        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        speedNum = preferences.getInt(speedNumName, 10);
-        return speedNum;
-    }
-
-    // 设置单词速记的数量
-    public static void setSpeedNum(int speedNum) {
-        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
-        editor.putInt(speedNumName, speedNum);
-        editor.apply();
-    }
-
-    // 获得单词匹配的数量
-    public static int getMatchNum() {
-        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        matchNum = preferences.getInt(matchNumName, 5);
-        return matchNum;
-    }
-
-    // 设置单词匹配的数量
-    public static void setMatchNum(int matchNum) {
-        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
-        editor.putInt(matchNumName, matchNum);
-        editor.apply();
-    }
 }

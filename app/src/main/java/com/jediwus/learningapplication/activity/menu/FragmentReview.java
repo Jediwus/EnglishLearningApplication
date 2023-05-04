@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +27,20 @@ import com.jediwus.learningapplication.activity.MatchingActivity;
 import com.jediwus.learningapplication.activity.OcrActivity;
 import com.jediwus.learningapplication.activity.QuickActivity;
 import com.jediwus.learningapplication.config.DataConfig;
+import com.jediwus.learningapplication.database.Translation;
 import com.jediwus.learningapplication.database.Word;
 import com.jediwus.learningapplication.myUtil.MyApplication;
 import com.jediwus.learningapplication.myUtil.NumberController;
+import com.jediwus.learningapplication.pojo.ItemMatching;
 
 import org.litepal.LitePal;
 
+import java.util.Collections;
 import java.util.List;
 
 public class FragmentReview extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = "FragmentReview";
 
     private AlertDialog dialog;
 
@@ -49,23 +55,23 @@ public class FragmentReview extends Fragment implements View.OnClickListener {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case FINISH:
-                        dialog.dismiss();
-                        Intent intentOCR = new Intent(getActivity(), OcrActivity.class);
-                        startActivity(intentOCR);
+                    dialog.dismiss();
+                    Intent intentOCR = new Intent(getActivity(), OcrActivity.class);
+                    startActivity(intentOCR);
                     break;
                 case LOAD_QUICK_DATA:
                     new Handler().postDelayed(() -> {
                         dialog.dismiss();
                         Intent intentQuick = new Intent(MyApplication.getContext(), QuickActivity.class);
                         startActivity(intentQuick, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                    }, 900);
+                    }, 500);
                     break;
                 case LOAD_MATCHING_DATA:
                     new Handler().postDelayed(() -> {
                         dialog.dismiss();
                         Intent intentMatching = new Intent(MyApplication.getContext(), MatchingActivity.class);
                         startActivity(intentMatching, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                    }, 900);
+                    }, 500);
                     break;
                 case ERROR:
                     dialog.dismiss();
@@ -105,17 +111,18 @@ public class FragmentReview extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            // 点击单词速记事件的处理
             case R.id.layout_review_quick:
                 showProgressDialog();
                 new Thread(() -> {
                     // 加载单词速记的数据
-                    loadQuickData(DataConfig.getSpeedNum());
+                    loadQuickData(DataConfig.getQuickNumber());
                     Message message = new Message();
                     message.what = LOAD_QUICK_DATA;
                     handler.sendMessage(message);
                 }).start();
                 break;
-
+            // 点击单词消消乐事件的处理
             case R.id.layout_review_match:
                 showProgressDialog();
                 new Thread(() -> {
@@ -126,16 +133,19 @@ public class FragmentReview extends Fragment implements View.OnClickListener {
                     handler.sendMessage(message);
                 }).start();
                 break;
-
+            // 点击拍照事件的处理
             case R.id.layout_review_camera:
 
 
                 break;
 
+            // 点击游戏事件的处理
             case R.id.layout_review_game:
-                Intent intent = new Intent(MyApplication.getContext(), LoadingGameActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                new Handler().postDelayed(() -> {
+                    Intent intent = new Intent(MyApplication.getContext(), LoadingGameActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                }, 350);
                 break;
 
             default:
@@ -143,19 +153,79 @@ public class FragmentReview extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * 加载消消乐的单词数据
+     */
     private void loadMatchingData() {
+        // 开始前，清空 MatchingActivity.wordList
+        if (!MatchingActivity.wordList.isEmpty()) {
+            MatchingActivity.wordList.clear();
+        }
+        // 开始前，清空 MatchingActivity.itemMatchingList
+        if (!MatchingActivity.itemMatchingList.isEmpty()) {
+            MatchingActivity.itemMatchingList.clear();
+        }
+        // 获取 匹配单词数量
+        int mNumber = DataConfig.getMatchingNumber();
+        List<Word> wordList = LitePal.select("wordId", "word").find(Word.class);
+        // 随机生成含 mNumber 个元素的 单词ID 数组
 
+        int[] randomArray = NumberController.getRandomNumberArray(0, wordList.size() - 1, mNumber);
+        // 断言 randomArray 不为空
+        assert randomArray != null;
+        for (int i = 0; i < mNumber; i++) {
+            // 完成 单词本体 的添加
+            MatchingActivity.itemMatchingList.add(
+                    new ItemMatching(
+                            wordList.get(randomArray[i]).getWordId(),
+                            wordList.get(randomArray[i]).getWord(),
+                            false));
+            List<Word> words = LitePal.where("wordId = ?", wordList.get(randomArray[i]).getWordId() + "")
+                    .select("wordId", "word")
+                    .find(Word.class);
+            MatchingActivity.wordList.add(words.get(0));
+            Log.d(TAG, "loadMatchingData: 单词本体为 " + wordList.get(randomArray[i]).getWord());
+
+            // 接下来完成 单词释义 的添加
+            List<Translation> translationList = LitePal.where("wordId = ?", wordList.get(randomArray[i]).getWordId() + "").find(Translation.class);
+            StringBuilder builder = new StringBuilder();
+            for (int j = 0; j < translationList.size(); j++) {
+                if (j != (translationList.size() - 1)) {
+                    builder.append(translationList.get(j).getWordType())
+                            .append(". ")
+                            .append(translationList.get(j).getCnMeaning())
+                            .append("\n");
+                } else {
+                    builder.append(translationList.get(j).getWordType())
+                            .append(". ")
+                            .append(translationList.get(j).getCnMeaning());
+                }
+            }
+            MatchingActivity.itemMatchingList.add(
+                    new ItemMatching(
+                            wordList.get(randomArray[i]).getWordId(),
+                            builder.toString(),
+                            false));
+        }
+        // 打乱匹配序列的顺序
+        Collections.shuffle(MatchingActivity.itemMatchingList);
+        Collections.shuffle(MatchingActivity.wordList);
     }
 
+    /**
+     * 加载单词速记的数据
+     *
+     * @param wordNum int
+     */
     private void loadQuickData(int wordNum) {
         if (!QuickActivity.wordList.isEmpty())
             QuickActivity.wordList.clear();
         // 准备单词数据
         List<Word> words = LitePal.select("wordId", "word", "ukPhone").find(Word.class);
         // 随机匹配单词ID
-        int[] randomId = NumberController.getRandomNumberList(0, words.size() - 1, wordNum);
-        for (int i = 0; i < wordNum; ++i) {
-            // 添加数据
+        int[] randomId = NumberController.getRandomNumberArray(0, words.size() - 1, wordNum);
+        for (int i = 0; i < wordNum; i++) {
+            // 添加数据，断言 randomArray 不为空
             if (randomId != null) {
                 QuickActivity.wordList.add(words.get(randomId[i]));
             }

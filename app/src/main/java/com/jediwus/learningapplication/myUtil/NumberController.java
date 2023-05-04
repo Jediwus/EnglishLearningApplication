@@ -31,7 +31,7 @@ public class NumberController {
      * @param n   int
      * @return the int [ ]
      */
-    public static int[] getRandomNumberList(int min, int max, int n) {
+    public static int[] getRandomNumberArray(int min, int max, int n) {
         // 判错语句
         if (n > (max - min + 1) || max < min) {
             return null;
@@ -56,7 +56,7 @@ public class NumberController {
     }
 
     /**
-     * 得到区间里的N个随机数，参数n必须大于0
+     * 得到区间里的 n 个随机数，且排除特定数字 except，参数 n 必须大于 0
      *
      * @param min    the min
      * @param max    the max
@@ -69,11 +69,13 @@ public class NumberController {
         if (n > (max - min + 1) || max < min) {
             return null;
         }
-        int[] result = new int[n]; //用于存放结果的数组
+        //用于存放结果的数组
+        int[] result = new int[n];
         int count = 0;
         while (count < n) {
             int num = getRandomNumber(min, max);
             while (num == except) {
+                // 排除和 except 相等的数字
                 num = getRandomNumber(min, max);
             }
             boolean flag = true;

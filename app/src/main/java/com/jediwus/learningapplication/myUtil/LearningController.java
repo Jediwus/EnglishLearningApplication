@@ -117,7 +117,7 @@ public class LearningController {
 
                 Log.d(TAG, "setWordsNeededToLearn: amountDiffer 需额外分配的单词" + amountDiffer);
 
-                int[] extraInQueryWordNoNeedToLearnList = NumberController.getRandomNumberList(0, queryWordNoNeedToLearnList.size() - 1, amountDiffer);
+                int[] extraInQueryWordNoNeedToLearnList = NumberController.getRandomNumberArray(0, queryWordNoNeedToLearnList.size() - 1, amountDiffer);
 
                 Log.d(TAG, "setWordsNeededToLearn: extraInQueryWordNoNeedToLearnList = " + Arrays.toString(extraInQueryWordNoNeedToLearnList));
 
@@ -333,7 +333,7 @@ public class LearningController {
         // 回答正确
         if (ifRight) {
             // 从 wordsJustLearnedList新学 中移除单词
-            for (int i = 0; i < wordsJustLearnedList.size(); ++i) {
+            for (int i = 0; i < wordsJustLearnedList.size(); i++) {
                 if (wordsJustLearnedList.get(i) == wordId) {
                     wordsJustLearnedList.remove(i);
                     break;
@@ -399,7 +399,7 @@ public class LearningController {
         // 回答正确
         if (ifRight) {
             // 从 wordsNeedToReviewList 复习列表 中移除单词
-            for (int i = 0; i < wordsNeedToReviewList.size(); ++i) {
+            for (int i = 0; i < wordsNeedToReviewList.size(); i++) {
                 if (wordsNeedToReviewList.get(i) == wordId) {
                     wordsNeedToReviewList.remove(i);
                     break;
