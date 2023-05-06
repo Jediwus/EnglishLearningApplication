@@ -35,13 +35,14 @@ public class ActivityCollector {
     /*
     注意：
     Context中有一个startActivity方法，Activity继承自Context，重载了startActivity方法
-    如果使用Activity的startActivity方法，不会有任何限制
-    而如果使用Context的startActivity方法的話，就需要开启一个新的的task
-    遇到这个异常，是因为使用了Context的startActivity方法。解决办法是，加一个flag
+    如果使用Activity的startActivity方法，不会有任何限制，而如果使用Context的startActivity方法
+    就需要开启一个新的的task，遇到这个异常，是因为使用了Context的startActivity方法。
+
+    解决办法：加一个flag
      */
 
     /**
-     * 启动新的Activity（1）
+     * 启动新的Activity（1），普通地开启活动
      *
      * @param context Context
      * @param cls     Class
@@ -54,7 +55,7 @@ public class ActivityCollector {
     }
 
     /**
-     * 启动新的Activity（2）
+     * 启动新的 Activity（2），该方法可用于设置跳转动画等
      *
      * @param context               Context
      * @param cls                   Class

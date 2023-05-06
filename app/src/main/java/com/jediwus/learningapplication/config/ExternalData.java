@@ -10,11 +10,11 @@ public class ExternalData {
     public static final String DIR_AFTER_ZIP = "jsonData";
 
     // 通知渠道ID
-    public static final String channelId = "default";
-    public static final String channelId1 = "default1";
+    public static final String channelIdNtf = "NotificationChannel";
+    public static final String channelIdAlarm = "AlarmChannel";
     // 通知渠道名称
-    public static final String channelName = "默认通知";
-    public static final String channelName1 = "默认通知1";
+    public static final String channelNameNtf = "通知栏显示单词";
+    public static final String channelNameAlarm = "学习闹钟的通知";
 
     /**
      * 必应每日一图 API

@@ -135,16 +135,16 @@ public class FragmentReview extends Fragment implements View.OnClickListener {
                 break;
             // 点击拍照事件的处理
             case R.id.layout_review_camera:
-
-
+                Intent intentOcr = new Intent(getActivity(), OcrActivity.class);
+                startActivity(intentOcr);
                 break;
 
             // 点击游戏事件的处理
             case R.id.layout_review_game:
                 new Handler().postDelayed(() -> {
-                    Intent intent = new Intent(MyApplication.getContext(), LoadingGameActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    Intent intentGame = new Intent(MyApplication.getContext(), LoadingGameActivity.class);
+                    intentGame.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intentGame, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 }, 350);
                 break;
 

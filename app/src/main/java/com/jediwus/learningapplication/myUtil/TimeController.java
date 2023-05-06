@@ -69,6 +69,24 @@ public class TimeController {
     }
 
     /**
+     * 得到人为设定的时间的日期戳(不带时间，只有日期)，
+     *
+     * @return long
+     */
+    public static long getCalendarDateStamp(int year, int month, int day) {
+        long time = 0;
+        try {
+            time = Objects.requireNonNull(simpleDateFormat
+                    .parse(year + "-" + month + "-" + day)).getTime();
+        } catch (ParseException e) {
+            Log.d(TAG, "getCurrentDateStamp: 打印异常");
+            e.printStackTrace();
+        }
+        Log.d(TAG, "getCurrentDateStamp: " + time);
+        return time;
+    }
+
+    /**
      * 根据指定日期戳解析成日期形式（yyyy-MM-dd）
      *
      * @param timeStamp long
@@ -119,7 +137,7 @@ public class TimeController {
         assert date2 != null;
         assert date1 != null;
         int result = (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
-        Log.d(TAG, "daysInternal 两时间戳天数之差: "+result);
+        Log.d(TAG, "daysInternal 两时间戳天数之差: " + result);
         return result;
     }
 

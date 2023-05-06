@@ -15,7 +15,10 @@ import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.menu.FragmentUser;
 import com.jediwus.learningapplication.activity.menu.FragmentReview;
 import com.jediwus.learningapplication.activity.menu.FragmentWord;
+import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.myUtil.ActivityCollector;
+import com.jediwus.learningapplication.myUtil.MyApplication;
+import com.jediwus.learningapplication.service.NotificationService;
 
 public class MainActivity extends BaseActivity {
 
@@ -91,6 +94,15 @@ public class MainActivity extends BaseActivity {
             }
             return true;
         });
+
+        // 设置通知栏单词
+        if (DataConfig.getIsNotificationOn()) {
+            if (!BaseActivity.isServiceOn(MyApplication.getContext(), NotificationService.class.getName())) {
+                // 为三种选词范围类型，设置默认值
+                AuxFunctionActivity.initDefaultMode();
+                AuxFunctionActivity.startMyService(DataConfig.getRangeMode());
+            }
+        }
     }
 
     private void switchFragment(int lastIndex, int index) {
@@ -108,12 +120,12 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
         builder.setTitle("精灵的挽留")
-                .setMessage("小骑士要走了吗？")
+                .setMessage("小骑士要离开了吗，再玩会儿怎么样？")
                 .setPositiveButton("该休息啦", (dialog, which) -> {
                     needRefresh = true;
                     ActivityCollector.finishAll();
                 })
-                .setNegativeButton("再瞥一眼", null)
+                .setNegativeButton("留下", null)
                 .show();
     }
 

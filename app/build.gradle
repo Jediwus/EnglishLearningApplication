@@ -15,16 +15,17 @@ android {
         // 指定目标设备的SDK版本号。表示App最希望在哪个版本的Android上运行
         targetSdk 32
         // 指定App的应用版本号
-        versionCode 1
+        versionCode 5
         // 指定App的应用版本名称
-        versionName "1.0.1"
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

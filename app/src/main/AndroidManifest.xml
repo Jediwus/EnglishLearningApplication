@@ -20,6 +20,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 读取手机状态权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 通知权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <!--
     &lt;!&ndash;Android 10以上版本检测QQ文件位置&ndash;&gt;
@@ -33,7 +39,7 @@
 
     <application
         android:name=".myUtil.MyApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
@@ -41,7 +47,7 @@
         android:label="@string/app_name"
         android:launchMode="standard"
         android:roundIcon="@mipmap/ic_launcher_circle"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="32">
@@ -79,6 +85,41 @@
         </provider>
         -->
 
+        <receiver android:name=".broadcast.AlarmReceiver"
+            android:enabled="false"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="intent_alarm" />
+                <action android:name="boot_completed" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".activity.AlarmActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <receiver
+            android:name=".broadcast.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="intent_notification_audio" />
+                <action android:name="intent_notification_star" />
+                <action android:name="intent_notification_next" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="TODO">
+        </service>
         <activity
             android:name=".activity.GameOverActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -244,14 +285,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.LearningNotifyActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".activity.AlarmActivity"
+            android:name=".activity.AuxFunctionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

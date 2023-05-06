@@ -4,7 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.jediwus.learningapplication.service.NotifyLearnService;
+import com.jediwus.learningapplication.service.NotificationService;
 import com.jediwus.learningapplication.myUtil.MyApplication;
 
 public class DataConfig {
@@ -67,28 +67,28 @@ public class DataConfig {
     public static boolean isLogged;
     public static String isLoggedName = "isLogged";
 
-    // 是否需要学习提醒
-    public static boolean isAlarm;
-    public static String isAlarmName = "isAlarm";
-
-    // 学习提醒的时间
-    public static String alarmTime;
-    public static String alarmTimeName = "alarmTime";
-
-    // 是否需要开启通知栏学习
-    public static boolean isNotifyLearn;
-    public static String isNotifyLearnName = "isNotifyLearn";
-
-    // 获得通知栏学习的模式
-    public static int notifyLearnMode;
-    public static String notifyLearnModeName = "notifyLearnMode";
-
     // 当前已登录的用户ID
     public static int WeChatNumLogged;
     public static String WeChatNumLoggedName = "WeChatNumLogged";
 
     public static int QQNumLogged;
     public static String QQNumLoggedName = "QQNumLogged";
+
+    // 通知横幅
+    public static boolean isNotificationOn;
+    public static String isNotificationOnName = "isNotificationOn";
+
+    // 通知横幅的单词范围
+    public static int rangeMode;
+    public static String rangeModeName = "rangeModeName";
+
+    // 类闹钟的提醒
+    public static boolean isAlarmOn;
+    public static String isAlarmOnName = "isAlarm";
+
+    // 提醒的时间
+    public static String alarmTime;
+    public static String alarmTimeName = "alarmTime";
 
     // 获取isFirst的值
     public static boolean getIsFirst() {
@@ -146,52 +146,96 @@ public class DataConfig {
         editor.apply();
     }
 
-    // 获得单词速记的数量
+    /**
+     * 获得听力速记的数量
+     */
     public static int getQuickNumber() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
         quickNumber = preferences.getInt(tagQuickNumber, defaultQuickNumber);
         return quickNumber;
     }
 
-    // 设置单词速记的数量
+    /**
+     * 设置听力速记的数量
+     */
     public static void setQuickNumber(int quickNumber) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
         editor.putInt(tagQuickNumber, quickNumber);
         editor.apply();
     }
 
-    // 获得单词匹配的数量
+    /**
+     * 获得单词匹配的数量
+     */
     public static int getMatchingNumber() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
         matchingNumber = preferences.getInt(tagMatchingNumber, defaultMatchingNumber);
         return matchingNumber;
     }
 
-    // 设置单词匹配的数量
+    /**
+     * 设置单词匹配的数量
+     */
     public static void setMatchingNumber(int matchingNumber) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
         editor.putInt(tagMatchingNumber, matchingNumber);
         editor.apply();
     }
 
-    // 获得当前是否需要学习提醒
-    public static boolean getIsAlarm() {
+    /**
+     * 获得是否开启了横幅通知服务的
+     */
+    public static boolean getIsNotificationOn() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        isAlarm = preferences.getBoolean(isAlarmName, false);
-        return isAlarm;
+        isNotificationOn = preferences.getBoolean(isNotificationOnName, false);
+        return isNotificationOn;
+    }
+
+    /**
+     * 设置开启或关闭横幅通知服务的状态
+     */
+    public static void setIsNotificationOn(boolean isNotifyLearn) {
+        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
+        editor.putBoolean(isNotificationOnName, isNotifyLearn);
+        editor.apply();
+    }
+
+    /**
+     * 获得通知横幅单词的范围模式
+     */
+    public static int getRangeMode() {
+        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
+        rangeMode = preferences.getInt(rangeModeName, NotificationService.ALL_WORD_MODE);
+        return rangeMode;
+    }
+
+    /**
+     * 设置通知横幅单词的范围模式
+     */
+    public static void setRangeMode(int rangeMode) {
+        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
+        editor.putInt(rangeModeName, rangeMode);
+        editor.apply();
+    }
+
+    // 获得当前是否需要学习提醒
+    public static boolean getIsAlarmOn() {
+        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
+        isAlarmOn = preferences.getBoolean(isAlarmOnName, false);
+        return isAlarmOn;
     }
 
     // 设置当前是否需要学习提醒
-    public static void setIsAlarm(boolean isAlarm) {
+    public static void setIsAlarmOn(boolean isAlarmOn) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
-        editor.putBoolean(isAlarmName, isAlarm);
+        editor.putBoolean(isAlarmOnName, isAlarmOn);
         editor.apply();
     }
 
     // 获得学习提醒的时间
     public static String getAlarmTime() {
         SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        alarmTime = preferences.getString(alarmTimeName, "null");
+        alarmTime = preferences.getString(alarmTimeName, "");
         return alarmTime;
     }
 
@@ -199,34 +243,6 @@ public class DataConfig {
     public static void setAlarmTime(String alarmTime) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
         editor.putString(alarmTimeName, alarmTime);
-        editor.apply();
-    }
-
-    // 获得是否需要通知栏学习
-    public static boolean getIsNotifyLearn() {
-        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        isNotifyLearn = preferences.getBoolean(isNotifyLearnName, false);
-        return isNotifyLearn;
-    }
-
-    // 设置是否需要通知栏学习
-    public static void setIsNotifyLearn(boolean isNotifyLearn) {
-        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
-        editor.putBoolean(isNotifyLearnName, isNotifyLearn);
-        editor.apply();
-    }
-
-    // 获得通知栏的学习模式
-    public static int getNotifyLearnMode() {
-        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE);
-        notifyLearnMode = preferences.getInt(notifyLearnModeName, NotifyLearnService.ALL_MODE);
-        return notifyLearnMode;
-    }
-
-    // 设置通知栏的学习模式
-    public static void setNotifyLearnMode(int notifyLearnMode) {
-        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences(SharedDataName, Context.MODE_PRIVATE).edit();
-        editor.putInt(notifyLearnModeName, notifyLearnMode);
         editor.apply();
     }
 

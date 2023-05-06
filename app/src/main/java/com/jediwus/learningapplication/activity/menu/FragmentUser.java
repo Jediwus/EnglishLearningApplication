@@ -10,15 +10,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.CompositeDateValidator;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jediwus.learningapplication.R;
 import com.jediwus.learningapplication.activity.AboutActivity;
+import com.jediwus.learningapplication.activity.AlarmActivity;
+import com.jediwus.learningapplication.activity.AuxFunctionActivity;
 import com.jediwus.learningapplication.activity.CalendarActivity;
 import com.jediwus.learningapplication.activity.PlanActivity;
 import com.jediwus.learningapplication.activity.StatisticsActivity;
@@ -28,9 +38,11 @@ import com.jediwus.learningapplication.config.DataConfig;
 import com.jediwus.learningapplication.database.MyDate;
 import com.jediwus.learningapplication.database.User;
 import com.jediwus.learningapplication.myUtil.MyApplication;
+import com.jediwus.learningapplication.myUtil.TimeController;
 
 import org.litepal.LitePal;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class FragmentUser extends Fragment implements View.OnClickListener {
@@ -38,6 +50,7 @@ public class FragmentUser extends Fragment implements View.OnClickListener {
     private TextView tv_day;
     private TextView tv_number;
     private TextView tv_coins;
+    private AlertDialog dialog;
 
 
     @Nullable
@@ -77,6 +90,96 @@ public class FragmentUser extends Fragment implements View.OnClickListener {
         RelativeLayout layoutAbout = view.findViewById(R.id.layout_user_about);
         layoutAbout.setOnClickListener(this);
 
+        RelativeLayout layoutRemind = view.findViewById(R.id.layout_user_reminder_setting);
+        layoutRemind.setOnClickListener(this);
+
+        RelativeLayout layoutAux = view.findViewById(R.id.layout_user_aux_fun);
+        layoutAux.setOnClickListener(this);
+
+
+        // 花费金币打卡
+        LinearLayout layoutCoins = view.findViewById(R.id.layout_user_coins);
+        layoutCoins.setOnClickListener(viewCoins -> {
+            final String[] date = TimeController.getStringDate(TimeController.getCurrentDateStamp()).split("-");
+            final int coins = Integer.parseInt(tv_coins.getText().toString().trim());
+            if (coins >= 100) {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
+                builder.setTitle("被你发现了！")
+                        .setMessage("每日任务获得的金币可用于补签，需要花费100金币进行学习日历的补签吗?")
+                        .setPositiveButton("确定", (dialogInterface, i) -> {
+
+                            // 日期限定器
+                            CalendarConstraints calendarConstraints = new CalendarConstraints.Builder()
+                                    //可选择的日期范围：2023-1-1 ~ 今天
+                                    .setValidator(CompositeDateValidator.allOf(Arrays.asList(
+                                            DateValidatorPointForward.from(TimeController.getCalendarDateStamp(2019, 9, 1)),
+                                            DateValidatorPointBackward.now()
+                                    )))
+                                    .build();
+                            // 返回一个单选日期的 MaterialDatePicker
+                            MaterialDatePicker.Builder<Long> materialDatePickerBuilder = MaterialDatePicker.Builder.datePicker();
+                            // 设置默认选中时间（今天）
+                            materialDatePickerBuilder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
+                            // 设置要显示出来的Title
+                            materialDatePickerBuilder.setTitleText("选择需要补签的日期");
+                            // 设置日期限定器
+                            materialDatePickerBuilder.setCalendarConstraints(calendarConstraints);
+                            // 肯定按钮
+                            materialDatePickerBuilder.setPositiveButtonText("决定好了");
+                            // 否定按钮
+                            materialDatePickerBuilder.setNegativeButtonText("取消");
+                            // build 一个 MaterialDatePicker
+                            MaterialDatePicker<Long> picker = materialDatePickerBuilder.build();
+
+                            picker.addOnPositiveButtonClickListener(selection -> {
+                                String[] selectedDate = TimeController.getStringDate(selection).split("-");
+                                int selectedYear = Integer.parseInt(selectedDate[0]);
+                                int selectedMonth = Integer.parseInt(selectedDate[1]);
+                                int selectedDay = Integer.parseInt(selectedDate[2]);
+
+                                List<MyDate> myDateList = LitePal.where("year = ? and month = ? and date = ?", selectedYear + "", selectedMonth + "", selectedDay + "")
+                                        .find(MyDate.class);
+                                if (myDateList.isEmpty()) {
+                                    if (selectedYear > Integer.parseInt(date[0])) {
+                                        Toast.makeText(MyApplication.getContext(), "你这年份太假了", Toast.LENGTH_SHORT).show();
+                                    } else if (selectedMonth > Integer.parseInt(date[1])) {
+                                        Toast.makeText(MyApplication.getContext(), "你这月份太假了", Toast.LENGTH_SHORT).show();
+                                    } else if (selectedDay >= Integer.parseInt(date[2])) {
+                                        Toast.makeText(MyApplication.getContext(), "只可补签往日哦", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        MyDate myDate = new MyDate();
+                                        myDate.setUserId(DataConfig.getWeChatNumLogged());
+                                        myDate.setDate(selectedDay);
+                                        myDate.setMonth(selectedMonth);
+                                        myDate.setYear(selectedYear);
+                                        myDate.setRemark("补签：金币 -100");
+                                        myDate.save();
+                                        User user = new User();
+                                        if (coins > 100) {
+                                            user.setUserCoins(coins - 100);
+                                        } else {
+                                            user.setToDefault("userCoins");
+                                        }
+                                        user.updateAll("userId = ?", DataConfig.getWeChatNumLogged() + "");
+                                        updateView();
+                                        Toast.makeText(MyApplication.getContext(), "已为你补签", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(MyApplication.getContext(), "该日已有记录，请勿重复补签", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            picker.addOnNegativeButtonClickListener(viewNegativeButton -> Toast.makeText(MyApplication.getContext(), "补签取消", Toast.LENGTH_SHORT).show());
+                            // 显示
+                            picker.show(requireActivity().getSupportFragmentManager(), picker.toString());
+                        })
+                        .setNegativeButton("取消", null);
+                dialog = builder.create();
+                dialog.show();
+            } else {
+                Toast.makeText(MyApplication.getContext(), "不足100金币无法补签哦", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // 用户头像、昵称信息设置
         List<User> userList = LitePal.where("userId = ?", DataConfig.getWeChatNumLogged() + "").find(User.class);
@@ -132,6 +235,14 @@ public class FragmentUser extends Fragment implements View.OnClickListener {
             // 学习计划
             case R.id.layout_user_plan:
                 intent = new Intent(getActivity(), PlanActivity.class);
+                break;
+            // 提醒功能
+            case R.id.layout_user_reminder_setting:
+                intent = new Intent(getActivity(), AlarmActivity.class);
+                break;
+            // 辅助功能
+            case R.id.layout_user_aux_fun:
+                intent = new Intent(getActivity(), AuxFunctionActivity.class);
                 break;
             // 第三方SDK
             case R.id.layout_user_policy:

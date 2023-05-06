@@ -1,5 +1,5 @@
 <resources>
-    <string name="todo">TODO</string>
+    <string name="todo">to do nothing</string>
     <string name="app_name">词星骑士</string>
     <string name="aPictureADay">每日一图</string>
     <string name="icon_tips">提示作用的图标</string>
@@ -72,7 +72,7 @@
     <string name="input_numbers">输入你的每日任务单词数</string>
     <string name="s">个</string>
     <string name="current_book">当前词书：</string>
-    <string name="range">总词汇量：</string>
+    <string name="words_number">总词汇量：</string>
     <string name="illustration">illustration</string>
     <string name="Link_advice">勇者林克的小贴士:</string>
     <string name="advice_1">1. 若重置词书及计划，学习记录也会一并重置。</string>
@@ -137,7 +137,7 @@
     <string name="this_is_review">这里是复习页面</string>
     <string name="all_word_list">我的词汇</string>
     <string name="learning_statistics">学习数据</string>
-    <string name="learning_history">每日打卡</string>
+    <string name="learning_history">每日签到</string>
     <string name="book_plan">词书计划</string>
     <string name="bye_bye">Here\'s to my lost four years of youth</string>
     <string name="log_out">Log out</string>
@@ -156,13 +156,13 @@
     <string name="input_sentence">英文例句</string>
     <string name="_2023_3_23">2023年3月23日</string>
     <string name="_7_days_ago">7天前</string>
-    <string name="you_are_absent">这天小骑士好像没有打卡哦…</string>
+    <string name="you_are_absent">这天小骑士好像没有签到哦…</string>
     <string name="learn_word_num">战获单词</string>
     <string name="I_am_mad">我要被烦死了！</string>
     <string name="app_version">发行版本:  1.0.1</string>
     <string name="text_about_description">19级计科毕设作品</string>
     <string name="text_about_author_saying">据说app的名称是致敬了作者小时候最爱看的一部动画片，也算是缅怀童年了</string>
-    <string name="text_about_author">Made by Mr.Yan</string>
+    <string name="text_about_author">Made by Jet Cryan</string>
     <string name="not_found">该分类暂时没有单词哦</string>
     <string name="_0">0</string>
     <string name="daily_words_number">近七日学习量统计</string>
@@ -207,4 +207,22 @@
     <string name="quick_number">听力速记数量设置</string>
     <string name="xiaoxiaole_number">消消乐数量设置</string>
     <string name="save_data">保存当前数据</string>
+    <string name="notification_word">通知横幅背单词功能</string>
+    <string name="need_notification">需允许应用发送通知</string>
+    <string name="range">选词范围</string>
+    <string name="range_tip">点击选择单词所属类别</string>
+    <string name="tip_sample">乱序大纲</string>
+    <string name="waiting_for_update">更多功能正在开发中，敬请期待</string>
+    <string name="switch_notification_tip1">•关闭应用会导致通知横幅也消失</string>
+    <string name="switch_notification_tip2">•辅助功能不计入学习时长</string>
+    <string name="switch_notification_tip3">•享受小组件带来的乐趣</string>
+    <string name="switch_advice">注意事项</string>
+    <string name="alarm">闹钟提醒功能</string>
+    <string name="alarm_tip">不要忘了每天的修行哦</string>
+    <string name="time_setting">时间设置</string>
+    <string name="time_setting_tip">点击以定义你的闹钟</string>
+    <string name="am_9_00">AM 9:00</string>
+    <string name="switch_alarm_tip1">•该功能开启后，每天都会进行通知提醒，注意查看手机通知栏消息。</string>
+    <string name="switch_alarm_tip2">•若自定义的时间小于当前时间，系统默认将闹钟设置到翌日，否则会当日进行提醒</string>
+    <string name="switch_alarm_tip3">•与任何通知一样，若强行停用app，将无法接收通知服务</string>
 </resources>
